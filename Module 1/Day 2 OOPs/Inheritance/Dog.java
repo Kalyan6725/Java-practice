@@ -1,5 +1,5 @@
 class Dog extends Animal {
-    void eat(){
+    static void eat(){
         System.out.println("Dog is eating");
     }
     void sleep(){

@@ -1,5 +1,5 @@
 class Animal{
-    void eat(){
+    static void eat(){
         System.out.println("Eating...");
     }
     void sleep(){

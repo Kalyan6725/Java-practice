@@ -1,5 +1,5 @@
 class Deer extends Animal {
-    void eat() {
+    static void eat() {
         System.out.println("Deer eats grass");
     }
     void sleep() {

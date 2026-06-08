@@ -2,7 +2,7 @@ class Lion extends Animal {
     void roar() {
         System.out.println("The lion roars.");
     }
-    void eat() {
+    static void eat() {
         System.out.println("The lion is eating meat.");
     }
     void sleep() {
