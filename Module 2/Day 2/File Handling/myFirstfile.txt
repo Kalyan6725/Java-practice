@@ -1,0 +1,16 @@
+Hello World!
+This is a test file.
+File written successfully.Hello World!
+This is a test file.
+File written successfully.
+Hello World!
+This is a test file.
+File written successfully.
+Hello World!
+This is a test file.
+File written successfully.
+Hello World!
+This is a test file.
+File written successfully.
+Welcome to Java Programming!
+This is a BufferedWriter example.

@@ -19,13 +19,12 @@ class MainProduct {
         int choice=Integer.parseInt(choicestr);
         switch(choice){
             case 1:
-                Arrays.sort(p,(p1,p2)->p1.price - p2.price);
-                // Arrays.sort(p, new Comparator<Product>(){
-                //     @Override
-                //     public int compare(Product p1, Product p2) {
-                //         return p1.price - p2.price; 
-                //     }
-                // });
+                Arrays.sort(p, new Comparator<Product>(){
+                    @Override
+                    public int compare(Product p1, Product p2) {
+                        return p1.price - p2.price; 
+                    }
+                });
                 break;
             case 2:
                 Arrays.sort(p, new Comparator<Product>(){
