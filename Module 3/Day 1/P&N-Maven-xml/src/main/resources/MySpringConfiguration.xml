@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="Credit" class="paymentDemo.CreditCard"/>
+    <bean id="Debit" class="paymentDemo.DebitCard"/>
+    <bean id="Upi" class="paymentDemo.UPI"/>
+
+    <bean id="Email" class="paymentDemo.EmailNotification"/>
+    <bean id="WhatsApp" class="paymentDemo.WhatsAppNotification"/>
+
+    <bean id="expenceManager" class="paymentDemo.ExpenceManager">
+        <constructor-arg ref="Upi"/>
+        <constructor-arg ref="Email"/>
+    </bean>
+</beans>

@@ -1,0 +1,3 @@
+interface NotificationService {
+    void notify();
+}
