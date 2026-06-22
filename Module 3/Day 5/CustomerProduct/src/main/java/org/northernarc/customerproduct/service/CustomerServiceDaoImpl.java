@@ -25,6 +25,9 @@ public class CustomerServiceDaoImpl implements CustomerServiceDao {
 
     @Override
     public void deleteById(Integer id) {
+        if (!customerRepository.existsById(id)) {
+            throw new CustomerNotFound("no customer found with id " + id);
+        }
         customerRepository.deleteById(id);
     }
 

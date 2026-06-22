@@ -13,7 +13,7 @@ public class OrderController {
     private OrderServiceDao orderServiceDao;
 
     @PostMapping
-    public ResponseEntity<Order> addOrder(@RequestBody Order order) {
+    public ResponseEntity<Order> addOrder(@Valid @RequestBody Order order) {
         return ResponseEntity.ok(orderServiceDao.addOrder(order));
     }
 
@@ -28,7 +28,7 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
+    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @Valid @RequestBody Order order) {
         order.setId(Math.toIntExact(id));
         return ResponseEntity.ok(orderServiceDao.updateOrder(order));
     }

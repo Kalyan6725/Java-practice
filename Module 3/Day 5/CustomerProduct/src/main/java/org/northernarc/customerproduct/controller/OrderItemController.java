@@ -13,7 +13,7 @@ public class OrderItemController {
     private OrderItemServiceDao orderItemServiceDao;
 
     @PostMapping
-    public ResponseEntity<Void> addOrderItem(@RequestBody OrderItem orderItem) {
+    public ResponseEntity<Void> addOrderItem(@Valid @RequestBody OrderItem orderItem) {
         orderItemServiceDao.addOrderItem(orderItem);
         return ResponseEntity.ok().build();
     }
@@ -29,7 +29,7 @@ public class OrderItemController {
 //    }
 //
 //    @PutMapping("/{id}")
-//    public ResponseEntity<OrderItem> updateOrderItem(@PathVariable Long id, @RequestBody OrderItem orderItem) {
+//    public ResponseEntity<OrderItem> updateOrderItem(@PathVariable Long id, @Valid @RequestBody OrderItem orderItem) {
 //        orderItem.setId(Math.toIntExact(id));
 //        return ResponseEntity.ok(orderItemServiceDao.updateOrderItem(orderItem));
 //    }

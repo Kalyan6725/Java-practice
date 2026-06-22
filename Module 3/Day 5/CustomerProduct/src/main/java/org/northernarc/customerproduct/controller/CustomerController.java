@@ -23,7 +23,7 @@ public class CustomerController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer) {
         return ResponseEntity.ok(customerServiceDao.addCustomer(customer));
     }
 

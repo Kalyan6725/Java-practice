@@ -1,4 +1,4 @@
-package org.northernarc.jpaspringbootproject.controlleradvice;
+package org.northernarc.customerproduct.controlleradvice;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

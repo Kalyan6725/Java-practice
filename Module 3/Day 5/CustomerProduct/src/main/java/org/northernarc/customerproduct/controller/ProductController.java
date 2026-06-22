@@ -14,7 +14,7 @@ public class ProductController {
     private ProductServiceDao productServiceDao;
 
     @PostMapping
-    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
         return ResponseEntity.ok(productServiceDao.addProduct(product));
     }
 
@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @Valid @RequestBody Product product) {
         product.setId(Math.toIntExact(id));
         return ResponseEntity.ok(productServiceDao.updateProduct(product));
     }

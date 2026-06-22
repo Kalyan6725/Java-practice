@@ -1,5 +1,6 @@
 package org.northernarc.customerproduct.service;
 
+import org.northernarc.customerproduct.exceptions.OrderNotFound;
 import org.northernarc.customerproduct.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,16 @@ public class OrderServiceDaoImpl implements OrderServiceDao {
     OrderRepository orderRepository;
      @Override
     public void deleteById(Long id) {
+        if (!orderRepository.existsById(Math.toIntExact(id))) {
+            throw new OrderNotFound("no order found with id " + id);
+        }
         orderRepository.deleteById(Math.toIntExact(id));
     }
 
     @Override
     public Order getById(Long id) {
-        return orderRepository.findById(Math.toIntExact(id)).orElse(null);
+        return orderRepository.findById(Math.toIntExact(id))
+                .orElseThrow(() -> new OrderNotFound("no order found with id " + id));
     }
 
     @Override

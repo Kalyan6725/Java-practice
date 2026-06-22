@@ -1,5 +1,6 @@
 package org.northernarc.customerproduct.service;
 
+import org.northernarc.customerproduct.exceptions.ProductNotFound;
 import org.springframework.stereotype.Service;
 import org.northernarc.customerproduct.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,15 @@ public class ProductServiceDaoImpl implements ProductServiceDao {
     ProductRepository productRepository;
      @Override
     public void deleteById(Long id) {
+        if (!productRepository.existsById(Math.toIntExact(id))) {
+            throw new ProductNotFound("no product found with id " + id);
+        }
         productRepository.deleteById(Math.toIntExact(id));
     }
     @Override
     public Product getById(Long id) {
-        return productRepository.findById(Math.toIntExact(id)).orElse(null);
+        return productRepository.findById(Math.toIntExact(id))
+                .orElseThrow(() -> new ProductNotFound("no product found with id " + id));
     }
     @Override
     public Product updateProduct(Product product) {
