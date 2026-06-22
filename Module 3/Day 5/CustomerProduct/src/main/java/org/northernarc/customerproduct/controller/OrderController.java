@@ -29,7 +29,7 @@ public class OrderController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order order) {
-        order.setId(id);
+        order.setId(Math.toIntExact(id));
         return ResponseEntity.ok(orderServiceDao.updateOrder(order));
     }
 

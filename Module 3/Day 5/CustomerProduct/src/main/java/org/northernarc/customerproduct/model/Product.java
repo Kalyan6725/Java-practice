@@ -1,5 +1,6 @@
 package org.northernarc.customerproduct.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -32,6 +33,7 @@ public class Product {
     @Min(0)
     private int stock;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<OrderItem> orderItem;
 }

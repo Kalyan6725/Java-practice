@@ -1,6 +1,7 @@
 package org.northernarc.customerproduct.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
@@ -18,10 +19,9 @@ public class OrderItem {
     int quantity;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Order order;
 
     @ManyToOne
-    @JsonIgnore
     private Product product;
 }

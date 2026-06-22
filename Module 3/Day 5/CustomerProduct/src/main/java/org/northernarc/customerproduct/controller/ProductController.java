@@ -1,4 +1,12 @@
 package org.northernarc.customerproduct.controller;
+import org.northernarc.customerproduct.model.Product;
+import org.northernarc.customerproduct.service.ProductServiceDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -22,7 +30,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        product.setId(id);
+        product.setId(Math.toIntExact(id));
         return ResponseEntity.ok(productServiceDao.updateProduct(product));
     }
 

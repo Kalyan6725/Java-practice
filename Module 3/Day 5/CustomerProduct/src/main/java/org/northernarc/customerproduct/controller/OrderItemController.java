@@ -13,8 +13,9 @@ public class OrderItemController {
     private OrderItemServiceDao orderItemServiceDao;
 
     @PostMapping
-    public ResponseEntity<OrderItem> addOrderItem(@RequestBody OrderItem orderItem) {
-        return ResponseEntity.ok(orderItemServiceDao.addOrderItem(orderItem));
+    public ResponseEntity<Void> addOrderItem(@RequestBody OrderItem orderItem) {
+        orderItemServiceDao.addOrderItem(orderItem);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
@@ -22,20 +23,20 @@ public class OrderItemController {
         return ResponseEntity.ok(orderItemServiceDao.getById(id));
     }
 
-    @GetMapping
-    public ResponseEntity<List<OrderItem>> getAllOrderItems() {
-        return ResponseEntity.ok(orderItemServiceDao.getAllOrderItems());
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<OrderItem> updateOrderItem(@PathVariable Long id, @RequestBody OrderItem orderItem) {
-        orderItem.setId(id);
-        return ResponseEntity.ok(orderItemServiceDao.updateOrderItem(orderItem));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Long id) {
-        orderItemServiceDao.deleteById(id);
-        return ResponseEntity.ok("Order item deleted successfully");
-    }
+//    @GetMapping
+//    public ResponseEntity<List<OrderItem>> getAllOrderItems() {
+//        return ResponseEntity.ok(orderItemServiceDao.getAllOrderItems());
+//    }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<OrderItem> updateOrderItem(@PathVariable Long id, @RequestBody OrderItem orderItem) {
+//        orderItem.setId(Math.toIntExact(id));
+//        return ResponseEntity.ok(orderItemServiceDao.updateOrderItem(orderItem));
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<String> deleteById(@PathVariable Long id) {
+//        orderItemServiceDao.deleteById(id);
+//        return ResponseEntity.ok("Order item deleted successfully");
+//    }
 }

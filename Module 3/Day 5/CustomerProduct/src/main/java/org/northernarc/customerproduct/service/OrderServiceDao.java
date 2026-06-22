@@ -7,4 +7,5 @@ public interface OrderServiceDao {
     public void deleteById(Long id);
     public Order getById(Long id);
     public Order updateOrder(Order order);
+    public java.util.List<Order> getAllOrders();
 }

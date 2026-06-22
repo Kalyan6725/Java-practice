@@ -1,6 +1,7 @@
 package org.northernarc.customerproduct.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -20,6 +21,6 @@ public class Customer {
             mappedBy = "customer",
             cascade = CascadeType.ALL
     )
-    @JsonIgnore
+    @JsonManagedReference
     private List<Order> orders;
 }

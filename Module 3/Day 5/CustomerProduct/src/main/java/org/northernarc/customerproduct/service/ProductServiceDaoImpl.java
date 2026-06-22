@@ -5,6 +5,8 @@ import org.northernarc.customerproduct.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.northernarc.customerproduct.model.Product;
 
+import java.util.List;
+
 @Service
 public class ProductServiceDaoImpl implements ProductServiceDao {
     @Autowired
@@ -24,5 +26,10 @@ public class ProductServiceDaoImpl implements ProductServiceDao {
     @Override
     public Product addProduct(Product product) {
         return productRepository.save(product);
+    }
+
+    @Override
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 }
