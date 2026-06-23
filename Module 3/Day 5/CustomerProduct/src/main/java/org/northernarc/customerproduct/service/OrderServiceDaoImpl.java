@@ -1,5 +1,7 @@
 package org.northernarc.customerproduct.service;
 
+import org.northernarc.customerproduct.dto.OrderRequestDTO;
+import org.northernarc.customerproduct.dto.OrderResponseDTO;
 import org.northernarc.customerproduct.exceptions.OrderNotFound;
 import org.northernarc.customerproduct.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,16 @@ public class OrderServiceDaoImpl implements OrderServiceDao {
     }
 
     @Override
-    public Order addOrder(Order order) {
-        return orderRepository.save(order);
+    public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO) {
+        Order order = new Order();
+        // Set properties from orderRequestDTO to order
+        order.setOrderDate(orderRequestDTO.getOrderDate());
+        order.setOrderItems(orderRequestDTO.getOrderItems());
+
+        Order savedOrder = orderRepository.save(order);
+
+        OrderResponseDTO orderResponseDTO = new OrderResponseDTO(savedOrder.getId(), savedOrder.getOrderDate(),savedOrder.getCustomer(), savedOrder.getOrderItems());
+
+        return orderResponseDTO;
     }
 }

@@ -1,12 +1,14 @@
 package org.northernarc.customerproduct.service;
 
+import org.northernarc.customerproduct.dto.CustomerRequestDTO;
+import org.northernarc.customerproduct.dto.CustomerResponseDTO;
 import org.northernarc.customerproduct.model.Customer;
 
 import java.util.List;
 
 public interface CustomerServiceDao {
-    public Customer addCustomer(Customer customer);
+    public CustomerResponseDTO addCustomer(CustomerRequestDTO customerRequestDTO);
     public Customer getById(Integer id);
     public void deleteById(Integer id);
-    public List<Customer> getAllCustomers();
+    public List<CustomerResponseDTO> getAllCustomers();
 }

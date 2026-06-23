@@ -1,9 +1,12 @@
 package org.northernarc.jpaspringbootproject.controller;
 
 import jakarta.validation.Valid;
+import org.northernarc.jpaspringbootproject.dto.ProjectRequestDTO;
+import org.northernarc.jpaspringbootproject.dto.ProjectResponseDTO;
 import org.northernarc.jpaspringbootproject.model.Project;
 import org.northernarc.jpaspringbootproject.service.ProjectServiceDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +19,12 @@ public class ProjectController {
     private ProjectServiceDao projectServiceDao;
 
     @GetMapping("")
-    public ResponseEntity<List<Project>> getAll(){
+    public ResponseEntity<List<ProjectResponseDTO>> getAll(){
         return ResponseEntity.ok(projectServiceDao.getAll());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Project> getById(@PathVariable Long id){
-        Project project = projectServiceDao.getById(id);
+    public ResponseEntity<ProjectResponseDTO> getById(@PathVariable Long id){
+        ProjectResponseDTO project = projectServiceDao.getById(id);
         if (project != null) {
             return ResponseEntity.ok(project);
         } else {
@@ -29,9 +32,8 @@ public class ProjectController {
         }
     }
     @PostMapping("")
-    public ResponseEntity<Project> addProject(@Valid @RequestBody Project project) {
-        Project savedProject = projectServiceDao.addProject(project);
-        return ResponseEntity.ok(savedProject);
+    public ResponseEntity<ProjectResponseDTO> addProject(@Valid @RequestBody ProjectRequestDTO projectRequestDTO) {
+        return ResponseEntity.ok(projectServiceDao.addProject(projectRequestDTO));
     }
 
     @DeleteMapping("/{id}")

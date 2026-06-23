@@ -1,9 +1,11 @@
 package org.northernarc.customerproduct.service;
 
+import org.northernarc.customerproduct.dto.OrderRequestDTO;
+import org.northernarc.customerproduct.dto.OrderResponseDTO;
 import org.northernarc.customerproduct.model.Order;
 
 public interface OrderServiceDao {
-    public Order addOrder(Order order);
+    public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO);
     public void deleteById(Long id);
     public Order getById(Long id);
     public Order updateOrder(Order order);

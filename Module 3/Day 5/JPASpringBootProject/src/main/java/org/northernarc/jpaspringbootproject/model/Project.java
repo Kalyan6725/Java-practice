@@ -19,6 +19,6 @@ public class Project {
     int id;
     String name;
     @ManyToMany(cascade = CascadeType.ALL)
-    //@JsonIgnore
+    @JsonIgnore
     private List<Employee> employees;
 }

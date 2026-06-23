@@ -1,4 +1,5 @@
 package org.northernarc.customerproduct.controller;
+import jakarta.validation.Valid;
 import org.northernarc.customerproduct.model.OrderItem;
 import org.northernarc.customerproduct.service.OrderItemServiceDao;
 import org.springframework.beans.factory.annotation.Autowired;

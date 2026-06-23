@@ -1,6 +1,9 @@
 package org.northernarc.jpaspringbootproject.controller;
 
 import jakarta.validation.Valid;
+import org.northernarc.jpaspringbootproject.dto.EmployeeRequestDTO;
+import org.northernarc.jpaspringbootproject.dto.EmployeeResponseDTO;
+import org.northernarc.jpaspringbootproject.dto.ProjectResponseDTO;
 import org.northernarc.jpaspringbootproject.model.Employee;
 import org.northernarc.jpaspringbootproject.model.Project;
 import org.northernarc.jpaspringbootproject.service.EmployeeServiceDao;
@@ -16,23 +19,23 @@ public class EmployeeController {
     @Autowired
     private EmployeeServiceDao employeeServiceDao;
     @PostMapping("/add")
-    public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee){
-        Employee savedEmployee = employeeServiceDao.addEmployee(employee);
-        return ResponseEntity.ok(savedEmployee);
+    public ResponseEntity<EmployeeResponseDTO> addEmployee(@Valid @RequestBody EmployeeRequestDTO employeeRequestDTO){
+        EmployeeResponseDTO savedEmployeeResponseDTO = employeeServiceDao.addEmployee(employeeRequestDTO);
+        return ResponseEntity.ok(savedEmployeeResponseDTO);
     }
     @GetMapping("/getAll")
-    public ResponseEntity<List<Employee>> getAll(){
+    public ResponseEntity<List<EmployeeResponseDTO>> getAll(){
         return ResponseEntity.ok(employeeServiceDao.getAll());
     }
     @GetMapping("/{id}/projects")
-    public ResponseEntity<List<Project>> get(@PathVariable Long id){
+    public ResponseEntity<List<ProjectResponseDTO>> get(@PathVariable Long id){
         return ResponseEntity.ok(employeeServiceDao.getProjectsByEmployeeId(Math.toIntExact(id)));
     }
     @GetMapping("/getById/{id}")
-    public ResponseEntity<Employee> getById(@PathVariable Long id){
-        Employee employee = employeeServiceDao.getById(id);
-        if (employee != null) {
-            return ResponseEntity.ok(employee);
+    public ResponseEntity<EmployeeResponseDTO> getById(@PathVariable Long id){
+        EmployeeResponseDTO employeeResponseDTO = employeeServiceDao.getById(id);
+        if (employeeResponseDTO != null) {
+            return ResponseEntity.ok(employeeResponseDTO);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -46,6 +49,11 @@ public class EmployeeController {
     public ResponseEntity<String> assignProject(@PathVariable Long pid, @PathVariable Long eid){
         employeeServiceDao.assignProject(pid, eid);
         return ResponseEntity.ok("Project assigned to employee successfully");
+    }
+    @GetMapping("/page/{page}/{size}")
+    public ResponseEntity<List<EmployeeResponseDTO>> getEmployeesByPage(@PathVariable int page, @PathVariable int size) {
+        List<EmployeeResponseDTO> employees = employeeServiceDao.getEmployeesByPage(page, size);
+        return ResponseEntity.ok(employees);
     }
 
 }

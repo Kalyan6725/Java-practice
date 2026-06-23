@@ -1,5 +1,8 @@
 package org.northernarc.customerproduct.controller;
 
+import jakarta.validation.Valid;
+import org.northernarc.customerproduct.dto.CustomerRequestDTO;
+import org.northernarc.customerproduct.dto.CustomerResponseDTO;
 import org.northernarc.customerproduct.model.Customer;
 import org.northernarc.customerproduct.service.CustomerServiceDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +21,13 @@ public class CustomerController {
     private CustomerServiceDao customerServiceDao;
 
     @GetMapping("")
-    public ResponseEntity<List<Customer>> getAllCustomers() {
+    public ResponseEntity<List<CustomerResponseDTO>> getAllCustomers() {
         return ResponseEntity.ok(customerServiceDao.getAllCustomers());
     }
 
     @PostMapping("")
-    public ResponseEntity<Customer> addCustomer(@Valid @RequestBody Customer customer) {
-        return ResponseEntity.ok(customerServiceDao.addCustomer(customer));
+    public ResponseEntity<CustomerResponseDTO> addCustomer(@Valid @RequestBody CustomerRequestDTO customerRequestDTO) {
+        return ResponseEntity.ok(customerServiceDao.addCustomer(customerRequestDTO));
     }
 
     @GetMapping("/{id}")

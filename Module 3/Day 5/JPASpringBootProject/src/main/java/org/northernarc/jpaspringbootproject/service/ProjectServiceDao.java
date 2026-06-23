@@ -1,12 +1,14 @@
 package org.northernarc.jpaspringbootproject.service;
 
+import org.northernarc.jpaspringbootproject.dto.ProjectRequestDTO;
+import org.northernarc.jpaspringbootproject.dto.ProjectResponseDTO;
 import org.northernarc.jpaspringbootproject.model.Project;
 
 import java.util.List;
 
 public interface ProjectServiceDao {
-    public Project addProject(Project project);
-    public List<Project> getAll();
-    public Project getById(Long id);
+    public ProjectResponseDTO addProject(ProjectRequestDTO projectRequestDTO);
+    public List<ProjectResponseDTO> getAll();
+    public ProjectResponseDTO getById(Long id);
     public void deleteById(Long id);
 }

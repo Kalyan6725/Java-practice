@@ -1,4 +1,7 @@
 package org.northernarc.customerproduct.controller;
+import jakarta.validation.Valid;
+import org.northernarc.customerproduct.dto.OrderRequestDTO;
+import org.northernarc.customerproduct.dto.OrderResponseDTO;
 import org.northernarc.customerproduct.model.Order;
 import org.northernarc.customerproduct.service.OrderServiceDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +16,8 @@ public class OrderController {
     private OrderServiceDao orderServiceDao;
 
     @PostMapping
-    public ResponseEntity<Order> addOrder(@Valid @RequestBody Order order) {
-        return ResponseEntity.ok(orderServiceDao.addOrder(order));
+    public ResponseEntity<OrderResponseDTO> addOrder(@Valid @RequestBody OrderRequestDTO orderRequestDTO) {
+        return ResponseEntity.ok(orderServiceDao.addOrder(orderRequestDTO));
     }
 
     @GetMapping("/{id}")
