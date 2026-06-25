@@ -12,4 +12,9 @@ public class EmployeeResponseDTO {
     int id;
     String name;
     private List<Project> projects;
+    
+    public EmployeeResponseDTO(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

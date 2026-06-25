@@ -17,4 +17,6 @@ public interface EmployeeServiceDao {
     public List<ProjectResponseDTO> getProjectsByEmployeeId(int id);
 
     List<EmployeeResponseDTO> getEmployeesByPage(int page, int size);
+
+    // List<EmployeeResponseDTO> getAllByDepartment(String dept);
 }

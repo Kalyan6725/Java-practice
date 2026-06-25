@@ -92,4 +92,9 @@ public class EmployeeServiceDaoImpl implements EmployeeServiceDao {
                 .map(emp -> new EmployeeResponseDTO(emp.getId(), emp.getName(), emp.getProjects()))
                 .toList();
     }
+
+//    @Override
+//    public List<EmployeeResponseDTO> getAllByDepartment(String project) {
+//        return employeeRepository.getEmployeeByProject(project);
+//    }
 }

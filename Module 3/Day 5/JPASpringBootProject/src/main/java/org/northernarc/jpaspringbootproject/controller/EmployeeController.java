@@ -4,8 +4,6 @@ import jakarta.validation.Valid;
 import org.northernarc.jpaspringbootproject.dto.EmployeeRequestDTO;
 import org.northernarc.jpaspringbootproject.dto.EmployeeResponseDTO;
 import org.northernarc.jpaspringbootproject.dto.ProjectResponseDTO;
-import org.northernarc.jpaspringbootproject.model.Employee;
-import org.northernarc.jpaspringbootproject.model.Project;
 import org.northernarc.jpaspringbootproject.service.EmployeeServiceDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +21,10 @@ public class EmployeeController {
         EmployeeResponseDTO savedEmployeeResponseDTO = employeeServiceDao.addEmployee(employeeRequestDTO);
         return ResponseEntity.ok(savedEmployeeResponseDTO);
     }
+//    @GetMapping("/project/{project}")
+//    public List<EmployeeResponseDTO> getAllEmployees(@PathVariable String project){
+//        return employeeServiceDao.getAllByDepartment(project);
+//    }
     @GetMapping("/getAll")
     public ResponseEntity<List<EmployeeResponseDTO>> getAll(){
         return ResponseEntity.ok(employeeServiceDao.getAll());
