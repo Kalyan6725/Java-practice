@@ -1,24 +1,29 @@
 package org.northernarc.customerproduct.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.northernarc.customerproduct.model.OrderItem;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.util.List;
+
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class OrderRequestDTO {
 
-    @PastOrPresent
+    @PastOrPresent(message = "Order date cannot be in the future")
     private Date orderDate;
 
-//    @NotNull
-//    private Customer customer;
-    private int customer_id;
+    @NotNull(message = "Customer ID is required")
+    @JsonAlias("customer_id")
+    private Integer customerId;
 
-    @NotNull
-    private List<OrderItem> orderItems;
+    @NotNull(message = "Order items are required")
+    @Valid
+    private List<OrderItemCreateRequestDTO> orderItems;
 }

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
@@ -17,4 +18,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Modifying
     @Query("UPDATE Customer c SET c.name = :name WHERE c.id = :id")
     int updateCustomerName(@Param("id") Integer id, @Param("name") String name);
+
+    Optional<Customer> findByNameIgnoreCase(String name);
 }

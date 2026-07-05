@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jS9</title>
+    </head>
+
+    <body>
+            <h1 id="h1">MS DHONI</h1>
+            <button onclick="sort()">Sort Data</button>
+        <script>
+            var data = ["SURESH RAINA", "MS DHONI", "Virat Kohli", "Rohit Sharma"]; //this data will be from server side and we will bind this data to html element using innerHTML property
+            function sort(){
+                data.sort();
+                bindData();
+            }
+            function bindData() {
+                var h1Elements = document.getElementById("h1");
+                var content = "";
+                content += "<ul>";
+                for (var i = 0; i < data.length; i++) {
+                    content+="<li style='color:blue;'> hello " + data[i].toUpperCase() + ", Welcome to the team</li>";
+                }
+                content += "</ul>";
+                alert(content);
+                h1Elements.innerHTML = content;
+            }
+            bindData();
+        </script>
+    </body>
+</html>

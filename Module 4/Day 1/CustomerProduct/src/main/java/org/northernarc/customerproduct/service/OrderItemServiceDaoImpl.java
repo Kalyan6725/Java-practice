@@ -2,6 +2,8 @@ package org.northernarc.customerproduct.service;
 
 import org.northernarc.customerproduct.dto.OrderItemRequestDTO;
 import org.northernarc.customerproduct.dto.OrderItemResponseDTO;
+import org.northernarc.customerproduct.exceptions.OrderNotFound;
+import org.northernarc.customerproduct.exceptions.ProductNotFound;
 import org.northernarc.customerproduct.model.Order;
 import org.northernarc.customerproduct.model.OrderItem;
 import org.northernarc.customerproduct.model.Product;
@@ -25,8 +27,10 @@ public class OrderItemServiceDaoImpl implements OrderItemServiceDao {
     public void addOrderItem(OrderItemRequestDTO orderItemRequestDTO) {
         OrderItem orderItem=new OrderItem();
         orderItem.setQuantity(orderItemRequestDTO.getQuantity());
-        Order order = orderRepository.findById(orderItemRequestDTO.getOrderId()).orElse(null);
-        Product product = productRepository.findById(orderItemRequestDTO.getProductId()).orElse(null);
+        Order order = orderRepository.findById(orderItemRequestDTO.getOrderId())
+                .orElseThrow(() -> new OrderNotFound("no order found with id " + orderItemRequestDTO.getOrderId()));
+        Product product = productRepository.findById(orderItemRequestDTO.getProductId())
+                .orElseThrow(() -> new ProductNotFound("no product found with id " + orderItemRequestDTO.getProductId()));
         orderItem.setOrder(order);
         orderItem.setProduct(product);
         orderItemRepository.save(orderItem);
@@ -35,7 +39,7 @@ public class OrderItemServiceDaoImpl implements OrderItemServiceDao {
     @Override
     public OrderItemResponseDTO getById(Long id) {
         OrderItem orderItem = orderItemRepository.findById(Math.toIntExact(id)).orElse(null);
-        return new OrderItemResponseDTO(orderItem.getId(), orderItem.getQuantity(), orderItem.getOrder(), orderItem.getProduct());
+        return mapToOrderItemResponse(orderItem);
     }
 
     @Override
@@ -43,12 +47,14 @@ public class OrderItemServiceDaoImpl implements OrderItemServiceDao {
         OrderItem orderItem = orderItemRepository.findById(id).orElse(null);
         if (orderItem != null) {
             orderItem.setQuantity(orderItemRequestDTO.getQuantity());
-            Order order = orderRepository.findById(orderItemRequestDTO.getOrderId()).orElse(null);
-            Product product = productRepository.findById(orderItemRequestDTO.getProductId()).orElse(null);
+            Order order = orderRepository.findById(orderItemRequestDTO.getOrderId())
+                    .orElseThrow(() -> new OrderNotFound("no order found with id " + orderItemRequestDTO.getOrderId()));
+            Product product = productRepository.findById(orderItemRequestDTO.getProductId())
+                    .orElseThrow(() -> new ProductNotFound("no product found with id " + orderItemRequestDTO.getProductId()));
             orderItem.setOrder(order);
             orderItem.setProduct(product);
             OrderItem updatedOrderItem = orderItemRepository.save(orderItem);
-            return new OrderItemResponseDTO(updatedOrderItem.getId(), updatedOrderItem.getQuantity(), updatedOrderItem.getOrder(), updatedOrderItem.getProduct());
+            return mapToOrderItemResponse(updatedOrderItem);
         } else {
             return null;
         }
@@ -63,7 +69,15 @@ public class OrderItemServiceDaoImpl implements OrderItemServiceDao {
     public List<OrderItemResponseDTO> getAllOrderItems() {
         List<OrderItem> orderItems = orderItemRepository.findAll();
         return orderItems.stream()
-                .map(orderItem -> new OrderItemResponseDTO(orderItem.getId(), orderItem.getQuantity(), orderItem.getOrder(), orderItem.getProduct()))
+                .map(this::mapToOrderItemResponse)
                 .toList();
+    }
+
+    private OrderItemResponseDTO mapToOrderItemResponse(OrderItem orderItem) {
+        return new OrderItemResponseDTO(
+                orderItem.getId(),
+                orderItem.getQuantity(),
+                orderItem.getOrder().getId(),
+                orderItem.getProduct().getId());
     }
 }

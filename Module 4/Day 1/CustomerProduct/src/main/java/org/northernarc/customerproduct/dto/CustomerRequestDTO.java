@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class CustomerRequestDTO {
-    @NotBlank
+    @NotBlank(message = "Customer name is required")
     private String name;
     @Valid
     private List<Order> orders;

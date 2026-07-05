@@ -1,31 +1,39 @@
 package org.northernarc.jwt_demo.controller;
 
+import org.northernarc.jwt_demo.dto.JwtRequestDTO;
+import org.northernarc.jwt_demo.dto.JwtResponseDTO;
+import org.northernarc.jwt_demo.utility.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class HelloController {
-    @GetMapping
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String welcome() {
-        return "Welcome to the Spring Boot Security Demo! USER and ADMIN has Access";
+@RequestMapping
+@EnableMethodSecurity
+public class AuthController {
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @PostMapping("/auth/login")
+    public JwtResponseDTO login(@RequestBody JwtRequestDTO jwtRequest) {
+        authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(),
+                jwtRequest.getPassword()));
+        JwtResponseDTO jwtResponse =new JwtResponseDTO();
+        jwtResponse.setToken(jwtUtil.generateToken(jwtRequest.getUsername()));
+        return jwtResponse;
     }
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello, World!";
-    }
-
-    @GetMapping("/user")
     @PreAuthorize("hasRole('USER')")
-    public String userLogin() {
-        return "User Login";
+    @GetMapping("/user")
+    public String user() {
+        return "Hello User!";
     }
-
-    @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
-    public String adminLogin() {
-        return "Admin Login";
+    @GetMapping("/admin")
+    public String admin() {
+        return "Hello Admin!";
     }
 }

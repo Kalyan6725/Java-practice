@@ -17,8 +17,10 @@ public class Customer {
     private String name;
     @OneToMany(
             mappedBy = "customer",
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     @JsonManagedReference
     private List<Order> orders;
+
 }

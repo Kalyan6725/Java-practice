@@ -3,6 +3,7 @@ package org.northernarc.customerproduct.service;
 import jakarta.transaction.Transactional;
 import org.northernarc.customerproduct.dto.CustomerRequestDTO;
 import org.northernarc.customerproduct.dto.CustomerResponseDTO;
+import org.northernarc.customerproduct.dto.OrderItemResponseDTO;
 import org.northernarc.customerproduct.dto.OrderSummaryDTO;
 import org.northernarc.customerproduct.exceptions.CustomerNotFound;
 import org.northernarc.customerproduct.model.Customer;
@@ -63,7 +64,14 @@ public class CustomerServiceDaoImpl implements CustomerServiceDao {
     private List<OrderSummaryDTO> mapToOrderResponse(
             List<Order> orders) {
         return orders.stream()
-                .map(order -> new OrderSummaryDTO(order.getId(), order.getOrderDate(),order.getOrderItems()))
+                .map(order -> new OrderSummaryDTO(order.getId(), order.getOrderDate(),
+                        order.getOrderItems().stream()
+                                .map(item -> new OrderItemResponseDTO(
+                                        item.getId(),
+                                        item.getQuantity(),
+                                        order.getId(),
+                                        item.getProduct().getId()))
+                                .toList()))
                 .toList();
     }
 }

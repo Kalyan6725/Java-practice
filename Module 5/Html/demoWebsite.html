@@ -1,0 +1,193 @@
+<html>
+    <head>
+        <title>demo</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            div {
+                font-family: 'Brush Script MT', cursive;
+                font-size: 24px;
+                text-align: center;
+                color: rgba(240, 21, 21, 0.5);
+            }
+            #header {
+                height: 20%;
+                width: 100%;
+            }
+                #logo {
+                    height: 100%;
+                    width: 20%;
+                    float: left;
+                }
+                    #logoImg {
+                        height: 100%;
+                        width: 100%;
+                    }
+                #INheader {
+                    height: 100%;
+                    width: 80%;
+                    font-size: 100px;
+                    text-align: center;
+                    color: #0066b3;
+                    background: #ffcb05;
+                    
+                    float: left;
+                }
+                
+            #nav {
+                height: 70%;
+                width: 30%;
+                background-color: lightblue;
+                float: left;
+            }
+            
+            #main {
+                height: 70%;
+                width: 70%;
+                background-color: lightyellow;
+                float: right;
+            }
+
+                #mainHeading {
+                    height: 15%;
+                    width: 100%;
+                    text-align: left;
+                    color: rgba(0, 102, 179, 0.8);
+                    font-family: Arial, sans-serif;
+                    font-size: 20px;
+
+                }
+                    #mainHeadingText {
+                        margin: 0;
+                        padding: 10px;
+                        transition: color 0.3s ease;
+                    }
+                    #mainHeadingText:hover {
+                        color: red;
+                    }
+
+                #imageSection {
+                    height: 60%;
+                    width: 100%;
+                }
+
+                    .imgBox {
+                        height: 100%;
+                        width: 45%;
+                        float: left;
+                        margin-left: 3%;
+                    }
+
+                    .imgBox img {
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                #content {
+                    height: 25%;
+                    width: 100%;
+                    font-size: 20px;
+                    font-family: Arial, sans-serif;
+                }
+                    #contentText {
+                        margin: 0;
+                        padding: 10px;
+                        animation: blink 1.5s ease-in-out infinite;
+                    }
+                    @keyframes blink {
+                        0%, 100% {
+                            opacity: 1;
+                        }
+                        50% {
+                            opacity: 0;
+                        }
+                    }
+
+            #footer {
+                height: 10%;
+                width: 100%;
+                padding-top: 10px;
+                background-color: lightpink;
+                clear: both;
+                text-align: center;
+                font-family: Arial, sans-serif;
+                color: #333;
+                box-sizing: border-box;
+            }
+
+            #footer p {
+                margin: 0;
+                font-size: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+
+            <div id="header">
+                <div id="logo" class="float-start">
+                    
+                    <img id="logoImg" src="raina_logo.jpg" alt="Logo">
+                </div>
+                <!-- fs-1 bg-primary text-white -->
+                <div id="INheader" class="float-start ">Suresh Raina</div>
+            </div>
+
+
+            <div id="nav">
+                <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                
+                </ul>
+            </div>
+
+
+            <div id="main">
+
+                <div id="mainHeading">
+                    <h2 id="mainHeadingText">Chinna Thala Suresh Raina</h2>
+                </div>
+
+                <div id="imageSection">
+                    <div class="imgBox">
+                        <img src="raina1.jpg" alt="Raina Batting">
+                    </div>
+
+                    <div class="imgBox">
+                        <img src="raina2.jpg" alt="Raina Fielding">
+                    </div>
+                </div>
+
+                <div id="content">
+                    <p id="contentText">
+                        Suresh Raina is one of India's finest left-handed batsmen and an
+                        outstanding fielder.
+                    </p>
+                </div>
+
+            </div>
+            <div id="footer">
+
+                <p>&copy; 2026 Suresh Raina Fan Page</p>
+
+                <p>
+                    Former Indian Cricketer |
+                    Chennai Super Kings Legend |
+                    Left-Handed Batsman
+                </p>
+
+                <p>
+                    Email: rainafan@gmail.com |
+                    Phone: +91 98765 43210
+                </p>
+
+            </div>
+    </body>
+</html>

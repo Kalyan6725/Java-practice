@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jS8</title>
+    </head>
+
+    <body>
+            <h1 class="myh1">SURESH RAINA</h1>
+            <h1 id="h1">MS DHONI</h1>
+            <h1 class="myh1">Virat Kohli</h1>
+            <h1 >Rohit Sharma</h1>
+        <script>
+            var data = { name: "MSD", team: "India" }; //this data will be from server side and we will bind this data to html element using innerHTML property
+            var content = document.getElementById("h1");
+            content.innerHTML = "<h1 style='color:blue;'> hello " + data.name + ", Welcome to the " + data.team + " team</h1>";
+        </script>
+    </body>
+</html>

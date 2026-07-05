@@ -1,11 +1,15 @@
 package org.northernarc.customerproduct.controlleradvice;
 
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.ValidationException;
 import org.northernarc.customerproduct.exceptions.CustomerNotFound;
 import org.northernarc.customerproduct.exceptions.OrderNotFound;
 import org.northernarc.customerproduct.exceptions.ProductNotFound;
+import org.northernarc.customerproduct.exceptions.ValidationFailedException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -45,8 +49,40 @@ public class GlobalExceptionHandler {
                 .stream()
                 .map(err -> err.getField() + ": " + err.getDefaultMessage())
                 .collect(Collectors.joining(", "));
-        ErrorResponse er = new ErrorResponse(message.isBlank() ? "Validation failed" : message);
+        return validationFailedHandler(
+                new ValidationFailedException(message.isBlank() ? "Validation failed" : message)
+        );
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ErrorResponse> beanValidationHandler(ValidationException e) {
+        if (e instanceof ConstraintViolationException constraintViolationException) {
+            String message = constraintViolationException.getConstraintViolations()
+                    .stream()
+                    .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
+                    .collect(Collectors.joining(", "));
+
+            return validationFailedHandler(
+                    new ValidationFailedException(message.isBlank() ? "Validation failed" : message)
+            );
+        }
+
+        String message = e.getMessage() == null || e.getMessage().isBlank()
+                ? "Validation failed"
+                : e.getMessage();
+        return validationFailedHandler(new ValidationFailedException(message));
+    }
+
+    @ExceptionHandler(ValidationFailedException.class)
+    public ResponseEntity<ErrorResponse> validationFailedHandler(ValidationFailedException e) {
+        ErrorResponse er = new ErrorResponse(e.getMessage());
         return new ResponseEntity<>(er, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorResponse> accessDeniedHandler(AccessDeniedException e) {
+        ErrorResponse er = new ErrorResponse("Access forbidden: You don't have permission to access this resource");
+        return new ResponseEntity<>(er, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(Exception.class)

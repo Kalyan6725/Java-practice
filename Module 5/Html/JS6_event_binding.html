@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jS6</title>
+    </head>
+
+    <body>
+        <button onmouseover="changeHeadingStyle()" onmouseout="resetHeadingStyle()">Hover Me</button>
+        <button onclick="changeHeadingStyle()">Click Me</button>
+        <button ondblclick="resetHeadingStyle()">Double Click to Reset</button>
+        <button onfocus="changeHeadingStyle()" onblur="resetHeadingStyle()">Focus Me</button>
+
+        <!--  ondblclick ,onmouseover ,onmouseout ,onfocus ,onblur ,textfields,password,textarea:onkeyup,onkeydown,onkeypress -->
+            <h1 class="myh1">SURESH RAINA</h1>
+            <h1 id="h1">MS DHONI</h1>
+            <h1 class="myh1">Virat Kohli</h1>
+            <h1 >Rohit Sharma</h1>
+        <script>
+            function changeHeadingStyle() {
+                //alert("Hello, JavaScript!");
+                var headings = document.getElementsByClassName("myh1");
+                for (var i = 0; i < headings.length; i++) {
+                    headings[i].style.color = "blue";
+                    headings[i].style.backgroundColor = "yellow";
+                    headings[i].style.fontSize = "30px";
+                    headings[i].style.textAlign = "center";
+                }
+                var heading = document.getElementById("h1");
+                heading.style.color = "red";
+                heading.style.backgroundColor = "black";
+                heading.style.fontFamily = "Arial, sans-serif";
+                heading.style.fontSize = "40px";
+                heading.style.textAlign = "left";
+                heading.style.border = "2px solid black";
+            }
+
+            function resetHeadingStyle() {
+                var headings = document.getElementsByClassName("myh1");
+                for (var i = 0; i < headings.length; i++) {
+                    headings[i].style.color = "";
+                    headings[i].style.backgroundColor = "";
+                    headings[i].style.fontSize = "";
+                    headings[i].style.textAlign = "";
+                }
+                var heading = document.getElementById("h1");
+                heading.style.color = "";
+                heading.style.backgroundColor = "";
+                heading.style.fontFamily = "";
+                heading.style.fontSize = "";
+                heading.style.textAlign = "";
+                heading.style.border = "";
+            }
+        </script>
+    </body>
+</html>

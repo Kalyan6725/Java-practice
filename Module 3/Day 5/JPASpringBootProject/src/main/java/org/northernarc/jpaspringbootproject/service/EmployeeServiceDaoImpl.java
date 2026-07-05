@@ -25,9 +25,11 @@ public class EmployeeServiceDaoImpl implements EmployeeServiceDao {
         Employee employee = new Employee();
         employee.setName(employeeRequestDTO.getName());
         employee.setEmail(employeeRequestDTO.getEmail());
-        employee.setProjects(employeeRequestDTO.getProjects());
-        for (Project project : employeeRequestDTO.getProjects()) {
-            project.getEmployees().add(employee);
+        if (employeeRequestDTO.getProjects() != null) {
+            employee.setProjects(employeeRequestDTO.getProjects());
+            for (Project project : employeeRequestDTO.getProjects()) {
+                project.getEmployees().add(employee);
+            }
         }
         employeeRepository.save(employee);
         return new EmployeeResponseDTO(employee.getId(), employee.getName(), employee.getProjects());

@@ -14,20 +14,20 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class ProductRequestDTO {
-    @NotBlank
+    @NotBlank(message = "Product name is required")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "Product brand is required")
     private String brand;
 
-    @NotBlank
+    @NotBlank(message = "Product category is required")
     private String category;
 
-    @Positive
-    @Min(0)
+    @Positive(message = "Price must be greater than 0")
+    @Min(value = 0, message = "Price cannot be negative")
     private Double price;
 
-    @Min(0)
+    @Min(value = 0, message = "Stock cannot be negative")
     private int stock;
 
 }

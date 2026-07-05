@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jS10</title>
+    </head>
+
+    <body>
+            <h1 id="h1">MS DHONI</h1>
+            <button onclick="sortByLname()">Sort by Last Name</button>
+            <button onclick="sortByFname()">Sort by First Name</button>
+            <button onclick="sortByFnameDesc()">Sort by First Name Desc</button>
+        <script>
+            var data = ["SURESH RAINA", "MS DHONI", "Virat Kohli", "Rohit Sharma"]; //this data will be from server side and we will bind this data to html element using innerHTML property
+            function sortByLname(){
+                data.sort(CompareNames);
+                bindData();
+            }
+            function sortByFname(){
+                data.sort();
+                bindData();
+            }
+            function sortByFnameDesc(){
+                data.sort().reverse();
+                bindData();
+            }
+            function CompareNames(a, b) {
+                var nameA = a.split(" ")[1].toUpperCase(); // Last name
+                var nameB = b.split(" ")[1].toUpperCase(); // Last name
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                return 0;
+            }
+            function bindData() {
+                var h1Elements = document.getElementById("h1");
+                var content = "";
+                content += "<table border='1'>";
+                content += "<thead>";
+                content += "<tr><th onclick=\"sortByFname()\" style='color:blue;'>First Name</th><th onclick=\"sortByLname()\" style='color:red;'>Last Name</th></tr>";
+                content += "</thead>";
+                content += "<tbody>";
+                for (var i = 0; i < data.length; i++) {
+                    var names = data[i].split(" ");
+                    content+="<tr><td style='color:blue;'>" + names[0].toUpperCase() + "</td><td style='color:red;'>" + names[1].toLowerCase() + "</td></tr>";
+                }
+                content += "</tbody>";
+                content += "</table>";
+                alert(content);
+                h1Elements.innerHTML = content;
+            }
+            bindData();
+        </script>
+    </body>
+</html>

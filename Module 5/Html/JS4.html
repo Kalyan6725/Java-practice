@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jS4</title>
+    </head>
+
+    <body>
+            <h1 >SURESH RAINA</h1>
+            <h1 >MS DHONI</h1>
+            <h1 >Virat Kohli</h1>
+            <h1 >Rohit Sharma</h1>
+        <script>
+            alert("Hello, JavaScript!");
+            var headings = document.getElementsByTagName("h1");
+            for (var i = 0; i < headings.length; i++) {
+                headings[i].style.color = "blue";
+                headings[i].style.backgroundColor = "yellow";
+                headings[i].style.fontSize = "30px";
+                headings[i].style.textAlign = "center";
+            }
+        </script>
+    </body>

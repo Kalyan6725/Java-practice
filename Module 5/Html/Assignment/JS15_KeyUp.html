@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JS15 KeyUp</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body {
+			background-color: #f8f9fa;
+			font-family: Arial, sans-serif;
+		}
+
+		.page-box {
+			max-width: 800px;
+			margin: 30px auto;
+		}
+
+		.result-box {
+			background-color: #ffffff;
+			border: 1px solid #dee2e6;
+			border-radius: 8px;
+			padding: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container page-box">
+		<h2 class="mb-4">KeyUp Form Binding Example</h2>
+
+		<div class="row g-4">
+            <div class="col-md-6">
+				<div class="result-box">
+					<h4 class="mb-3">Live Output</h4>
+					<p><strong>Name:</strong> <span id="showName">-</span></p>
+					<p><strong>Email:</strong> <span id="showEmail">-</span></p>
+					<p><strong>Mobile:</strong> <span id="showMobile">-</span></p>
+					<p class="mb-0"><strong>Skills:</strong> <span id="showSkills">-</span></p>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="mb-3">
+					<label class="form-label" for="nameInput">Name</label>
+					<input type="text" class="form-control" id="nameInput" onkeyup="updateDetails()" placeholder="Enter your name">
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="emailInput">Email</label>
+					<input type="email" class="form-control" id="emailInput" onkeyup="updateDetails()" placeholder="Enter your email">
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="mobileInput">Mobile</label>
+					<input type="text" class="form-control" id="mobileInput" onkeyup="updateDetails()" placeholder="Enter your mobile number">
+				</div>
+
+				<div class="mb-2">
+					<label class="form-label d-block">Skills (Multiple Select)</label>
+
+					<div class="form-check">
+						<input class="form-check-input skill" type="checkbox" id="htmlSkill" value="HTML" onchange="updateDetails()">
+						<label class="form-check-label" for="htmlSkill">HTML</label>
+					</div>
+
+					<div class="form-check">
+						<input class="form-check-input skill" type="checkbox" id="cssSkill" value="CSS" onchange="updateDetails()">
+						<label class="form-check-label" for="cssSkill">CSS</label>
+					</div>
+
+					<div class="form-check">
+						<input class="form-check-input skill" type="checkbox" id="jsSkill" value="JavaScript" onchange="updateDetails()">
+						<label class="form-check-label" for="jsSkill">JavaScript</label>
+					</div>
+
+					<div class="form-check">
+						<input class="form-check-input skill" type="checkbox" id="bootstrapSkill" value="Bootstrap" onchange="updateDetails()">
+						<label class="form-check-label" for="bootstrapSkill">Bootstrap</label>
+					</div>
+				</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<script>
+		function updateDetails() {
+			const name = document.getElementById("nameInput").value;
+			const email = document.getElementById("emailInput").value;
+			const mobile = document.getElementById("mobileInput").value;
+
+			document.getElementById("showName").textContent = name || "-";
+			document.getElementById("showEmail").textContent = email || "-";
+			document.getElementById("showMobile").textContent = mobile || "-";
+
+			const selectedSkills = [];
+			const skillCheckboxes = document.querySelectorAll(".skill:checked");
+
+			for (let i = 0; i < skillCheckboxes.length; i++) {
+				selectedSkills.push(skillCheckboxes[i].value);
+			}
+
+			document.getElementById("showSkills").textContent = selectedSkills.length > 0 ? selectedSkills.join(", ") : "-";
+		}
+	</script>
+</body>
+</html>

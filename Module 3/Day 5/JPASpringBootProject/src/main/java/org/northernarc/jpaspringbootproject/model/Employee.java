@@ -23,6 +23,6 @@ public class Employee {
     String name;
     String email;
     @JsonIgnore
-    @ManyToMany(mappedBy = "employees")
+    @ManyToMany(mappedBy = "employees", cascade = CascadeType.ALL)
     private List<Project> projects;
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JavaScript Example</title>
+    </head>
+    <body>
+        <script>
+            function greetUser() {
+                var name = prompt("Enter your name:");
+                if (name) {
+                    alert("Hello, " + name + "!");
+                } else {
+                    alert("Hello, Guest!");
+                }
+            }
+            const greetUserArrow = (name) => {
+                alert("Hello, " + name + "!");
+            }
+            greetUser();
+            greetUserArrow("Kalsams");
+            alert(+add(5, 10));
+            function add(a, b) {
+                return a + b;
+            }
+
+            var arr = [1, 2, "three", 4, 5];
+            for (var i = 0; i < arr.length; i++) {
+                console.log(arr[i]);
+            }
+
+            obj = {
+                name: "John",
+                age: 30,
+                city: "New York",
+                sayHi: function() {
+                    alert("Hi! " + this.name + " from " + this.city);
+                }
+            };
+            console.log(obj);
+            obj.sayHi();
+
+        </script>
+    </body>
+</html>

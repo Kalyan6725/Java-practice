@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MY</title>
+        <style>
+            button,input, select {
+                color: red;
+                background-color: yellow;
+                border: 1px solid black;
+                border-radius: 5px;
+                margin: 5px;
+                padding: 10px 20px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                padding: 8px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <input type="text" id="productName" placeholder="Enter Product Name">
+            <input type="number" id="productPrice" placeholder="Enter Product Price">
+            <input type="text" id="productBrand" placeholder="Enter Product Brand">
+            <input type="text" id="productCategory" placeholder="Enter Product Category">
+        </div>
+        <div>
+            <button onclick="addProduct()">Add Product</button>
+            <select id="sortBy" onchange="sortProducts()">
+                <option value="">Sort By</option>
+                <option value="name">Name</option>
+                <option value="price">Price</option>
+                <option value="category">Category</option>
+                <option value="brand">Brand</option>
+            </select>
+            <button onclick="filterProducts()">Filter Products</button>
+        </div>
+        <div id="productList">
+        </div>
+        <script>
+               var products = [
+                { name: "Mouse", price: 45,brand: "Logitech",category: "Electronics" },
+                { name: "Keyboard", price: 41,brand: "Logitech",category: "Electronics" },
+                { name: "Monitor", price: 25,brand: "Samsung",category: "Electronics" },
+                { name: "Printer", price: 15,brand: "HP",category: "Electronics" },
+                { name: "Scanner", price: 30,brand: "Canon",category: "Electronics" },
+                { name: "Chair", price: 50,brand: "Ikea",category: "Furniture" },
+                { name: "Table", price: 100,brand: "Ikea",category: "Furniture" },
+                { name: "Sofa", price: 200,brand: "Ashley",category: "Furniture" },
+                { name: "Bed", price: 300,brand: "Ashley",category: "Furniture" },
+                { name: "Wardrobe", price: 150,brand: "Ikea",category: "Furniture" },
+                { name: "T-shirt", price: 20,brand: "Nike",category: "Clothing" },
+                { name: "Jeans", price: 40,brand: "Levi's",category: "Clothing" },
+                { name: "Jacket", price: 60,brand: "North Face",category: "Clothing" },
+                { name: "Shoes", price: 80,brand: "Adidas",category: "Clothing" },
+                { name: "Hat", price: 15,brand: "New Era",category: "Clothing" }
+            ]; 
+            function loadProducts() {
+                var productList = document.getElementById("productList");
+                var content = "<table border='1'><thead><tr><th>Name</th><th>Price</th><th>Brand</th><th>Category</th><th>Actions</th></tr></thead><tbody>";
+                for (var i = 0; i < products.length; i++) {
+                    content += "<tr><td>" + products[i].name + "</td><td>$" + products[i].price + "</td><td>" + products[i].brand + "</td><td>" + products[i].category + "</td><td><button onclick='deleteData(\"" + products[i].name + "\")'>Delete</button> <button onclick='updateData(" + i + ")'>Update</button></td></tr>";
+                }
+                content += "</tbody></table>";
+                //alert(content);
+                productList.innerHTML = content;
+            }
+            function addProduct() {
+                var name = document.getElementById("productName").value;
+                var price = parseFloat(document.getElementById("productPrice").value);
+                var brand = document.getElementById("productBrand").value;
+                var category = document.getElementById("productCategory").value;
+                if(name.trim() === "" || isNaN(price) || brand.trim() === "" || category.trim() === ""){
+                        alert("Please enter valid product details.");
+                        return;
+                    }
+                if (name && !isNaN(price) && brand && category) {
+                    products.push({ name: name, price: price, brand: brand, category: category });
+                    loadProducts();
+                }
+            }
+            function deleteData(nameToDelete) {
+                products = products.filter((item) => item.name !== nameToDelete);
+                loadProducts();
+            }
+            function updateData(index) {
+                var newName = prompt("Enter new product name:", products[index].name);
+                var newPrice = parseFloat(prompt("Enter new product price:", products[index].price));
+                var newBrand = prompt("Enter new product brand:", products[index].brand);
+                var newCategory = prompt("Enter new product category:", products[index].category);
+                if(newName.trim() === "" || isNaN(newPrice) || newBrand.trim() === "" || newCategory.trim() === ""){
+                        alert("Please enter valid product details.");
+                        return;
+                    }
+                if (newName && !isNaN(newPrice) && newBrand && newCategory) {
+                    products[index].name = newName;
+                    products[index].price = newPrice;
+                    products[index].brand = newBrand;
+                    products[index].category = newCategory;
+                    loadProducts();
+                }
+            }
+            function sortProductsByName() {
+                products.sort((a, b) => a.name.localeCompare(b.name));
+                loadProducts();
+            }
+            function sortProductsByPrice() {
+                products.sort((a, b) => a.price - b.price);
+                loadProducts();
+            }
+            function sortProductsByCategory() {
+                products.sort((a, b) => a.category.localeCompare(b.category));
+                loadProducts();
+            }
+            function sortProductsByBrand() {
+                products.sort((a, b) => a.brand.localeCompare(b.brand));
+                loadProducts();
+            }
+            function sortProducts() {
+                var sortBy = document.getElementById("sortBy").value;
+                if (sortBy === "name") {
+                    sortProductsByName();
+                } else if (sortBy === "price") {
+                    sortProductsByPrice();
+                } else if (sortBy === "category") {
+                    sortProductsByCategory();
+                } else if (sortBy === "brand") {
+                    sortProductsByBrand();
+                }
+            }
+            function filterProducts() {
+                var category = prompt("Enter category to filter:");
+                if (category) {
+                    var filtered = products.filter(p => p.category.toLowerCase() === category.toLowerCase());
+                    var productList = document.getElementById("productList");
+                    var content = "<table border='1'><thead><tr><th>Name</th><th>Price</th><th>Brand</th><th>Category</th><th>Actions</th></tr></thead><tbody>";
+                    for (var i = 0; i < filtered.length; i++) {
+                        content += "<tr><td>" + filtered[i].name + "</td><td>$" + filtered[i].price + "</td><td>" + filtered[i].brand + "</td><td>" + filtered[i].category + "</td><td><button onclick='deleteData(\"" + products[i].name + "\")'>Delete</button> <button onclick='updateData(" + i + ")'>Update</button></td></tr>";
+                    }
+                    content += "</tbody></table>";
+                    productList.innerHTML = content;
+                }
+            }
+            loadProducts();
+        </script>
+    </body>
