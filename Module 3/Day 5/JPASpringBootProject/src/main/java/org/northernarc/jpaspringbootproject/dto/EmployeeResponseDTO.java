@@ -11,10 +11,12 @@ import java.util.List;
 public class EmployeeResponseDTO {
     int id;
     String name;
+    String email;
     private List<Project> projects;
     
-    public EmployeeResponseDTO(int id, String name) {
+    public EmployeeResponseDTO(int id, String name,String email) {
         this.id = id;
         this.name = name;
+        this.email = email;
     }
 }

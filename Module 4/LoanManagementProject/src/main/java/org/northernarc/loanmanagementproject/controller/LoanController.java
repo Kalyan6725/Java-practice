@@ -1,29 +1,30 @@
 package org.northernarc.loanmanagementproject.controller;
 
-import org.northernarc.loanmanagementproject.service.LoanService;
-import org.northernarc.loanmanagementproject.repository.LoanProductRepository;
-import org.northernarc.loanmanagementproject.repository.CustomerRepository;
+import jakarta.validation.Valid;
+import org.northernarc.loanmanagementproject.dto.request.AdminCustomerDTO;
+import org.northernarc.loanmanagementproject.dto.response.ApiResponse;
+import org.northernarc.loanmanagementproject.dto.response.CustomerSummaryDTO;
+import org.northernarc.loanmanagementproject.dto.response.DashboardDTO;
+import org.northernarc.loanmanagementproject.dto.response.PagedData;
 import org.northernarc.loanmanagementproject.entity.Customer;
-import org.northernarc.loanmanagementproject.entity.LoanProduct;
-import org.northernarc.loanmanagementproject.entity.LoanAccount;
 import org.northernarc.loanmanagementproject.entity.EmiPayment;
-import org.northernarc.loanmanagementproject.dto.CustomerSummaryDTO;
-import org.northernarc.loanmanagementproject.dto.DashboardDTO;
-import org.northernarc.loanmanagementproject.dto.AdminCustomerDTO;
-import org.northernarc.loanmanagementproject.dto.ApiResponse;
-import org.northernarc.loanmanagementproject.dto.DTOMapper;
+import org.northernarc.loanmanagementproject.entity.LoanAccount;
+import org.northernarc.loanmanagementproject.entity.LoanProduct;
+import org.northernarc.loanmanagementproject.exception.CustomerNotFoundException;
+import org.northernarc.loanmanagementproject.repository.CustomerRepository;
+import org.northernarc.loanmanagementproject.repository.LoanProductRepository;
+import org.northernarc.loanmanagementproject.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
+
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/loan")
@@ -39,139 +40,120 @@ public class LoanController {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private DTOMapper dtoMapper;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // Customer Endpoints
-    /**
-     * ADMIN creates customer (bulk import/management)
-     * Password is encoded here before saving
-     * Admin can specify custom role (not limited to USER)
-     * 
-     * @param dto AdminCustomerDTO with customer details
-     * @return Created customer
-     */
     @PostMapping("/customer/create")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Customer> createCustomer(@Valid @RequestBody AdminCustomerDTO dto) {
-        // Check if email already exists
+    public ResponseEntity<ApiResponse<Customer>> createCustomer(@Valid @RequestBody AdminCustomerDTO dto) {
         if (customerRepository.findByEmail(dto.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already registered: " + dto.getEmail());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ApiResponse.error("Email already registered", "BAD_REQUEST", null));
         }
-        
-        // Create Customer entity from DTO
+
         Customer customer = new Customer();
         customer.setCustomerName(dto.getCustomerName());
         customer.setEmail(dto.getEmail());
-        customer.setPassword(passwordEncoder.encode(dto.getPassword())); // ✅ ENCODE HERE
+        customer.setPassword(passwordEncoder.encode(dto.getPassword()));
         customer.setBranch(dto.getBranch());
         customer.setRole(dto.getRole() != null ? dto.getRole() : "USER");
-        
-        // Save and return
+
+        Customer saved = customerRepository.save(customer);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(customerRepository.save(customer));
+                .body(ApiResponse.success("Customer created successfully", saved));
     }
 
     @GetMapping("/customer/{customerId}")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<?>> getCustomerById(@PathVariable Long customerId) {
+    public ResponseEntity<ApiResponse<Customer>> getCustomerById(@PathVariable Long customerId) {
         Customer customer = loanService.getCustomerById(customerId);
-        return ResponseEntity.ok(ApiResponse.success(200, "Customer fetched successfully", customer));
+        return ResponseEntity.ok(ApiResponse.success("Customer fetched successfully", customer));
     }
 
     @GetMapping("/customers")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        return ResponseEntity.ok(loanService.getAllCustomers());
+    public ResponseEntity<ApiResponse<List<Customer>>> getAllCustomers() {
+        return ResponseEntity.ok(ApiResponse.success("Customers fetched successfully", loanService.getAllCustomers()));
     }
 
     @PutMapping("/customer/update")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer) {
-        return ResponseEntity.ok(loanService.updateCustomer(customer));
+    public ResponseEntity<ApiResponse<Customer>> updateCustomer(@Valid @RequestBody Customer customer) {
+        return ResponseEntity.ok(ApiResponse.success("Customer updated successfully", loanService.updateCustomer(customer)));
     }
 
     @DeleteMapping("/customer/{customerId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable Long customerId) {
+    public ResponseEntity<ApiResponse<Void>> deleteCustomer(@PathVariable Long customerId) {
         loanService.deleteCustomer(customerId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(ApiResponse.success("Customer deleted successfully"));
     }
 
     @GetMapping("/customers/summaries")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<CustomerSummaryDTO>> getAllCustomerSummaries() {
+    public ResponseEntity<ApiResponse<List<CustomerSummaryDTO>>> getAllCustomerSummaries() {
         List<CustomerSummaryDTO> summaries = customerRepository.findAllCustomerSummaries();
-        return ResponseEntity.ok(summaries);
+        return ResponseEntity.ok(ApiResponse.success("Customer summaries fetched successfully", summaries));
     }
 
-    // Task 7.2: Get customer summary by ID
     @GetMapping("/customer/{customerId}/summary")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<CustomerSummaryDTO> getCustomerSummary(@PathVariable Long customerId) {
-        Optional<CustomerSummaryDTO> summary = customerRepository.findCustomerSummaryById(customerId);
-        return summary.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ApiResponse<CustomerSummaryDTO>> getCustomerSummary(@PathVariable Long customerId) {
+        CustomerSummaryDTO summary = customerRepository.findCustomerSummaryById(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException(customerId.toString()));
+        return ResponseEntity.ok(ApiResponse.success("Customer summary fetched successfully", summary));
     }
 
-    // Task 7.3: Get customer summaries by branch
     @GetMapping("/customers/branch/{branch}/summaries")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<CustomerSummaryDTO>> getCustomerSummariesByBranch(@PathVariable String branch) {
+    public ResponseEntity<ApiResponse<List<CustomerSummaryDTO>>> getCustomerSummariesByBranch(@PathVariable String branch) {
         List<CustomerSummaryDTO> summaries = customerRepository.findCustomerSummariesByBranch(branch);
-        return ResponseEntity.ok(summaries);
+        return ResponseEntity.ok(ApiResponse.success("Branch customer summaries fetched successfully", summaries));
     }
 
-    // Task 7.4: Get customer summaries with minimum loan count
     @GetMapping("/customers/summaries/min-loans")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<CustomerSummaryDTO>> getCustomerSummariesWithMinLoans(
+    public ResponseEntity<ApiResponse<List<CustomerSummaryDTO>>> getCustomerSummariesWithMinLoans(
             @RequestParam(value = "minLoans", defaultValue = "1") long minLoans) {
         List<CustomerSummaryDTO> summaries = customerRepository.findCustomerSummariesWithMinLoans(minLoans);
-        return ResponseEntity.ok(summaries);
+        return ResponseEntity.ok(ApiResponse.success("Customer summaries fetched successfully", summaries));
     }
 
     @PostMapping("/product/create")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<LoanProduct> createLoanProduct(@Valid @RequestBody LoanProduct loanProduct) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(loanService.createLoanProduct(loanProduct));
+    public ResponseEntity<ApiResponse<LoanProduct>> createLoanProduct(@Valid @RequestBody LoanProduct loanProduct) {
+        LoanProduct saved = loanService.createLoanProduct(loanProduct);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success("Loan product created successfully", saved));
     }
 
     @GetMapping("/product/{loanCode}")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<LoanProduct> getLoanProductByCode(@PathVariable String loanCode) {
+    public ResponseEntity<ApiResponse<LoanProduct>> getLoanProductByCode(@PathVariable String loanCode) {
         LoanProduct product = loanService.getLoanProductByCode(loanCode);
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok(ApiResponse.success("Loan product fetched successfully", product));
     }
 
     @GetMapping("/products")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<LoanProduct>> getAllLoanProducts() {
-        return ResponseEntity.ok(loanService.getAllLoanProducts());
+    public ResponseEntity<ApiResponse<List<LoanProduct>>> getAllLoanProducts() {
+        return ResponseEntity.ok(ApiResponse.success("Loan products fetched successfully", loanService.getAllLoanProducts()));
     }
 
-    // Task 6: Pagination & Sorting endpoint
-    // GET /api/loan/loan-products?page=0&size=10&sort=dailyPenaltyRate,desc
     @GetMapping("/loan-products")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<Page<LoanProduct>> getLoanProductsWithPagination(
+    public ResponseEntity<ApiResponse<PagedData<LoanProduct>>> getLoanProductsWithPagination(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size,
             @RequestParam(value = "sort", defaultValue = "dailyPenaltyRate") String sortBy) {
-        
-        // Create Pageable with default sort by penalty rate descending
-        Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size, 
-            Sort.by(Sort.Direction.DESC, sortBy));
-        
+
+        Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, sortBy));
         Page<LoanProduct> products = loanProductRepository.findAllProductsSortedByPenaltyRate(pageable);
-        return ResponseEntity.ok(products);
+        return ResponseEntity.ok(ApiResponse.success("Loan products fetched successfully", toPagedData(products)));
     }
 
-    // Task 6.1: Alternative endpoint - Pagination with custom sorting
     @GetMapping("/loan-products/search")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<Page<LoanProduct>> searchLoanProducts(
+    public ResponseEntity<ApiResponse<PagedData<LoanProduct>>> searchLoanProducts(
             @RequestParam(value = "loanType", required = false) String loanType,
             @RequestParam(value = "loanName", required = false) String loanName,
             @RequestParam(value = "minPenalty", required = false) Double minPenalty,
@@ -180,142 +162,146 @@ public class LoanController {
             @RequestParam(value = "size", defaultValue = "10") int size,
             @RequestParam(value = "sortBy", defaultValue = "dailyPenaltyRate") String sortBy,
             @RequestParam(value = "direction", defaultValue = "DESC") Sort.Direction direction) {
-        
-        Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size, 
-            Sort.by(direction, sortBy));
-        
-        // Handle different search scenarios
+
+        Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size, Sort.by(direction, sortBy));
+        Page<LoanProduct> products;
+
         if (loanType != null && !loanType.isEmpty()) {
-            return ResponseEntity.ok(loanProductRepository.findByLoanType(loanType, pageable));
+            products = loanProductRepository.findByLoanType(loanType, pageable);
+        } else if (loanName != null && !loanName.isEmpty()) {
+            products = loanProductRepository.findByLoanNameContainingIgnoreCase(loanName, pageable);
+        } else if (minPenalty != null && maxPenalty != null) {
+            products = loanProductRepository.findByDailyPenaltyRateBetween(minPenalty, maxPenalty, pageable);
+        } else if (minPenalty != null) {
+            products = loanProductRepository.findByDailyPenaltyRateGreaterThan(minPenalty, pageable);
+        } else {
+            products = loanProductRepository.findAllProductsSortedByPenaltyRate(pageable);
         }
-        
-        if (loanName != null && !loanName.isEmpty()) {
-            return ResponseEntity.ok(loanProductRepository.findByLoanNameContainingIgnoreCase(loanName, pageable));
-        }
-        
-        if (minPenalty != null && maxPenalty != null) {
-            return ResponseEntity.ok(loanProductRepository.findByDailyPenaltyRateBetween(minPenalty, maxPenalty, pageable));
-        }
-        
-        if (minPenalty != null) {
-            return ResponseEntity.ok(loanProductRepository.findByDailyPenaltyRateGreaterThan(minPenalty, pageable));
-        }
-        
-        // Default: return all with sorting
-        return ResponseEntity.ok(loanProductRepository.findAllProductsSortedByPenaltyRate(pageable));
+
+        return ResponseEntity.ok(ApiResponse.success("Loan products fetched successfully", toPagedData(products)));
     }
 
     @PutMapping("/product/update")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<LoanProduct> updateLoanProduct(@Valid @RequestBody LoanProduct loanProduct) {
-        return ResponseEntity.ok(loanService.updateLoanProduct(loanProduct));
+    public ResponseEntity<ApiResponse<LoanProduct>> updateLoanProduct(@Valid @RequestBody LoanProduct loanProduct) {
+        return ResponseEntity.ok(ApiResponse.success("Loan product updated successfully", loanService.updateLoanProduct(loanProduct)));
     }
 
     @DeleteMapping("/product/{loanCode}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteLoanProduct(@PathVariable String loanCode) {
+    public ResponseEntity<ApiResponse<Void>> deleteLoanProduct(@PathVariable String loanCode) {
         loanService.deleteLoanProduct(loanCode);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(ApiResponse.success("Loan product deleted successfully"));
     }
 
-    // Loan Account Endpoints
     @PostMapping("/account/create")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<LoanAccount> createLoanAccount(@Valid @RequestBody LoanAccount loanAccount) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(loanService.createLoanAccount(loanAccount));
+    public ResponseEntity<ApiResponse<LoanAccount>> createLoanAccount(@Valid @RequestBody LoanAccount loanAccount) {
+        LoanAccount saved = loanService.createLoanAccount(loanAccount);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success("Loan account created successfully", saved));
     }
 
     @GetMapping("/account/{loanAccountId}")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<LoanAccount> getLoanAccountById(@PathVariable Long loanAccountId) {
+    public ResponseEntity<ApiResponse<LoanAccount>> getLoanAccountById(@PathVariable Long loanAccountId) {
         LoanAccount account = loanService.getLoanAccountById(loanAccountId);
-        return ResponseEntity.ok(account);
+        return ResponseEntity.ok(ApiResponse.success("Loan account fetched successfully", account));
     }
 
     @GetMapping("/accounts")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<LoanAccount>> getAllLoanAccounts() {
-        return ResponseEntity.ok(loanService.getAllLoanAccounts());
+    public ResponseEntity<ApiResponse<List<LoanAccount>>> getAllLoanAccounts() {
+        return ResponseEntity.ok(ApiResponse.success("Loan accounts fetched successfully", loanService.getAllLoanAccounts()));
     }
 
     @GetMapping("/accounts/customer/{customerId}")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<LoanAccount>> getLoanAccountsByCustomerId(@PathVariable Long customerId) {
-        return ResponseEntity.ok(loanService.getLoanAccountsByCustomerId(customerId));
+    public ResponseEntity<ApiResponse<List<LoanAccount>>> getLoanAccountsByCustomerId(@PathVariable Long customerId) {
+        return ResponseEntity.ok(ApiResponse.success("Customer loan accounts fetched successfully", loanService.getLoanAccountsByCustomerId(customerId)));
     }
 
     @GetMapping("/accounts/status/{status}")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<LoanAccount>> getLoanAccountsByStatus(@PathVariable String status) {
-        return ResponseEntity.ok(loanService.getLoanAccountsByStatus(status));
+    public ResponseEntity<ApiResponse<List<LoanAccount>>> getLoanAccountsByStatus(@PathVariable String status) {
+        return ResponseEntity.ok(ApiResponse.success("Loan accounts fetched successfully", loanService.getLoanAccountsByStatus(status)));
     }
 
     @PutMapping("/account/update")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<LoanAccount> updateLoanAccount(@Valid @RequestBody LoanAccount loanAccount) {
-        return ResponseEntity.ok(loanService.updateLoanAccount(loanAccount));
+    public ResponseEntity<ApiResponse<LoanAccount>> updateLoanAccount(@Valid @RequestBody LoanAccount loanAccount) {
+        return ResponseEntity.ok(ApiResponse.success("Loan account updated successfully", loanService.updateLoanAccount(loanAccount)));
     }
 
     @DeleteMapping("/account/{loanAccountId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteLoanAccount(@PathVariable Long loanAccountId) {
+    public ResponseEntity<ApiResponse<Void>> deleteLoanAccount(@PathVariable Long loanAccountId) {
         loanService.deleteLoanAccount(loanAccountId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(ApiResponse.success("Loan account deleted successfully"));
     }
 
-    // EMI Payment Endpoints
     @PostMapping("/payment/record")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<EmiPayment> recordEmiPayment(@Valid @RequestBody EmiPayment emiPayment) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(loanService.recordEmiPayment(emiPayment));
+    public ResponseEntity<ApiResponse<EmiPayment>> recordEmiPayment(@Valid @RequestBody EmiPayment emiPayment) {
+        EmiPayment saved = loanService.recordEmiPayment(emiPayment);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success("EMI payment recorded successfully", saved));
     }
 
     @GetMapping("/payment/{paymentId}")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<EmiPayment> getEmiPaymentById(@PathVariable Long paymentId) {
+    public ResponseEntity<ApiResponse<EmiPayment>> getEmiPaymentById(@PathVariable Long paymentId) {
         EmiPayment payment = loanService.getEmiPaymentById(paymentId);
-        return ResponseEntity.ok(payment);
+        return ResponseEntity.ok(ApiResponse.success("EMI payment fetched successfully", payment));
     }
 
     @GetMapping("/payments")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<EmiPayment>> getAllEmiPayments() {
-        return ResponseEntity.ok(loanService.getAllEmiPayments());
+    public ResponseEntity<ApiResponse<List<EmiPayment>>> getAllEmiPayments() {
+        return ResponseEntity.ok(ApiResponse.success("EMI payments fetched successfully", loanService.getAllEmiPayments()));
     }
 
     @GetMapping("/payments/account/{loanAccountId}")
     @PreAuthorize("hasRole('USER') or hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<EmiPayment>> getEmiPaymentsByLoanAccountId(@PathVariable Long loanAccountId) {
-        return ResponseEntity.ok(loanService.getEmiPaymentsByLoanAccountId(loanAccountId));
+    public ResponseEntity<ApiResponse<List<EmiPayment>>> getEmiPaymentsByLoanAccountId(@PathVariable Long loanAccountId) {
+        return ResponseEntity.ok(ApiResponse.success("EMI payments fetched successfully", loanService.getEmiPaymentsByLoanAccountId(loanAccountId)));
     }
 
     @GetMapping("/payments/type/{paymentType}")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<List<EmiPayment>> getEmiPaymentsByPaymentType(@PathVariable String paymentType) {
-        return ResponseEntity.ok(loanService.getEmiPaymentsByPaymentType(paymentType));
+    public ResponseEntity<ApiResponse<List<EmiPayment>>> getEmiPaymentsByPaymentType(@PathVariable String paymentType) {
+        return ResponseEntity.ok(ApiResponse.success("EMI payments fetched successfully", loanService.getEmiPaymentsByPaymentType(paymentType)));
     }
 
     @PutMapping("/payment/update")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<EmiPayment> updateEmiPayment(@Valid @RequestBody EmiPayment emiPayment) {
-        return ResponseEntity.ok(loanService.updateEmiPayment(emiPayment));
+    public ResponseEntity<ApiResponse<EmiPayment>> updateEmiPayment(@Valid @RequestBody EmiPayment emiPayment) {
+        return ResponseEntity.ok(ApiResponse.success("EMI payment updated successfully", loanService.updateEmiPayment(emiPayment)));
     }
 
     @DeleteMapping("/payment/{paymentId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> deleteEmiPayment(@PathVariable Long paymentId) {
+    public ResponseEntity<ApiResponse<Void>> deleteEmiPayment(@PathVariable Long paymentId) {
         loanService.deleteEmiPayment(paymentId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(ApiResponse.success("EMI payment deleted successfully"));
     }
 
-    // ==================== FINAL CHALLENGE: DASHBOARD ====================
-    
     @GetMapping("/dashboard")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<?>> getDashboard() {
+    public ResponseEntity<ApiResponse<DashboardDTO>> getDashboard() {
         DashboardDTO dashboardData = loanService.getDashboardData();
-        return ResponseEntity.ok(
-            ApiResponse.success(200, "Dashboard data retrieved successfully", dashboardData)
-        );
+        return ResponseEntity.ok(ApiResponse.success("Dashboard data retrieved successfully", dashboardData));
+    }
+
+    private <T> PagedData<T> toPagedData(Page<T> page) {
+        return PagedData.<T>builder()
+                .items(page.getContent())
+                .page(PagedData.PageMeta.builder()
+                        .number(page.getNumber())
+                        .size(page.getSize())
+                        .totalElements(page.getTotalElements())
+                        .totalPages(page.getTotalPages())
+                        .build())
+                .build();
     }
 }

@@ -1,0 +1,74 @@
+<form #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)">
+<input
+  type="text"
+  [(ngModel)]="customer.name"
+  name="name"
+  placeholder="Enter your name"
+  required
+  minlength="3"
+  #name="ngModel">
+
+@if (name.touched && name.errors?.['required']) {
+  <small style="color:red">Name is required</small>
+}
+
+@if (name.touched && name.errors?.['minlength']) {
+  <small style="color:red">
+    Name must be at least
+    {{ name.errors?.['minlength'].requiredLength }}
+    characters long.
+  </small>
+}
+<p>Name: {{ customer.name }}</p>
+
+
+
+<input 
+    type="email" 
+    [(ngModel)]="customer.email" 
+    name="email" 
+    placeholder="Enter your email" 
+    required 
+    email 
+    #email="ngModel">
+@if (email.invalid && email.touched) {
+  @if (email.errors?.['required']) {
+    <small style="color:rgb(255, 78, 2)">Email is required</small>
+  }
+  @if (email.errors?.['email']) {
+    <small style="color:rgb(255, 78, 2)">Please enter a valid email address</small>
+  }
+}
+<p>Email: {{ customer.email }}</p>
+
+
+
+<input
+  type="number"
+  [(ngModel)]="customer.age"
+  name="age"
+  placeholder="Enter your age"
+  required
+  min="18"
+  #age="ngModel">
+
+@if (age.touched && age.errors?.['required']) {
+    <small style="color:red">
+        Age is required
+    </small>
+}
+@if (age.touched &&
+     !age.errors?.['required'] &&
+     age.errors?.['min']) {
+    <small style="color:red">
+        Age must be at least 18
+    </small>
+}
+<p>Age: {{ customer.age }}</p>
+
+
+
+
+<p>{{({name: customer.name, age: customer.age}) | json}}</p>
+<button type="submit" [disabled]="customerForm.invalid">Submit</button>
+</form>

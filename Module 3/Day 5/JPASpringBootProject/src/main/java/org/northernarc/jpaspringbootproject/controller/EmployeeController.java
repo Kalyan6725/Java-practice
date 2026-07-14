@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employees")
@@ -42,10 +44,18 @@ public class EmployeeController {
             return ResponseEntity.notFound().build();
         }
     }
+//    @DeleteMapping("/deleteById/{id}")
+//    public ResponseEntity<String> deleteById(@PathVariable Long id){
+//        employeeServiceDao.deleteById(id);
+//        return ResponseEntity.ok("Employee deleted successfully");
+//    }
     @DeleteMapping("/deleteById/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Long id){
+    public ResponseEntity<Map<String, String>> deleteById(@PathVariable Long id) {
         employeeServiceDao.deleteById(id);
-        return ResponseEntity.ok("Employee deleted successfully");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Employee deleted successfully");
+        response.put("id", id.toString());
+        return ResponseEntity.ok(response);
     }
     @PostMapping("/assignProject/{pid}/{eid}")
     public ResponseEntity<String> assignProject(@PathVariable Long pid, @PathVariable Long eid){

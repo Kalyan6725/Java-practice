@@ -1,6 +1,6 @@
 package org.northernarc.loanmanagementproject.controlleradvice;
 
-import org.northernarc.loanmanagementproject.dto.ApiResponse;
+import org.northernarc.loanmanagementproject.dto.response.ApiResponse;
 import org.northernarc.loanmanagementproject.exception.CustomerNotFoundException;
 import org.northernarc.loanmanagementproject.exception.LoanAccountNotFoundException;
 import org.northernarc.loanmanagementproject.exception.LoanProductNotFoundException;
@@ -84,10 +84,7 @@ public class GlobalExceptionHandler {
             ValidationException ex,
             WebRequest request) {
         
-        ApiResponse<?> response = ApiResponse.badRequest(
-                ex.getMessage(),
-                "VALIDATION_ERROR"
-        );
+        ApiResponse<?> response = ApiResponse.error(ex.getMessage(), "VALIDATION_ERROR", null);
         
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
@@ -109,13 +106,7 @@ public class GlobalExceptionHandler {
             fieldErrors.put(fieldName, errorMessage);
         });
         
-        ApiResponse<?> response = ApiResponse.builder()
-                .success(false)
-                .statusCode(400)
-                .message("Validation failed")
-                .errorType("FIELD_VALIDATION_ERROR")
-                .data(fieldErrors)
-                .build();
+        ApiResponse<?> response = ApiResponse.error("Validation failed", "FIELD_VALIDATION_ERROR", fieldErrors);
         
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
@@ -164,10 +155,7 @@ public class GlobalExceptionHandler {
             IllegalArgumentException ex,
             WebRequest request) {
         
-        ApiResponse<?> response = ApiResponse.badRequest(
-                ex.getMessage(),
-                "INVALID_ARGUMENT"
-        );
+        ApiResponse<?> response = ApiResponse.error(ex.getMessage(), "INVALID_ARGUMENT", null);
         
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }

@@ -1,0 +1,6 @@
+@for (name of peopleService.getNames()(); track name) {
+    <div>
+        <p>{{ name }}<button (click)="peopleService.deleteName(name)">Remove</button></p>
+    </div>
+  
+}

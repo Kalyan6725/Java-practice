@@ -1,0 +1,53 @@
+// Object destructuring
+
+<html>
+    <head>
+        <title>Object Destructuring</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div id="user">User</div>
+        <script>
+            var person = {
+                name: "John Doe",
+                age: 30,
+                address: {
+                    street: "123 Main St",
+                    city: "Anytown",
+                    country: "USA"
+                }
+            };
+
+            // Destructuring assignment
+            const { name, age, address: { street, city, country } } = person;
+            alert(`Name: ${name}, Age: ${age}, Street: ${street}, City: ${city}, Country: ${country}`);
+        
+            // Object literal shorthand
+            const user = { name, age, address: { street, city, country } };
+            console.log(user);
+            document.getElementById("user").innerHTML = `User: ${user.name}, Age: ${user.age}, Address: ${user.address.street}, ${user.address.city}, ${user.address.country}`;
+
+            //spread operator
+            var arr1 = [1, 2, 3,4];
+            var arr2 = [4, 5, 6,10];
+            var combinedArr = [...arr1, ...arr2];
+            alert(`Combined Array: ${combinedArr}`);
+            demo(...combinedArr);
+            function demo(a, b, c, d, e, f, g, h){
+                alert(`Values: ${a}, ${b}, ${c}, ${d}, ${e}, ${f}, ${g}, ${h}`);
+            }
+
+
+            //cloning of array
+            var originalArray = [1, 2, 3, 4];
+            var arr2 = originalArray;
+            arr2.push(5);
+            alert(`Original Array after modifying arr2: ${originalArray}`); // Original array is also modified
+            var clonedArray = [...originalArray];
+            clonedArray.push(6);
+            alert(`Original Array after modifying clonedArray: ${originalArray}`); // Original array remains
+            var arr3 = [...originalArray, 7, 8];
+            alert(`arr3: ${arr3}`);
+        </script>
+    </body>
+</html>

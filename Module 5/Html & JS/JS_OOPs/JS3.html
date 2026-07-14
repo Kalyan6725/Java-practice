@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jS11</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <script>
+            function demo(){
+                var name = "Kalyan"; // name is local to the demo function
+                for(let i=0; i<5; i++){ // let is block-scoped, so 'i' is only accessible within this loop
+                    console.log(i);
+                }
+                for(var j=0; j<5; j++){ // var is function-scoped, so 'j' is accessible throughout the demo function
+                    console.log(j);
+                }
+                alert(j); // This will work because 'j' is function-scoped
+                alert(name);
+            }
+            demo();
+            // alert(name); // This will throw an error because 'name' is not defined in this scope
+        </script>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jS2</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div id="demo"></div>
+        <script>
+            const mypromise = () => {
+                new Promise((resolve, reject) => {
+                    console.log("promise started");
+                    setTimeout(()=>{
+                        console.log("inside setTimeout");
+                        let answer= Math.round(Math.random());
+                        if (answer == 0) {
+                            resolve();
+                        } else {
+                            reject();
+                        }
+                    }, Math.random() * 10*1000);
+                    console.log("promise ended");
+                })
+            }
+        
+        // const resolve = () => {
+        //     alert("i will be resolved");
+        //     document.getElementById("demo").innerHTML = "<h1>Hello World</h1>";
+        // }
+        // const reject = () => {
+        //     alert("i will be rejected");
+        //     document.getElementById("demo").innerHTML = "<h1>Goodbye World</h1>";
+        // }
+        // mypromise().then(resolve).catch(reject);
+        mypromise().then(
+            () => {
+            alert("i will be resolved");
+            document.getElementById("demo").innerHTML = "<h1>Hello World</h1>";
+        }
+        ).catch(
+            () => {
+            alert("i will be rejected");
+            document.getElementById("demo").innerHTML = "<h1>Goodbye World</h1>";
+        }
+        );
+        </script>
+    </body>
+</html>

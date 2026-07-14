@@ -1,0 +1,15 @@
+<div>
+    <button class="btn btn-primary" (click)="changeTitle()">change title</button>
+    <app-add-person 
+      [selectedPerson]="selectedPerson" 
+      (addPersonEvent)="addPerson($event)"
+      (updatePersonEvent)="updatePersonInArray($event)">
+    </app-add-person>
+    <div class="row mt-3 g-3 row-cols-1 row-cols-md-3">
+        @for (person of people; track person.id) {
+            <app-person [p]="person" (removeEvent)="removePerson($event)" (updateEvent)="handleUpdateClick($event)"></app-person>
+        }
+    </div>
+</div>
+
+

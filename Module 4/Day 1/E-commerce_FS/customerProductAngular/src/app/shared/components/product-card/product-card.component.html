@@ -1,0 +1,53 @@
+<div class="card h-100 border-0 shadow-sm product-card">
+  <!-- Product Icon Header -->
+  <div class="card-header bg-light text-center py-4">
+    <i class="bi bi-box-seam display-3 text-primary"></i>
+    <div class="position-relative d-inline-block">
+      <span *ngIf="product.stock < 10 && product.stock > 0" class="badge bg-warning position-absolute top-0 end-0">
+        Low Stock
+      </span>
+      <span *ngIf="product.stock === 0" class="badge bg-danger position-absolute top-0 end-0">
+        Out of Stock
+      </span>
+    </div>
+  </div>
+
+  <div class="card-body d-flex flex-column">
+    <!-- Category & Brand Badges -->
+    <div class="mb-3">
+      <span class="badge bg-light text-dark me-1">
+        <i class="bi bi-tag me-1"></i>{{ product.category }}
+      </span>
+      <span class="badge bg-secondary">
+        <i class="bi bi-building me-1"></i>{{ product.brand }}
+      </span>
+    </div>
+
+    <!-- Product Name -->
+    <h5 class="card-title mb-3" [title]="product.name">{{ product.name }}</h5>
+
+    <!-- Product Info -->
+    <div class="product-info mb-3">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="text-muted small">Price:</span>
+        <h4 class="text-primary mb-0 fw-bold">₹{{ product.price.toFixed(2) }}</h4>
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="text-muted small">Available:</span>
+        <span class="badge" [class.bg-success]="product.stock > 10" [class.bg-warning]="product.stock <= 10 && product.stock > 0" [class.bg-danger]="product.stock === 0">
+          {{ product.stock }} units
+        </span>
+      </div>
+    </div>
+
+    <!-- Action Button -->
+    <div class="mt-auto">
+      <div class="d-grid">
+        <a [routerLink]="['/products', product.id]" class="btn btn-primary btn-sm">
+          <i class="bi bi-eye me-1"></i>
+          View Details
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

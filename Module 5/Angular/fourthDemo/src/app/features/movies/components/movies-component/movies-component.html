@@ -1,0 +1,35 @@
+<div class="container my-5">
+  <div class="text-center mb-5">
+    <h1 class="display-4 fw-bold text-primary">Movie Management</h1>
+    <p class="lead text-muted">Manage your movie collection</p>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-8 mb-4">
+      <h3 class="mb-4">Movie Collection</h3>
+      <app-show-movies></app-show-movies>
+    </div>
+    
+    <div class="col-lg-4">
+      <!-- Toggle Button -->
+      <div class="d-grid mb-3">
+        <button 
+          class="btn btn-lg" 
+          [ngClass]="isAddMode ? 'btn-outline-success' : 'btn-outline-warning'"
+          (click)="toggleMode()">
+          <i [ngClass]="isAddMode ? 'bi bi-arrow-repeat' : 'bi bi-arrow-repeat'"></i>
+          Switch to {{ isAddMode ? 'Update' : 'Add' }} Mode
+        </button>
+      </div>
+
+      <!-- Conditional Forms -->
+      @if (isAddMode) {
+        <h3 class="mb-4">Add New Movie</h3>
+        <app-add-movie></app-add-movie>
+      } @else {
+        <h3 class="mb-4">Update Movie</h3>
+        <app-update-movie></app-update-movie>
+      }
+    </div>
+  </div>
+</div>

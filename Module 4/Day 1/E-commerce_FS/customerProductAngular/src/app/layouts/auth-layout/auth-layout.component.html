@@ -1,0 +1,14 @@
+<div class="auth-wrapper d-flex align-items-center justify-content-center min-vh-100 bg-light">
+  <div class="w-100">
+    <!-- Toggle between Login and Register -->
+    <app-login 
+      *ngIf="showLogin" 
+      (switchToRegister)="toggleView()">
+    </app-login>
+    
+    <app-register 
+      *ngIf="!showLogin" 
+      (switchToLogin)="toggleView()">
+    </app-register>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+
+<h1>{{ title }}</h1>
+<button class="btn btn-primary btn-lg" (click)="changeTitle()">Change Title</button>
+<h4>{{ person.fname }} {{ person.lname }}</h4>
+
+@for (name of names; track name) {
+  <p>{{ name }}</p>
+}
+
+<ul>
+  @for (name of names; track name) {
+    <li>{{ name }}</li>
+  }
+</ul>
+<table class="table table-striped table-bordered table-hover" style="width: 50%; background-color: #e12b2b;">
+  <thead>
+    <tr>
+      <th style="background-color: #007BFF; color: #fff;">Name</th>
+      <th style="background-color: #007BFF; color: #fff;">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (name of names; track name; let i = $index) {
+      <tr>
+        <td>{{ name }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="updateName(i)">UPDATE</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+  
+
+<div class="d-flex align-items-center gap-2 mb-3">
+  <input
+    class="form-control"
+    style="width: 25%;"
+    type="text"
+    [(ngModel)]="newName"
+    placeholder="Enter a name">
+
+  <button
+    class="btn btn-primary"
+    (click)="addName()">
+    Add Name
+  </button>
+</div>
+
+<table class="table table-striped table-bordered table-hover" style="width: 55%; ">
+  <thead>
+    <tr style="background-color: #007BFF; color: #fff;">
+      <th style="background-color: #007BFF; color: #fff;">ID</th>
+      <th style="background-color: #007BFF; color: #fff;">Name</th>
+      <th style="background-color: #007BFF; color: #fff;">Age</th>
+      <th style="background-color: #007BFF; color: #fff;">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (employee of employees(); track employee.id; let i = $index) {
+      <tr>
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.age }}</td>
+        <td style="display: flex; gap: 10px;">
+          <button class="btn btn-primary" (click)="editEmployee(employee.id)">Update</button>
+          <button class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+@for (employee of employees(); track employee.id; let i = $index) {
+  <p>{{ employee.name }} (Age: {{ employee.age }})</p>
+}

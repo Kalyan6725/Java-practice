@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JavaScript OOPs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1 >JavaScript OOPs</h1>
+    <input type="text" id="name" placeholder="Enter dog's name">
+    <button onclick="createDog()">Create Dog</button>
+    <script>
+        class Animal {
+            constructor(name) {
+                this.name = name;
+            }
+            speak() {
+                console.log(`${this.name} makes a sound.`);
+            }
+        }
+        class Dog extends Animal {
+            speak() {
+                console.log(`${this.name} barks.`);
+            }
+        }
+        function createDog() {
+            var name = document.getElementById("name").value;
+            const dog = new Dog(name);
+            dog.speak();
+        }
+    </script>
+</body>
+</html>

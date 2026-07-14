@@ -1,0 +1,9 @@
+<td>{{todo.id}}</td>
+<td>{{todo.title}}</td>
+<td>{{todo.description}}</td>
+<td>{{todo.completed}}</td>
+<td>
+    <button class="btn btn-success" (click)="todoService.markAsDone(todo.id)">Done</button>
+    <button class="btn btn-danger" (click)="todoService.deleteTodo(todo.id)">Delete</button>
+</td>
+

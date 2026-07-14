@@ -1,0 +1,70 @@
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.brand-section {
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.brand-name {
+  font-size: 4rem;
+  letter-spacing: -2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.brand-icon {
+  color: #ffd700;
+  margin-right: 1rem;
+  animation: pulse 2s infinite;
+}
+
+.brand-tagline {
+  font-size: 1.2rem;
+  font-style: italic;
+  opacity: 0.9;
+  margin-left: 0.5rem;
+}
+
+.hero-icon {
+  font-size: 15rem;
+  opacity: 0.3;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.category-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+}

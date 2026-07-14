@@ -1,7 +1,7 @@
 package org.northernarc.loanmanagementproject.repository;
 
 import org.northernarc.loanmanagementproject.entity.Customer;
-import org.northernarc.loanmanagementproject.dto.CustomerSummaryDTO;
+import org.northernarc.loanmanagementproject.dto.response.CustomerSummaryDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -56,7 +56,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     // ==================== TASK 7: DTO PROJECTION MAPPING ====================
     
     // Task 7.1: Get Customer Summary with loan and penalty aggregates
-    @Query("SELECT NEW org.northernarc.loanmanagementproject.dto.CustomerSummaryDTO(" +
+    @Query("SELECT NEW org.northernarc.loanmanagementproject.dto.response.CustomerSummaryDTO(" +
           "c.customerName, " +
           "c.branch, " +
           "CAST(COUNT(DISTINCT la.loanAccountId) AS long), " +
@@ -69,7 +69,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     List<CustomerSummaryDTO> findAllCustomerSummaries();
 
     // Task 7.2: Get Customer Summary by ID
-    @Query("SELECT NEW org.northernarc.loanmanagementproject.dto.CustomerSummaryDTO(" +
+    @Query("SELECT NEW org.northernarc.loanmanagementproject.dto.response.CustomerSummaryDTO(" +
           "c.customerName, " +
           "c.branch, " +
           "CAST(COUNT(DISTINCT la.loanAccountId) AS long), " +
@@ -83,7 +83,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Optional<CustomerSummaryDTO> findCustomerSummaryById(@Param("customerId") Long customerId);
 
     // Task 7.3: Get Customer Summaries by Branch
-    @Query("SELECT NEW org.northernarc.loanmanagementproject.dto.CustomerSummaryDTO(" +
+    @Query("SELECT NEW org.northernarc.loanmanagementproject.dto.response.CustomerSummaryDTO(" +
           "c.customerName, " +
           "c.branch, " +
           "CAST(COUNT(DISTINCT la.loanAccountId) AS long), " +
@@ -98,7 +98,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     List<CustomerSummaryDTO> findCustomerSummariesByBranch(@Param("branch") String branch);
 
     // Task 7.4: Get Customer Summaries with minimum loan count
-    @Query("SELECT NEW org.northernarc.loanmanagementproject.dto.CustomerSummaryDTO(" +
+    @Query("SELECT NEW org.northernarc.loanmanagementproject.dto.response.CustomerSummaryDTO(" +
           "c.customerName, " +
           "c.branch, " +
           "CAST(COUNT(DISTINCT la.loanAccountId) AS long), " +

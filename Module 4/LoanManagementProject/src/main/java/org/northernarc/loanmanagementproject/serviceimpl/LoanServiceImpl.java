@@ -9,7 +9,7 @@ import org.northernarc.loanmanagementproject.service.LoanService;
 import org.northernarc.loanmanagementproject.entity.Customer;
 import org.northernarc.loanmanagementproject.entity.LoanProduct;
 import org.northernarc.loanmanagementproject.entity.EmiPayment;
-import org.northernarc.loanmanagementproject.dto.DashboardDTO;
+import org.northernarc.loanmanagementproject.dto.response.DashboardDTO;
 import org.northernarc.loanmanagementproject.exception.CustomerNotFoundException;
 import org.northernarc.loanmanagementproject.exception.LoanProductNotFoundException;
 import org.northernarc.loanmanagementproject.exception.LoanAccountNotFoundException;

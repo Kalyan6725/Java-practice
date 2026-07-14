@@ -1,0 +1,84 @@
+<div class="admin-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.collapsed]="isSidebarCollapsed">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="bi bi-shield-check"></i>
+        <span *ngIf="!isSidebarCollapsed">Admin Panel</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-item">
+        <i class="bi bi-speedometer2"></i>
+        <span *ngIf="!isSidebarCollapsed">Dashboard</span>
+      </a>
+
+      <div class="nav-section" *ngIf="!isSidebarCollapsed">
+        <span class="section-title">PRODUCTS</span>
+      </div>
+
+      <a routerLink="/admin/products" routerLinkActive="active" class="nav-item">
+        <i class="bi bi-box-seam"></i>
+        <span *ngIf="!isSidebarCollapsed">All Products</span>
+      </a>
+
+      <a routerLink="/admin/products/add" routerLinkActive="active" class="nav-item">
+        <i class="bi bi-plus-circle"></i>
+        <span *ngIf="!isSidebarCollapsed">Add Product</span>
+      </a>
+
+      <div class="nav-section" *ngIf="!isSidebarCollapsed">
+        <span class="section-title">ORDERS & CUSTOMERS</span>
+      </div>
+
+      <a routerLink="/admin/orders" routerLinkActive="active" class="nav-item">
+        <i class="bi bi-receipt"></i>
+        <span *ngIf="!isSidebarCollapsed">All Orders</span>
+      </a>
+
+      <a routerLink="/admin/customers" routerLinkActive="active" class="nav-item">
+        <i class="bi bi-people"></i>
+        <span *ngIf="!isSidebarCollapsed">All Customers</span>
+      </a>
+
+      <div class="nav-section" *ngIf="!isSidebarCollapsed">
+        <span class="section-title">STORE</span>
+      </div>
+
+      <a routerLink="/" class="nav-item">
+        <i class="bi bi-shop"></i>
+        <span *ngIf="!isSidebarCollapsed">View Store</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="nav-item logout-btn" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i>
+        <span *ngIf="!isSidebarCollapsed">Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content" [class.sidebar-collapsed]="isSidebarCollapsed">
+    <!-- Top Header -->
+    <header class="top-header">
+      <button class="sidebar-toggle" (click)="toggleSidebar()">
+        <i class="bi" [class.bi-list]="isSidebarCollapsed" [class.bi-x-lg]="!isSidebarCollapsed"></i>
+      </button>
+
+      <div class="header-right">
+        <div class="user-info">
+          <i class="bi bi-person-circle"></i>
+          <span class="user-name">{{ username || 'Admin' }}</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="page-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

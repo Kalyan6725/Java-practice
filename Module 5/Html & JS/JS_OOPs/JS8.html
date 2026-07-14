@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JavaScript OOPs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <button onclick="mypromise()">Timeout</button>
+    <script>
+        let answer;
+        let promiseResult = ["i will be resolved", "i will be rejected"];
+        function mypromise() {
+            console.log("promise started");
+            setTimeout(()=>{
+                console.log("inside setTimeout");
+                answer= Math.round(Math.random());
+                alert(promiseResult[answer]);
+            }, Math.random() * 10*1000);
+            console.log("promise ended");
+        }
+        
+    </script>
+</body>
+</html>

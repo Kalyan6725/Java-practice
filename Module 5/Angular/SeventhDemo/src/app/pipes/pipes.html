@@ -1,0 +1,24 @@
+<h4>String Pipes</h4>
+<p>Title in uppercase : {{ title | uppercase }}</p>
+<p>Title in lowercase : {{ title | lowercase }}</p>
+<p>Title case : {{ title | titlecase }}</p>
+<p>slice 0.5 : {{ title | slice: 0:5 }}</p>
+<h4>Date Pipe</h4>
+<p>fulldata : {{ today | date:'fullDate' }}</p>
+<p>short time : {{ today | date:'shortTime' }}</p>
+<p>medium : {{ today | date:'medium' }}</p>
+<p>Short : {{ today | date:'short' }}</p>
+<p>Long : {{ today | date:'longDate' }}</p>
+<p>dd/mm/yyyy : {{today|date:'dd/mm/yyyy'}}</p>
+
+<h4>Currency Pipe</h4>
+<p>Salary Default : {{ salary | currency }}</p>
+<p>Salary USD : {{ salary | currency:'USD' }}</p>
+<p>Salary EUR : {{ salary | currency:'EUR' }}</p>
+
+<h4>Decimal Pipe</h4>
+<p>Salary 1 decimal : {{ salary | number:'1.1-1' }}</p>
+<p>Salary 2 decimal : {{ salary | number:'1.2-2' }}</p>
+<p>Salary 3 decimal : {{ salary | number:'1.4-5' }}</p>
+<h4>Percent Pipe</h4>
+<p>Salary Percent : {{ salary | percent }}</p>

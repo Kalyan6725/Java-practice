@@ -32,7 +32,7 @@ public class EmployeeServiceDaoImpl implements EmployeeServiceDao {
             }
         }
         employeeRepository.save(employee);
-        return new EmployeeResponseDTO(employee.getId(), employee.getName(), employee.getProjects());
+        return new EmployeeResponseDTO(employee.getId(), employee.getName(),employee.getEmail(), employee.getProjects());
     }
 
     @Override
@@ -41,7 +41,7 @@ public class EmployeeServiceDaoImpl implements EmployeeServiceDao {
         List<Employee> employees = employeeRepository.findAll();
         // Convert Employee entities to EmployeeResponseDTO
         List<EmployeeResponseDTO> employeeDTOs = employees.stream()
-                .map(emp -> new EmployeeResponseDTO(emp.getId(), emp.getName(), emp.getProjects()))
+                .map(emp -> new EmployeeResponseDTO(emp.getId(), emp.getName(),emp.getEmail(), emp.getProjects()))
                 .toList();
         return employeeDTOs;
     }
@@ -50,7 +50,7 @@ public class EmployeeServiceDaoImpl implements EmployeeServiceDao {
     public EmployeeResponseDTO getById(Long id) {
         Employee employee = employeeRepository.findById(Math.toIntExact(id)).orElse(null);
         if (employee != null) {
-            return new EmployeeResponseDTO(employee.getId(), employee.getName(), employee.getProjects());
+            return new EmployeeResponseDTO(employee.getId(), employee.getName(),employee.getEmail(), employee.getProjects());
         } else {
             return null;
         }
@@ -91,7 +91,7 @@ public class EmployeeServiceDaoImpl implements EmployeeServiceDao {
     public List<EmployeeResponseDTO> getEmployeesByPage(int page, int size) {
         List<Employee> employees = employeeRepository.findAll(PageRequest.of(page, size, Sort.by("name"))).getContent();
         return employees.stream()
-                .map(emp -> new EmployeeResponseDTO(emp.getId(), emp.getName(), emp.getProjects()))
+                .map(emp -> new EmployeeResponseDTO(emp.getId(), emp.getName(),emp.getEmail(), emp.getProjects()))
                 .toList();
     }
 

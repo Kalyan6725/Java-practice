@@ -1,7 +1,9 @@
 package org.northernarc.loanmanagementproject.controller;
 
-import org.northernarc.loanmanagementproject.dto.LoginRequest;
-import org.northernarc.loanmanagementproject.dto.LoginResponse;
+import jakarta.validation.Valid;
+import org.northernarc.loanmanagementproject.dto.request.LoginRequest;
+import org.northernarc.loanmanagementproject.dto.response.ApiResponse;
+import org.northernarc.loanmanagementproject.dto.response.LoginResponse;
 import org.northernarc.loanmanagementproject.entity.Customer;
 import org.northernarc.loanmanagementproject.repository.CustomerRepository;
 import org.northernarc.loanmanagementproject.security.JwtUtil;
@@ -11,10 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
+
+import java.util.Map;
 
 /**
  * AuthController - Handles authentication endpoints
@@ -47,11 +49,9 @@ public class AuthController {
      * @return JWT token in response
      */
     @PostMapping("/login")
-
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
-            // Authenticate using AuthenticationManager
-            Authentication authentication = authenticationManager.authenticate(
+            authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                     loginRequest.getEmail(),
                     loginRequest.getPassword()
@@ -61,17 +61,15 @@ public class AuthController {
             // Generate JWT token
             String token = jwtUtil.generateToken(loginRequest.getEmail());
             
-            return ResponseEntity.ok(new LoginResponse(
-                token,
-                "Login successful"
-            ));
+            LoginResponse payload = new LoginResponse(token, "Login successful");
+            return ResponseEntity.ok(ApiResponse.success("Login successful", payload));
             
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(new LoginResponse(null, "Invalid email or password"));
+                .body(ApiResponse.error("Invalid email or password", "UNAUTHORIZED", null));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(new LoginResponse(null, "Authentication failed"));
+                .body(ApiResponse.error("Authentication failed", "UNAUTHORIZED", null));
         }
     }
     
@@ -84,12 +82,12 @@ public class AuthController {
      * @return newly created customer
      */
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody Customer customer) {
+    public ResponseEntity<ApiResponse<Customer>> register(@Valid @RequestBody Customer customer) {
         try {
             // Check if email already exists
             if (customerRepository.findByEmail(customer.getEmail()).isPresent()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Email already registered");
+                    .body(ApiResponse.error("Email already registered", "BAD_REQUEST", null));
             }
             
             // Encode password before saving
@@ -101,11 +99,11 @@ public class AuthController {
             Customer savedCustomer = customerRepository.save(customer);
             
             return ResponseEntity.status(HttpStatus.CREATED)
-                .body(savedCustomer);
+                .body(ApiResponse.success("Customer registered successfully", savedCustomer));
                 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Registration failed: " + e.getMessage());
+                .body(ApiResponse.error("Registration failed", "BAD_REQUEST", e.getMessage()));
         }
     }
     
@@ -115,25 +113,29 @@ public class AuthController {
      * @return status and message
      */
     @GetMapping("/verify")
-    public ResponseEntity<?> verifyToken(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<ApiResponse<Map<String, String>>> verifyToken(
+            @RequestHeader(value = "Authorization", required = false) String authHeader) {
         try {
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Invalid authorization header");
+                    .body(ApiResponse.error("Invalid authorization header", "BAD_REQUEST", null));
             }
             
             String token = authHeader.substring(7);
             
             if (jwtUtil.validateToken(token)) {
                 String username = jwtUtil.extractUsername(token);
-                return ResponseEntity.ok("Token is valid for user: " + username);
+                return ResponseEntity.ok(ApiResponse.success(
+                        "Token is valid",
+                        Map.of("username", username, "status", "valid")
+                ));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Token is invalid or expired");
+                    .body(ApiResponse.error("Token is invalid or expired", "UNAUTHORIZED", null));
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body("Token verification failed");
+                .body(ApiResponse.error("Token verification failed", "UNAUTHORIZED", null));
         }
     }
 }

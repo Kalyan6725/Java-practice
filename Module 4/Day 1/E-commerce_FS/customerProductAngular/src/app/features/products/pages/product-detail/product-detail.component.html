@@ -1,0 +1,184 @@
+<div class="container py-4">
+  <!-- Loading State -->
+  <div class="text-center py-5" *ngIf="loading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3 text-muted">Loading product details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="alert alert-danger" *ngIf="errorMessage" role="alert">
+    <i class="bi bi-exclamation-triangle me-2"></i>
+    {{ errorMessage }}
+    <button class="btn btn-sm btn-outline-danger ms-3" routerLink="/products">
+      Back to Products
+    </button>
+  </div>
+
+  <!-- Success Message -->
+  <div class="alert alert-success alert-dismissible fade show" *ngIf="addedToCart" role="alert">
+    <i class="bi bi-check-circle me-2"></i>
+    Product added to cart successfully!
+    <button type="button" class="btn-close" (click)="addedToCart = false"></button>
+  </div>
+
+  <!-- Product Content (only show if product is loaded) -->
+  <div *ngIf="!loading && !errorMessage && product">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/products" class="text-decoration-none">Products</a></li>
+        <li class="breadcrumb-item active">{{ product.name }}</li>
+      </ol>
+    </nav>
+
+    <!-- Product Details -->
+  <div class="row mb-5">
+    <!-- Product Image -->
+    <div class="col-lg-6 mb-4">
+      <div class="product-image-container">
+        <img [src]="product.image" [alt]="product.name" class="img-fluid rounded shadow">
+        <span *ngIf="product.stock < 10 && product.stock > 0" class="badge bg-warning position-absolute top-0 end-0 m-3">
+          Low Stock
+        </span>
+        <span *ngIf="product.stock === 0" class="badge bg-danger position-absolute top-0 end-0 m-3">
+          Out of Stock
+        </span>
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="col-lg-6">
+      <div class="mb-2">
+        <span class="badge bg-light text-dark me-2">{{ product.category }}</span>
+        <span class="badge bg-secondary">{{ product.brand }}</span>
+      </div>
+      
+      <h2 class="fw-bold mb-3">{{ product.name }}</h2>
+      
+      <div class="d-flex align-items-center mb-3">
+        <div class="text-warning me-2">
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-half"></i>
+        </div>
+        <span class="text-muted">(4.5) 256 reviews</span>
+      </div>
+
+      <h3 class="text-primary fw-bold mb-4">₹{{ product.price.toFixed(2) }}</h3>
+
+      <p class="lead mb-4">{{ product.description }}</p>
+
+      <!-- Stock Status -->
+      <div class="alert alert-success mb-4" *ngIf="product.stock > 10">
+        <i class="bi bi-check-circle me-2"></i>
+        <strong>In Stock</strong> - {{ product.stock }} units available
+      </div>
+      <div class="alert alert-warning mb-4" *ngIf="product.stock <= 10 && product.stock > 0">
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        <strong>Low Stock</strong> - Only {{ product.stock }} units left
+      </div>
+      <div class="alert alert-danger mb-4" *ngIf="product.stock === 0">
+        <i class="bi bi-x-circle me-2"></i>
+        <strong>Out of Stock</strong> - Currently unavailable
+      </div>
+
+      <!-- Quantity Selector -->
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Quantity:</label>
+        <div class="input-group" style="max-width: 150px;">
+          <button class="btn btn-outline-secondary" type="button" (click)="decrementQuantity()" [disabled]="quantity <= 1">
+            <i class="bi bi-dash"></i>
+          </button>
+          <input type="number" class="form-control text-center" [(ngModel)]="quantity" min="1" [max]="product.stock" readonly>
+          <button class="btn btn-outline-secondary" type="button" (click)="incrementQuantity()" [disabled]="quantity >= product.stock">
+            <i class="bi bi-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-grid gap-2 d-md-flex mb-4">
+        <button class="btn btn-primary btn-lg" [disabled]="product.stock === 0" (click)="addToCart()">
+          <i class="bi bi-cart-plus me-2"></i>
+          Add to Cart
+        </button>
+        <button class="btn btn-success btn-lg" [disabled]="product.stock === 0" (click)="goToCheckout()">
+          <i class="bi bi-lightning-charge me-2"></i>
+          Buy Now
+        </button>
+      </div>
+
+      <!-- Features -->
+      <div class="card border-0 bg-light" *ngIf="product.description">
+        <div class="card-body">
+          <h6 class="fw-bold mb-3">Product Description:</h6>
+          <p class="mb-0">{{ product.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Product Details Table -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <h4 class="fw-bold mb-4">Product Information</h4>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="d-flex justify-content-between py-2 border-bottom">
+                  <span class="text-muted">Brand</span>
+                  <span class="fw-semibold">{{ product.brand }}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex justify-content-between py-2 border-bottom">
+                  <span class="text-muted">Category</span>
+                  <span class="fw-semibold">{{ product.category }}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex justify-content-between py-2 border-bottom">
+                  <span class="text-muted">Stock</span>
+                  <span class="fw-semibold">{{ product.stock }} units</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex justify-content-between py-2 border-bottom">
+                  <span class="text-muted">Price</span>
+                  <span class="fw-semibold">₹{{ product.price.toFixed(2) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="row" *ngIf="relatedProducts.length > 0">
+      <div class="col-12">
+        <h4 class="fw-bold mb-4">Related Products</h4>
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6" *ngFor="let relatedProduct of relatedProducts">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <h6 class="card-title">{{ relatedProduct.name }}</h6>
+                <p class="text-muted small mb-1">{{ relatedProduct.brand }}</p>
+                <p class="text-primary fw-bold mb-2">₹{{ relatedProduct.price.toFixed(2) }}</p>
+                <a [routerLink]="['/products', relatedProduct.id]" class="btn btn-outline-primary btn-sm w-100">
+                  View Details
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

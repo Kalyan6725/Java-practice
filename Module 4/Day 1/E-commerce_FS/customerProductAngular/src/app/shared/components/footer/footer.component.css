@@ -1,0 +1,16 @@
+footer {
+  margin-top: auto;
+}
+
+footer a:hover {
+  color: #fff !important;
+  transition: color 0.2s;
+}
+
+.social-links a {
+  transition: transform 0.2s;
+}
+
+.social-links a:hover {
+  transform: translateY(-3px);
+}

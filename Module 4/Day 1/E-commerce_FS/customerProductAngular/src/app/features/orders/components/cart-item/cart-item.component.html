@@ -1,0 +1,35 @@
+<td>
+  <div class="d-flex align-items-center">
+    <img [src]="item.productImage" [alt]="item.productName" class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+    <div>
+      <h6 class="mb-1">
+        <a [routerLink]="['/products', item.productId]" class="text-decoration-none text-dark">
+          {{ item.productName }}
+        </a>
+      </h6>
+      <small class="text-muted">In stock: {{ item.stock }}</small>
+    </div>
+  </div>
+</td>
+<td class="align-middle">
+  ₹{{ item.price.toFixed(2) }}
+</td>
+<td class="align-middle">
+  <div class="input-group" style="max-width: 120px;">
+    <button class="btn btn-sm btn-outline-secondary" type="button">
+      <i class="bi bi-dash"></i>
+    </button>
+    <input type="number" class="form-control form-control-sm text-center" [value]="item.quantity" min="1" [max]="item.stock">
+    <button class="btn btn-sm btn-outline-secondary" type="button">
+      <i class="bi bi-plus"></i>
+    </button>
+  </div>
+</td>
+<td class="align-middle">
+  <strong>₹{{ (item.price * item.quantity).toFixed(2) }}</strong>
+</td>
+<td class="align-middle text-end">
+  <button class="btn btn-sm btn-outline-danger">
+    <i class="bi bi-trash"></i>
+  </button>
+</td>

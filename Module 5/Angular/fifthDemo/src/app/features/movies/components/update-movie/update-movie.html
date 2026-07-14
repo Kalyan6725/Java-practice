@@ -1,0 +1,30 @@
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title mb-4">Update Existing Movie</h5>
+    <form>
+      <div class="mb-3">
+        <label for="updateMovieId" class="form-label">Movie ID</label>
+        <input type="number" id="updateMovieId" class="form-control" [(ngModel)]="id" name="id" placeholder="Enter Movie ID to Update" />
+      </div>
+      <div class="mb-3">
+        <label for="updateMovieTitle" class="form-label">Title</label>
+        <input type="text" id="updateMovieTitle" class="form-control" [(ngModel)]="title" name="title" placeholder="Enter Movie Title" />
+      </div>
+      <div class="mb-3">
+        <label for="updateMovieDirector" class="form-label">Director</label>
+        <input type="text" id="updateMovieDirector" class="form-control" [(ngModel)]="director" name="director" placeholder="Enter Director Name" />
+      </div>
+      <div class="mb-3">
+        <label for="updateMovieLeadActor" class="form-label">Lead Actor</label>
+        <input type="text" id="updateMovieLeadActor" class="form-control" [(ngModel)]="leadActor" name="leadActor" placeholder="Enter Lead Actor Name" />
+      </div>
+      <div class="mb-3">
+        <label for="updateMovieReleaseYear" class="form-label">Release Year</label>
+        <input type="number" id="updateMovieReleaseYear" class="form-control" [(ngModel)]="releaseYear" name="releaseYear" placeholder="Enter Release Year" />
+      </div>
+      <button type="button" class="btn btn-warning" (click)="updateMovie()">
+        <i class="bi bi-pencil-square"></i> Update Movie
+      </button>
+    </form>
+  </div>
+</div>

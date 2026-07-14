@@ -1,0 +1,7 @@
+<div class="card" style="width: 18rem;">
+    <h1>{{p.name}}</h1>
+    <p>Person Age: {{p.age}}</p>
+    <p>Person email: {{p.email}}</p>
+    <button type="button" class="btn btn-danger" (click)="remove(p.id)">Delete</button>
+    <button type="button" class="btn btn-warning ms-2" (click)="update(p)">Update</button>
+</div>

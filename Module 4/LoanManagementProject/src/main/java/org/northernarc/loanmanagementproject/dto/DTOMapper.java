@@ -1,11 +1,14 @@
 package org.northernarc.loanmanagementproject.dto;
 
 import org.northernarc.loanmanagementproject.entity.Customer;
-import org.northernarc.loanmanagementproject.entity.LoanProduct;
-import org.northernarc.loanmanagementproject.entity.LoanAccount;
 import org.northernarc.loanmanagementproject.entity.EmiPayment;
+import org.northernarc.loanmanagementproject.entity.LoanAccount;
+import org.northernarc.loanmanagementproject.entity.LoanProduct;
+import org.northernarc.loanmanagementproject.dto.response.CustomerSummaryDTO;
+import org.northernarc.loanmanagementproject.dto.response.EmiPaymentDTO;
+import org.northernarc.loanmanagementproject.dto.response.LoanAccountDTO;
+import org.northernarc.loanmanagementproject.dto.response.LoanProductDTO;
 import org.springframework.stereotype.Component;
-import java.util.stream.Collectors;
 
 /**
  * DTOMapper - Utility class for converting entities to DTOs

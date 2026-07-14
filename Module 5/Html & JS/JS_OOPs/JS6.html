@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jS6</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <button onclick="demo()">Start Interval</button>
+        <button onclick="clearInterval(intervalId)">Stop Interval</button>
+        <div id="demo"></div>
+        <script>
+            var names = ["Kalyan", "Samineni", "John", "Doe"];
+            //interval
+            let intervalId;
+            function demo(){
+                let i = 0;
+                intervalId = setInterval(() => {
+                    document.getElementById("demo").innerHTML = "<h1>Hello " + names[i % names.length] + "</h1><br>";
+                    i++;
+                }, 1000);
+            }
+        </script>
+    </body>
+</html>

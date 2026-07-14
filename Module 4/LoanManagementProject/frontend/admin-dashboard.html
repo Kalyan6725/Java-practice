@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Northern Arc LMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-bank2"></i> Northern Arc LMS - Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="admin-dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="customers.html">Customers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="loan-accounts.html">Loan Accounts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="loan-products.html">Loan Products</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> <span id="userName">Admin</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="index.html" onclick="handleLogout()">
+                                <i class="bi bi-box-arrow-right me-2"></i>Logout
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <!-- Page Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="fw-bold"><i class="bi bi-speedometer2 me-2"></i>Dashboard Overview</h2>
+                <p class="text-muted">Real-time insights into loan management operations</p>
+            </div>
+        </div>
+
+        <!-- Statistics Cards (matches DashboardDTO) -->
+        <div class="row g-4 mb-4">
+            <!-- Total Customers -->
+            <div class="col-xl-2 col-md-4 col-sm-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div class="bg-primary bg-opacity-10 p-2 rounded">
+                                <i class="bi bi-people-fill text-primary fs-4"></i>
+                            </div>
+                            <span class="badge bg-success">+12%</span>
+                        </div>
+                        <h3 class="fw-bold mb-1">2,845</h3>
+                        <p class="text-muted mb-0 small">Total Customers</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Loans -->
+            <div class="col-xl-2 col-md-4 col-sm-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div class="bg-success bg-opacity-10 p-2 rounded">
+                                <i class="bi bi-wallet2 text-success fs-4"></i>
+                            </div>
+                            <span class="badge bg-info">+8%</span>
+                        </div>
+                        <h3 class="fw-bold mb-1">5,127</h3>
+                        <p class="text-muted mb-0 small">Total Loans</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Loan Amount Disbursed -->
+            <div class="col-xl-2 col-md-4 col-sm-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div class="bg-warning bg-opacity-10 p-2 rounded">
+                                <i class="bi bi-currency-rupee text-warning fs-4"></i>
+                            </div>
+                            <span class="badge bg-success">+15%</span>
+                        </div>
+                        <h3 class="fw-bold mb-1">₹487.5Cr</h3>
+                        <p class="text-muted mb-0 small">Amount Disbursed</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Penalty Collected -->
+            <div class="col-xl-2 col-md-4 col-sm-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div class="bg-danger bg-opacity-10 p-2 rounded">
+                                <i class="bi bi-exclamation-triangle text-danger fs-4"></i>
+                            </div>
+                            <span class="badge bg-warning">-3%</span>
+                        </div>
+                        <h3 class="fw-bold mb-1">₹2.4Cr</h3>
+                        <p class="text-muted mb-0 small">Penalty Collected</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Branch -->
+            <div class="col-xl-2 col-md-4 col-sm-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div class="bg-info bg-opacity-10 p-2 rounded">
+                                <i class="bi bi-trophy-fill text-info fs-4"></i>
+                            </div>
+                        </div>
+                        <h5 class="fw-bold mb-1">Mumbai Central</h5>
+                        <p class="text-muted mb-0 small">Top Branch</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highest Loan Customer -->
+            <div class="col-xl-2 col-md-4 col-sm-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div class="bg-secondary bg-opacity-10 p-2 rounded">
+                                <i class="bi bi-star-fill text-secondary fs-4"></i>
+                            </div>
+                        </div>
+                        <h6 class="fw-bold mb-1">Rajesh Kumar</h6>
+                        <p class="text-muted mb-0 small">Highest Loan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Stats -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-check-circle-fill text-success fs-1 mb-2"></i>
+                        <h4 class="fw-bold">3,842</h4>
+                        <p class="text-muted mb-0">Active Loans</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-x-circle-fill text-secondary fs-1 mb-2"></i>
+                        <h4 class="fw-bold">1,285</h4>
+                        <p class="text-muted mb-0">Closed Loans</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-exclamation-circle-fill text-warning fs-1 mb-2"></i>
+                        <h4 class="fw-bold">287</h4>
+                        <p class="text-muted mb-0">Overdue Loans</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-calendar-check-fill text-info fs-1 mb-2"></i>
+                        <h4 class="fw-bold">₹15.8Cr</h4>
+                        <p class="text-muted mb-0">This Month EMI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Recent Loan Accounts -->
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white py-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 fw-bold"><i class="bi bi-clock-history me-2"></i>Recent Loan Accounts</h5>
+                            <a href="loan-accounts.html" class="btn btn-sm btn-outline-primary">View All</a>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Loan ID</th>
+                                        <th>Customer</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge bg-secondary">LA-1025</span></td>
+                                        <td>Priya Sharma</td>
+                                        <td>Personal</td>
+                                        <td class="fw-bold">₹5,00,000</td>
+                                        <td><span class="badge bg-success">ACTIVE</span></td>
+                                        <td>
+                                            <a href="admin-loan-details.html?id=1025" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-secondary">LA-1024</span></td>
+                                        <td>Amit Patel</td>
+                                        <td>Home</td>
+                                        <td class="fw-bold">₹35,00,000</td>
+                                        <td><span class="badge bg-success">ACTIVE</span></td>
+                                        <td>
+                                            <a href="admin-loan-details.html?id=1024" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-secondary">LA-1023</span></td>
+                                        <td>Kavita Singh</td>
+                                        <td>Vehicle</td>
+                                        <td class="fw-bold">₹8,50,000</td>
+                                        <td><span class="badge bg-success">ACTIVE</span></td>
+                                        <td>
+                                            <a href="admin-loan-details.html?id=1023" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-secondary">LA-1022</span></td>
+                                        <td>Suresh Reddy</td>
+                                        <td>Education</td>
+                                        <td class="fw-bold">₹12,00,000</td>
+                                        <td><span class="badge bg-success">ACTIVE</span></td>
+                                        <td>
+                                            <a href="admin-loan-details.html?id=1022" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-secondary">LA-1021</span></td>
+                                        <td>Meera Nair</td>
+                                        <td>Business</td>
+                                        <td class="fw-bold">₹20,00,000</td>
+                                        <td><span class="badge bg-warning">OVERDUE</span></td>
+                                        <td>
+                                            <a href="admin-loan-details.html?id=1021" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions & Branch Stats -->
+            <div class="col-lg-4">
+                <!-- Quick Actions -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white py-3">
+                        <h6 class="mb-0 fw-bold">Quick Actions</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="create-loan-account.html" class="btn btn-primary">
+                                <i class="bi bi-plus-circle me-2"></i>Create Loan Account
+                            </a>
+                            <a href="customers.html" class="btn btn-outline-primary">
+                                <i class="bi bi-people me-2"></i>Manage Customers
+                            </a>
+                            <a href="loan-products.html" class="btn btn-outline-primary">
+                                <i class="bi bi-briefcase me-2"></i>Manage Products
+                            </a>
+                            <button class="btn btn-outline-secondary">
+                                <i class="bi bi-file-earmark-text me-2"></i>Generate Reports
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Branch Performance -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white py-3">
+                        <h6 class="mb-0 fw-bold">Top Branches</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="small">Mumbai Central</span>
+                                <span class="small fw-bold">1,245 loans</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-primary" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="small">Delhi NCR</span>
+                                <span class="small fw-bold">987 loans</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-success" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="small">Bangalore</span>
+                                <span class="small fw-bold">842 loans</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-info" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="small">Chennai</span>
+                                <span class="small fw-bold">654 loans</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div class="progress-bar bg-warning" style="width: 45%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="small mb-0">&copy; 2026 Northern Arc Loan Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Check authentication and role
+        window.onload = function() {
+            const currentUser = sessionStorage.getItem('currentUser');
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const user = JSON.parse(currentUser);
+            if (user.role !== 'ADMIN' && user.role !== 'MANAGER') {
+                alert('Access denied. This page is for administrators and managers only.');
+                window.location.href = 'customer-dashboard.html';
+                return;
+            }
+            
+            document.getElementById('userName').textContent = user.name;
+        };
+        
+        function handleLogout() {
+            sessionStorage.removeItem('currentUser');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JavaScript OOPs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container py-4">
+        <input class="form-control d-inline-block w-auto mb-2" type="text" id="email" placeholder="Enter Email">
+        <input class="form-control d-inline-block w-auto mb-2" type="text" id="name" placeholder="Enter Name">
+        <button class="btn btn-success mb-2" onclick="employeeManager.addEmployees()">Add Employees</button>
+        <button class="btn btn-primary mb-2" onclick="employeeManager.deleteById()">DeleteById</button>
+    </div>
+    <div id="employeeList"></div>
+
+    <script>
+        class Employee {
+            employees = [];
+            constructor(id, name, email) {
+                this.id = id;
+                this.name = name;
+                this.email = email;
+            }
+            getAll() {
+                fetch("http://localhost:8080/employees/getAll")
+                .then((response)=>{
+                return response.json();
+                })
+                .then(data =>{
+                console.log(data);
+                this.employees = data;
+                this.bindEmployees();
+                })
+                .catch(err=>{
+                console.log("There was some problem in contacting the server: "+err)
+                });
+            }
+            bindEmployees() {
+                var employeeList = document.getElementById("employeeList");
+                var content = "";
+                content += "<table class='table table-striped table-bordered'>";
+                content += "<thead class='table-dark'>";
+                content += "<tr><th>ID</th><th>Name</th><th>Email</th><th>ProjectsCnt</th></tr>";
+                content += "</thead>";
+                content += "<tbody>";
+                for (var i = 0; i < this.employees.length; i++) {
+                    var projectCount = this.employees[i].projects ? this.employees[i].projects.length : 0;
+                    content += "<tr>" +
+                        "<td>" + this.employees[i].id + "</td>" +
+                        "<td>" + (this.employees[i].name || "") + "</td>" +
+                        "<td>" + (this.employees[i].email || "") + "</td>" +
+                        "<td>" + projectCount + "</td>" +
+                        "</tr>";
+                }
+                content += "</tbody>";
+                content += "</table>";
+                employeeList.innerHTML = content;
+            }
+
+            addEmployees() {
+                var email = document.getElementById("email").value;
+                var name = document.getElementById("name").value;
+                if(name.trim() === "" || email.trim() === ""){
+                        alert("Please enter valid name and email.");
+                        return;
+                    }
+                fetch("http://localhost:8080/employees/add", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ name: name, email: email })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Employee added:", data);
+
+                    //getAll(); // Refresh the employee list
+                    this.employees.push(data); // Add the new employee to the local array
+                    this.bindEmployees(); // Re-bind the updated employee list
+                })
+                .catch(err => {
+                    console.log("There was some problem in contacting the server: " + err);
+                });
+            }
+            deleteById() {
+                var id = prompt("Enter employee ID to delete:");
+                if (id) {
+                    fetch(`http://localhost:8080/employees/deleteById/${id}`, {
+                        method: "DELETE"
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log("Employee deleted successfully");
+                            //getAll(); // Refresh the employee list
+                            this.employees = this.employees.filter(emp => emp.id != id); // Remove the deleted employee from the local array
+                            this.bindEmployees(); // Re-bind the updated employee list
+                        } else {
+                            console.log("Failed to delete employee");
+                        }
+                    })
+                    .catch(err => {
+                        console.log("There was some problem in contacting the server: " + err);
+                    });
+                }
+            }
+        }
+        window.onload = function() {
+            const employeeManager = new Employee();
+            employeeManager.getAll();
+            window.employeeManager = employeeManager; // Make it globally accessible
+        };
+    </script>
+</body>    
+</html>

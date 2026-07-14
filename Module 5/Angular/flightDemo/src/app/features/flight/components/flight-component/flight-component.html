@@ -1,0 +1,27 @@
+<table class="table table-striped table-hover table-bordered table-sm table-responsive table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+    <thead>
+        <tr>
+        <th>Id</th>
+        <th>Flight Number</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Departure Time</th>
+        <th>Arrival Time</th>
+        <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+@for(flight of flightService.getFlights();track flight.id){
+    <tr>
+        <td>{{ flight.id }}</td>
+        <td>{{ flight.flightNumber }}</td>
+        <td>{{ flight.departure }}</td>
+        <td>{{ flight.arrival }}</td>
+        <td>{{ flight.departureTime }}</td>
+        <td>{{ flight.arrivalTime }}</td>
+        <td>{{ flight.price }}</td>
+    </tr>
+}
+    </tbody>
+</table>
+  

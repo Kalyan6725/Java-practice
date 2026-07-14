@@ -1,0 +1,30 @@
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title mb-4">Add New Movie</h5>
+    <form>
+      <div class="mb-3">
+        <label for="movieId" class="form-label">Movie ID</label>
+        <input type="number" id="movieId" class="form-control" [(ngModel)]="id" name="id" placeholder="Enter Movie ID" />
+      </div>
+      <div class="mb-3">
+        <label for="movieTitle" class="form-label">Title</label>
+        <input type="text" id="movieTitle" class="form-control" [(ngModel)]="title" name="title" placeholder="Enter Movie Title" />
+      </div>
+      <div class="mb-3">
+        <label for="movieDirector" class="form-label">Director</label>
+        <input type="text" id="movieDirector" class="form-control" [(ngModel)]="director" name="director" placeholder="Enter Director Name" />
+      </div>
+      <div class="mb-3">
+        <label for="movieLeadActor" class="form-label">Lead Actor</label>
+        <input type="text" id="movieLeadActor" class="form-control" [(ngModel)]="leadActor" name="leadActor" placeholder="Enter Lead Actor Name" />
+      </div>
+      <div class="mb-3">
+        <label for="movieReleaseYear" class="form-label">Release Year</label>
+        <input type="number" id="movieReleaseYear" class="form-control" [(ngModel)]="releaseYear" name="releaseYear" placeholder="Enter Release Year" />
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addMovie()">
+        <i class="bi bi-plus-circle"></i> Add Movie
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<h1>reactive-forms-component works!</h1>
+<!-- Reactive Forms -->
+<form [formGroup]="form">
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name" placeholder="Enter your name" />
+    @if (form.get('name')?.touched && form.get('name')?.errors?.['required']) {
+      <small style="color:red">Name is required</small>
+    }
+    @if (form.get('name')?.touched && form.get('name')?.errors?.['minlength']) {
+      <small style="color:red">
+        Name must be at least
+        {{ form.get('name')?.errors?.['minlength'].requiredLength }}
+        characters long.
+      </small>
+    }
+  </div>
+  <p>Name: {{ form.get('name')?.value }}</p>
+
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email" placeholder="Enter your email" />
+    @if (form.get('email')?.touched && form.get('email')?.errors?.['required']) {
+      <small style="color:red">Email is required</small>
+    }
+    @if (form.get('email')?.touched && form.get('email')?.errors?.['email']) {
+      <small style="color:red">
+        Must be a valid email address.
+      </small>
+    }
+  </div>
+  <p>Email: {{ form.get('email')?.value }}</p>
+
+  <div>
+    <label for="age">Age:</label>
+    <input type="number" id="age" formControlName="age" placeholder="Enter your age" />
+    @if (form.get('age')?.touched && form.get('age')?.errors?.['required']) {
+      <small style="color:red">Age is required</small>
+    }
+    @if (form.get('age')?.touched && form.get('age')?.errors?.['min']) {
+      <small style="color:red">
+        Age must be at least
+        {{ form.get('age')?.errors?.['min'].min }}
+      </small>
+    }
+  </div>
+
+
+  <p>Form Status: {{ form.status }}</p>
+  <p>Form Valid: {{ form.valid }}</p>
+  
+  <button type="submit" [disabled]="form.invalid" (click)="onSubmit()">Submit</button>
+</form>

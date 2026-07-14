@@ -1,0 +1,27 @@
+<div class="list-group list-group-flush">
+  <div class="list-group-item" *ngFor="let item of items">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <div class="d-flex align-items-center">
+          <img [src]="item.productImage" [alt]="item.productName" class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
+          <div>
+            <h6 class="mb-1">
+              <a [routerLink]="['/products', item.productId]" class="text-decoration-none text-dark">
+                {{ item.productName }}
+              </a>
+            </h6>
+            <small class="text-muted">Quantity: {{ item.quantity }}</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 text-md-center mt-2 mt-md-0">
+        <small class="text-muted d-block">Unit Price</small>
+        <span>₹{{ item.price.toFixed(2) }}</span>
+      </div>
+      <div class="col-md-3 text-md-end mt-2 mt-md-0">
+        <small class="text-muted d-block">Subtotal</small>
+        <strong class="text-primary">₹{{ (item.price * item.quantity).toFixed(2) }}</strong>
+      </div>
+    </div>
+  </div>
+</div>

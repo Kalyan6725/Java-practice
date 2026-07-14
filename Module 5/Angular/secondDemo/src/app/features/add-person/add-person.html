@@ -1,0 +1,38 @@
+<div class="card mt-3 mb-3">
+  <div class="card-body">
+    <h5 class="card-title">{{ selectedPerson ? 'Update Person' : 'Add New Person' }}</h5>
+    <form class="row g-3">
+      <div class="col-md-3">
+        <label for="idInput" class="form-label">ID</label>
+        <input #idInput type="number" class="form-control" id="idInput" 
+               [value]="selectedPerson?.id || ''" 
+               placeholder="Enter ID" required />
+      </div>
+      <div class="col-md-3">
+        <label for="nameInput" class="form-label">Name</label>
+        <input #nameInput type="text" class="form-control" id="nameInput" 
+               [value]="selectedPerson?.name || ''" 
+               placeholder="Enter name" required />
+      </div>
+      <div class="col-md-3">
+        <label for="ageInput" class="form-label">Age</label>
+        <input #ageInput type="number" class="form-control" id="ageInput" 
+               [value]="selectedPerson?.age || ''" 
+               placeholder="Enter age" required />
+      </div>
+      <div class="col-md-3">
+        <label for="emailInput" class="form-label">Email</label>
+        <input #emailInput type="email" class="form-control" id="emailInput" 
+               [value]="selectedPerson?.email || ''" 
+               placeholder="Enter email" required />
+      </div>
+      <div class="col-12">
+        @if (selectedPerson) {
+          <button type="button" class="btn btn-warning" (click)="updatePerson(idInput, nameInput, ageInput, emailInput)">Update Person</button>
+        } @else {
+          <button type="button" class="btn btn-success" (click)="addPerson(idInput, nameInput, ageInput, emailInput)">Add Person</button>
+        }
+      </div>
+    </form>
+  </div>
+</div>
