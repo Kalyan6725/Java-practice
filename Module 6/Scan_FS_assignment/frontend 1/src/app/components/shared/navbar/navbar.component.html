@@ -1,0 +1,23 @@
+<nav class="classic-navbar">
+  <div class="container">
+    <a class="brand" routerLink="/">Scan Manager</a>
+    <button class="nav-toggle" type="button" (click)="toggleNav()">
+      <span class="toggle-icon"></span>
+      <span class="toggle-icon"></span>
+      <span class="toggle-icon"></span>
+    </button>
+    <div class="nav-menu" [class.collapsed]="isCollapsed()">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/scans" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeNav()">All Scans</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/scans/add" routerLinkActive="active" (click)="closeNav()">Add Scan</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/scans/search" routerLinkActive="active" (click)="closeNav()">Search</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

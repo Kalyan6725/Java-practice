@@ -1,0 +1,65 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Backend Health Status</h2>
+
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Health Check</h5>
+          <p class="card-text text-muted">/health endpoint</p>
+          @switch (healthStatus()) {
+            @case ('up') {
+              <span class="badge bg-success fs-6">UP</span>
+            }
+            @case ('down') {
+              <span class="badge bg-danger fs-6">DOWN</span>
+            }
+            @case ('unknown') {
+              <span class="badge bg-secondary fs-6">UNKNOWN</span>
+            }
+          }
+          <div class="mt-3">
+            <button class="btn btn-outline-primary" (click)="checkHealth()" [disabled]="loading()">
+              Check Health
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Readiness Check</h5>
+          <p class="card-text text-muted">/ready endpoint</p>
+          @switch (readyStatus()) {
+            @case ('up') {
+              <span class="badge bg-success fs-6">UP</span>
+            }
+            @case ('down') {
+              <span class="badge bg-danger fs-6">DOWN</span>
+            }
+            @case ('unknown') {
+              <span class="badge bg-secondary fs-6">UNKNOWN</span>
+            }
+          }
+          <div class="mt-3">
+            <button class="btn btn-outline-primary" (click)="checkReady()" [disabled]="loading()">
+              Check Ready
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-primary" (click)="checkAll()" [disabled]="loading()">
+      @if (loading()) {
+        <span class="spinner-border spinner-border-sm me-1"></span> Checking...
+      } @else {
+        Check All
+      }
+    </button>
+  </div>
+</div>

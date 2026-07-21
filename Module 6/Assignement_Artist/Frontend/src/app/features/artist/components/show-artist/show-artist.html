@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  @if(loading()) {
+    <div class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  }
+
+  @if(!loading() && artist()) {
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Artist Details</h2>
+          </div>
+          <div class="card-body p-4">
+            <div class="row mb-3">
+              <div class="col-md-4 fw-bold">Artist ID:</div>
+              <div class="col-md-8">{{ artist()!.id }}</div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-4 fw-bold">First Name:</div>
+              <div class="col-md-8">{{ artist()!.firstName }}</div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-4 fw-bold">Last Name:</div>
+              <div class="col-md-8">{{ artist()!.lastName }}</div>
+            </div>
+          </div>
+          <div class="card-footer bg-white">
+            <div class="d-flex gap-2">
+              <a routerLink="/" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back to List
+              </a>
+              <button (click)="deleteArtist()" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Delete Artist
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if(!loading() && !artist()) {
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Artist not found!</h4>
+      <p>The artist you're looking for doesn't exist.</p>
+      <hr>
+      <a routerLink="/" class="btn btn-primary">Go Back</a>
+    </div>
+  }
+</div>

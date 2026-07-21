@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="display-4">Artists</h1>
+    <a routerLink="/add-artist" class="btn btn-primary">
+      <i class="bi bi-plus-circle"></i> Add New Artist
+    </a>
+  </div>
+
+  @if(artistService.artists().length === 0) {
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">No artists found!</h4>
+      <p>Start by adding your first artist.</p>
+    </div>
+  }
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @for(artist of artistService.artists(); track artist.id) {
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ artist.firstName }} {{ artist.lastName }}</h5>
+            <p class="card-text text-muted">Artist ID: {{ artist.id }}</p>
+          </div>
+          <div class="card-footer bg-white border-0 d-flex gap-2">
+            <a [routerLink]="['/artist', artist.id]" class="btn btn-sm btn-outline-primary flex-fill">
+              View Details
+            </a>
+            <button (click)="deleteArtist(artist.id)" class="btn btn-sm btn-outline-danger flex-fill">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

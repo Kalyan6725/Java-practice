@@ -1,0 +1,12 @@
+<p>{{employee.name}} ({{employee.email}})
+    <button type="button" (click)="remove()" class="btn btn-danger">remove</button></p>
+    @if (status().loading) {
+        <p>Deleting Employee...</p>
+    }
+    
+    @if(status().success) {
+        <p class="success">Employee deleted successfully</p>
+    }
+    @if (status().error) {
+        <p class="error">{{ status().error }}</p>
+    }

@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Add New Employee</h4>
+      @if (status().loading) {
+        <p class="text-primary">Adding Employee...</p>
+      }
+      @if (status().error) {
+        <p class="text-danger">{{ status().error }}</p>
+      }
+      @if (status().success) {
+        <p class="text-success">Employee added successfully!</p>
+      }
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" class="row g-3">
+        
+        <!-- Name -->
+        <div class="col-12">
+          <label for="name" class="form-label">Full Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name"
+            [(ngModel)]="employee.name"
+            class="form-control" 
+            placeholder="John Doe" required />
+        </div>
+
+        <!-- Email -->
+        <div class="col-12">
+          <label for="email" class="form-label">Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email"
+            [(ngModel)]="employee.email"
+            class="form-control" 
+            placeholder="john.doe@company.com" required />
+        </div>
+
+        <!-- Form Actions -->
+        <div class="col-12 d-flex justify-content-end gap-2 mt-4">
+          <button type="button" class="btn btn-secondary" (click)="onReset()">Reset</button>
+          <button type="submit" class="btn btn-primary">Save Employee</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

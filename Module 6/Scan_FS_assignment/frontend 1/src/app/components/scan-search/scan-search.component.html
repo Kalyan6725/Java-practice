@@ -1,0 +1,95 @@
+<div class="container mt-4">
+  <h2 style="font-family: Georgia, serif; color: #2c3e50; margin-bottom: 1.5rem;">Search Scans</h2>
+
+  @if (error()) {
+    <div class="alert alert-danger">
+      {{ error() }}
+      <button type="button" class="btn-close" (click)="error.set(null)">×</button>
+    </div>
+  }
+
+  <div class="classic-card mb-4">
+    <div class="classic-card-header">
+      Search Criteria
+    </div>
+    <div class="classic-card-body">
+      <form (ngSubmit)="onSearch()">
+        <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 15px; align-items: end;">
+          <div>
+            <label for="searchDomain" class="form-label">Domain Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="searchDomain"
+              [(ngModel)]="domainName"
+              name="domainName"
+              placeholder="e.g. domain1.com"
+              required
+            />
+          </div>
+          <div>
+            <label for="orderBy" class="form-label">Order By</label>
+            <select class="form-select" id="orderBy" [(ngModel)]="orderBy" name="orderBy">
+              @for (option of orderByOptions; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="loading()">
+              @if (loading()) {
+                Searching...
+              } @else {
+                Search
+              }
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  @if (searched()) {
+    @if (results().length === 0 && !loading()) {
+      <app-empty-state [message]="'No scans found for ' + domainName"></app-empty-state>
+    } @else if (!loading()) {
+      <h5 style="font-family: Georgia, serif; color: #2c3e50; margin-bottom: 1rem;">Results ({{ results().length }})</h5>
+      <div class="table-container">
+        <table class="classic-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Domain Name</th>
+              <th>Pages</th>
+              <th>Broken Links</th>
+              <th>Missing Images</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (scan of results(); track scan.id) {
+              <tr>
+                <td>{{ scan.id }}</td>
+                <td><strong>{{ scan.domainName }}</strong></td>
+                <td>{{ scan.numPages }}</td>
+                <td>
+                  <span [class]="scan.numBrokenLinks > 0 ? 'badge badge-warning' : 'badge badge-success'">
+                    {{ scan.numBrokenLinks }}
+                  </span>
+                </td>
+                <td>
+                  <span [class]="scan.numMissingImages > 0 ? 'badge badge-warning' : 'badge badge-success'">
+                    {{ scan.numMissingImages }}
+                  </span>
+                </td>
+                <td>
+                  <a [routerLink]="['/scans', scan.id]" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.9rem;">View</a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>

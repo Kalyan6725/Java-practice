@@ -1,0 +1,83 @@
+
+<main class="container">
+  <div class="row justify-content-center">
+    @if (status().loading) {
+      <[div class="col-12 col-md-8 col-lg-6">
+        <div class="alert alert-info d-flex align-items-center" role="alert">
+          <i class="bi bi-info-circle-fill me-2"></i>
+          <div>Processing employee data...</div>
+        </div>]>
+    }
+    @if (status().error) {
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <div>{{ status().error }}</div>
+        </div>
+      </div>
+    }
+    @if (status().success) {
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          <div>Employee data updated successfully!</div>
+        </div>
+      </div>
+    }
+    <div class="col-12 col-md-8 col-lg-6">
+      
+      <div class="mb-4 text-center">
+        <h1 class="h3 mb-1 text-gray-800">{{ isEditMode ? 'Edit Employee Profile' : 'Add New Employee' }}</h1>
+        <p class="text-muted small">Active Endpoint Mapping Target: <code>{{ isEditMode ? 'PUT /employees/' + employeeId : 'POST /employees' }}</code></p>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-5">
+        <div class="card-body p-4">
+          
+          <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+            
+            <!-- Employee ID (Visible only during Edit Mode) -->
+             @if (isEditMode) {
+            <div class="mb-3" >
+              <label class="form-label fw-semibold">Employee ID (System Assigned)</label>
+              <div class="input-group">
+                <span class="input-group-text bg-secondary-subtle"><i class="bi bi-hash"></i></span>
+                <input type="text" class="form-control bg-light" formControlName="id" readonly>
+              </div>
+            </div>
+        }
+
+            <!-- Name -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Full Name</label>
+              <input type="text" class="form-control" formControlName="name" placeholder="John Doe"
+                     [ngClass]="{'is-invalid': formSubmitted && f['name'].errors}">
+              <div class="invalid-feedback">Name is a required field.</div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Email Address</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input type="email" class="form-control" formControlName="email" placeholder="john.doe@company.com"
+                       [ngClass]="{'is-invalid': formSubmitted && f['email'].errors}">
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+            </div>
+
+            <!-- Action Footers -->
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end border-top pt-3">
+              <a routerLink="/employees" class="btn btn-light me-md-2 btn-sm px-3">Cancel</a>
+              <button type="submit" class="btn btn-dark btn-sm px-4">
+                {{ isEditMode ? 'Update Employee Details' : 'Save Employee Record' }}
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>

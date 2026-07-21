@@ -1,0 +1,85 @@
+<div class="container mt-4">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <h2 style="font-family: Georgia, serif; color: #2c3e50; margin-bottom: 1.5rem;">Create New Scan</h2>
+
+    @if (error()) {
+      <div class="alert alert-danger">
+        {{ error() }}
+        <button type="button" class="btn-close" (click)="error.set(null)">×</button>
+      </div>
+    }
+
+    <div class="classic-card">
+      <div class="classic-card-header">
+        Scan Information
+      </div>
+      <div class="classic-card-body">
+        <form [formGroup]="scanForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="domainName" class="form-label">Domain Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="domainName"
+              formControlName="domainName"
+              placeholder="e.g. example.com"
+            />
+            @if (domainName?.invalid && domainName?.touched) {
+              <div class="text-danger mt-1">Domain name is required.</div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="numPages" class="form-label">Number of Pages</label>
+            <input
+              type="number"
+              class="form-control"
+              id="numPages"
+              formControlName="numPages"
+            />
+            @if (numPages?.invalid && numPages?.touched) {
+              <div class="text-danger mt-1">Number of pages is required and must be 0 or greater.</div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="numBrokenLinks" class="form-label">Number of Broken Links</label>
+            <input
+              type="number"
+              class="form-control"
+              id="numBrokenLinks"
+              formControlName="numBrokenLinks"
+            />
+            @if (numBrokenLinks?.invalid && numBrokenLinks?.touched) {
+              <div class="text-danger mt-1">Number of broken links is required and must be 0 or greater.</div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="numMissingImages" class="form-label">Number of Missing Images</label>
+            <input
+              type="number"
+              class="form-control"
+              id="numMissingImages"
+              formControlName="numMissingImages"
+            />
+            @if (numMissingImages?.invalid && numMissingImages?.touched) {
+              <div class="text-danger mt-1">Number of missing images is required and must be 0 or greater.</div>
+            }
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 1.5rem;">
+            <button type="submit" class="btn btn-primary" [disabled]="scanForm.invalid || loading()">
+              @if (loading()) {
+                Creating...
+              } @else {
+                Create Scan
+              }
+            </button>
+            <a routerLink="/scans" class="btn btn-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

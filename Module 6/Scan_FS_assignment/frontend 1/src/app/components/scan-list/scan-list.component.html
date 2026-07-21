@@ -1,0 +1,68 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 style="font-family: Georgia, serif; color: #2c3e50;">All Scans</h2>
+    <a routerLink="/scans/add" class="btn btn-primary">
+      + Add Scan
+    </a>
+  </div>
+
+  @if (successMessage()) {
+    <div class="alert alert-success">
+      {{ successMessage() }}
+      <button type="button" class="btn-close" (click)="successMessage.set(null)">×</button>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="alert alert-danger">
+      {{ error() }}
+      <button type="button" class="btn-close" (click)="error.set(null)">×</button>
+    </div>
+  }
+
+  @if (loading()) {
+    <app-loading message="Loading scans..."></app-loading>
+  } @else {
+    @if (scans().length === 0) {
+      <app-empty-state message="No scans found. Create one to get started!"></app-empty-state>
+    } @else {
+      <div class="table-container">
+        <table class="classic-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Domain Name</th>
+              <th>Pages</th>
+              <th>Broken Links</th>
+              <th>Missing Images</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (scan of scans(); track scan.id) {
+              <tr>
+                <td>{{ scan.id }}</td>
+                <td><strong>{{ scan.domainName }}</strong></td>
+                <td>{{ scan.numPages }}</td>
+                <td>
+                  <span [class]="scan.numBrokenLinks > 0 ? 'badge badge-warning' : 'badge badge-success'">
+                    {{ scan.numBrokenLinks }}
+                  </span>
+                </td>
+                <td>
+                  <span [class]="scan.numMissingImages > 0 ? 'badge badge-warning' : 'badge badge-success'">
+                    {{ scan.numMissingImages }}
+                  </span>
+                </td>
+                <td>
+                  <a [routerLink]="['/scans', scan.id]" class="btn btn-secondary" style="margin-right: 8px; padding: 6px 12px; font-size: 0.9rem;">View</a>
+                  <button (click)="deleteScan(scan.id!)" class="btn btn-danger" style="padding: 6px 12px; font-size: 0.9rem;">Delete</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+</div>
