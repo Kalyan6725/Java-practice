@@ -1,0 +1,12 @@
+2026-07-21 17:09:39,357 | INFO | Starting the Mutual Fund Performance Dashboard.
+2026-07-21 17:09:39,483 | INFO | CSV files loaded successfully.
+2026-07-21 17:09:39,529 | INFO | Data cleaned (duplicates removed, missing values filled).
+2026-07-21 17:09:39,540 | INFO | Outliers removed (Amount > 99th pct, NAV change > 3 std).
+2026-07-21 17:09:39,549 | INFO | All four datasets merged into one table.
+2026-07-21 17:09:39,601 | INFO | NumPy statistics calculated.
+2026-07-21 17:09:39,654 | INFO | Finance metrics calculated.
+2026-07-21 17:09:39,660 | INFO | Investor analysis done.
+2026-07-21 17:09:39,666 | INFO | Fund analysis done.
+2026-07-21 17:09:41,485 | INFO | All six charts saved to the output folder.
+2026-07-21 17:09:41,488 | INFO | Report written to output/report.txt.
+2026-07-21 17:09:41,488 | INFO | Dashboard finished successfully.

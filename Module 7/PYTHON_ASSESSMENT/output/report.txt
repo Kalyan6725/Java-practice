@@ -1,0 +1,75 @@
+MUTUAL FUND PERFORMANCE DASHBOARD REPORT
+=============================================
+
+NUMPY STATISTICS
+---------------------------------------------
+Mean Investment Amount: 2,843.61
+Median Investor Income: 1,170,000.00
+Standard Deviation of NAV: 13.50
+90th Percentile Fund Return: 3.44
+95th Percentile Fund Return: 3.45
+Correlation (Income vs Investment): -0.19
+Average Daily NAV: 34.97
+
+FINANCE METRICS (as of 2026-01-10)
+---------------------------------------------
+Total Portfolio Value: Rs 94,046.80
+Total Invested: Rs 92,732.50
+Absolute Return: Rs 1,314.30
+Portfolio Return %: 1.42%
+CAGR: 206.08%
+Annualized Return: 206.08%
+Average Holding Period (days): 4.6
+Diversification Score: 0.733
+Expense Ratio Impact: Rs 1,075.47
+Sharpe Ratio (simplified): 0.629
+
+Category-wise Investment %
+  Debt: 6.26%
+  Equity: 61.19%
+  Hybrid: 32.55%
+
+Fund Allocation %
+  Alpha Growth Fund: 13.21%
+  Balanced Advantage Fund: 32.55%
+  Bluechip Equity Fund: 12.69%
+  Corporate Bond Fund: 6.26%
+  Small Cap Opportunities: 35.30%
+
+Investor-wise Profit / Loss
+  Meera Krishnan: Rs 17.55
+  Karthik Raj: Rs 19.40
+  Sneha Kapoor: Rs 62.30
+  Rahul Verma: Rs 75.30
+  Vikram Singh: Rs 88.15
+  Ananya Iyer: Rs 174.20
+  Priya Nair: Rs 190.25
+  Arjun Reddy: Rs 198.15
+  Aarav Sharma: Rs 231.40
+  Neha Gupta: Rs 257.60
+
+TOP INVESTORS (by portfolio value)
+---------------------------------------------
+  Neha Gupta: Rs 17,041.35
+  Aarav Sharma: Rs 15,408.20
+  Ananya Iyer: Rs 14,759.20
+  Vikram Singh: Rs 11,185.90
+  Arjun Reddy: Rs 9,745.10
+  Sneha Kapoor: Rs 9,602.10
+  Priya Nair: Rs 8,721.90
+  Rahul Verma: Rs 5,816.50
+  Karthik Raj: Rs 1,158.20
+  Meera Krishnan: Rs 608.35
+
+Investors with Investment > Rs 10 Lakhs: 0
+Investors with High Risk Profile: 17
+Investors with more than 10 Transactions: 0
+Investors with Annual Income > Rs 15 Lakhs: 18
+
+FUND ANALYSIS
+---------------------------------------------
+Best Performing Fund: Bluechip Equity Fund (3.47%)
+Worst Performing Fund: Small Cap Opportunities (2.19%)
+Highest Expense Ratio: Small Cap Opportunities (1.45%)
+Highest AUM: Small Cap Opportunities (Rs 33,051.00)
+Most Popular Fund: Alpha Growth Fund (10 transactions)
