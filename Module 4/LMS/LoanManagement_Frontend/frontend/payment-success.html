@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Successful - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Confirmation screen shown after POST /api/emi-payments succeeds. -->
+<body data-area="customer" data-active="loan-accounts.html" data-footer="off">
+
+  <div class="auth-wrap">
+    <div class="auth-card card" style="max-width:460px">
+      <div class="card-body text-center">
+        <div style="width:66px;height:66px;border-radius:50%;background:var(--success-soft);color:var(--success);
+                    display:inline-flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:10px">&#10003;</div>
+        <h2 class="mb-0">Payment successful</h2>
+        <p class="muted">Your EMI has been recorded.</p>
+
+        <div class="card" style="text-align:left;box-shadow:none;background:var(--grey-bg)">
+          <div class="card-body">
+            <dl class="dl" style="grid-template-columns:140px 1fr">
+              <dt>Receipt no.</dt><dd>PAY-2026-008841</dd>
+              <dt>Loan account</dt><dd>LA-100245</dd>
+              <dt>Installment</dt><dd>15 of 36</dd>
+              <dt>Amount</dt><dd>&#8377;13,180</dd>
+              <dt>Method</dt><dd>UPI</dd>
+              <dt>Date</dt><dd>20 Jul 2026</dd>
+              <dt>Status</dt><dd><span class="badge badge-success">PAID</span></dd>
+            </dl>
+          </div>
+        </div>
+
+        <div class="actions mt-2" style="justify-content:center">
+          <a href="loan-details.html" class="btn btn-outline">Back to loan</a>
+          <a href="customer-dashboard.html" class="btn btn-primary">Go to dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

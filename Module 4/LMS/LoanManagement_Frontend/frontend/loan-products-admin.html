@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Loan Products - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/loan-products/paged + /search
+     Create/Update/Delete: POST/PUT/DELETE /api/loan-products -->
+<body data-area="staff" data-active="loan-products-admin.html">
+
+  <div class="page container">
+    <div id="flash" class="alert alert-success" style="display:none"></div>
+    <div class="page-head">
+      <div><h1>Loan products</h1><p class="sub">Define and maintain the loan catalogue.</p></div>
+      <a href="loan-product-form.html" class="btn btn-primary">+ New product</a>
+    </div>
+
+    <div class="card">
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Code</th><th>Name</th><th>Type</th><th class="num">Amount range</th><th class="num">Interest</th><th class="num">Tenure</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td>PL-STD</td><td>Personal Loan</td><td><span class="tag">PERSONAL</span></td>
+              <td class="num">&#8377;50K &ndash; &#8377;10L</td><td class="num">11.5%</td><td class="num">6&ndash;60 mo</td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td class="actions"><a href="loan-product-form.html" class="btn btn-outline btn-sm">Edit</a></td>
+            </tr>
+            <tr>
+              <td>HL-PRIME</td><td>Home Loan</td><td><span class="tag">HOME</span></td>
+              <td class="num">&#8377;5L &ndash; &#8377;1Cr</td><td class="num">8.4%</td><td class="num">60&ndash;360 mo</td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td class="actions"><a href="loan-product-form.html" class="btn btn-outline btn-sm">Edit</a></td>
+            </tr>
+            <tr>
+              <td>VL-AUTO</td><td>Vehicle Loan</td><td><span class="tag">VEHICLE</span></td>
+              <td class="num">&#8377;1L &ndash; &#8377;25L</td><td class="num">9.6%</td><td class="num">12&ndash;84 mo</td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td class="actions"><a href="loan-product-form.html" class="btn btn-outline btn-sm">Edit</a></td>
+            </tr>
+            <tr>
+              <td>EL-SCHOLAR</td><td>Education Loan</td><td><span class="tag">EDUCATION</span></td>
+              <td class="num">&#8377;50K &ndash; &#8377;40L</td><td class="num">10.2%</td><td class="num">12&ndash;120 mo</td>
+              <td><span class="badge badge-success">Active</span></td>
+              <td class="actions"><a href="loan-product-form.html" class="btn btn-outline btn-sm">Edit</a></td>
+            </tr>
+            <tr>
+              <td>BL-GROW</td><td>Business Loan</td><td><span class="tag">BUSINESS</span></td>
+              <td class="num">&#8377;2L &ndash; &#8377;75L</td><td class="num">13.0%</td><td class="num">12&ndash;96 mo</td>
+              <td><span class="badge badge-neutral">Inactive</span></td>
+              <td class="actions"><a href="loan-product-form.html" class="btn btn-outline btn-sm">Edit</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center mt-2">
+      <span class="muted" style="font-size:.85rem">Showing 1&ndash;5 of 5</span>
+      <div class="actions"><button class="btn btn-outline btn-sm" disabled>&larr; Prev</button><button class="btn btn-outline btn-sm" disabled>Next &rarr;</button></div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

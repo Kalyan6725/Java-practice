@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: POST /api/auth/login  { email, password } -> returns JWT. -->
+<body data-area="public" data-active="" data-footer="off">
+
+  <div class="auth-wrap">
+    <div class="auth-card card">
+      <div class="card-body">
+        <div class="auth-head">
+          <a class="brand" href="index.html" style="justify-content:center">
+            <span class="mark"><span class="tri"></span><span class="star">&#10022;</span></span>
+            <span class="name"><b>N<span class="dot">O</span>RTHERN</b><span>ARC</span></span>
+          </a>
+          <h2 class="mt-2 mb-0">Welcome back</h2>
+          <p class="muted">Sign in to your account</p>
+        </div>
+
+        <div id="flash" class="alert alert-success" style="display:none"></div>
+
+        <!-- POST /api/auth/login -->
+        <form id="loginForm">
+          <div class="form-group">
+            <label>Email <span class="req">*</span></label>
+            <input class="input" type="email" name="email" value="rahul.sharma@example.com" required />
+          </div>
+          <div class="form-group">
+            <label>Password <span class="req">*</span></label>
+            <input class="input" type="password" name="password" value="password123" required />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Sign in</button>
+        </form>
+
+        <hr class="divider" />
+        <p class="text-center muted mb-0" style="font-size:.85rem">
+          Demo: choose a destination to preview
+        </p>
+        <div class="actions mt-1" style="justify-content:center">
+          <a href="customer-dashboard.html" class="btn btn-outline btn-sm">Login as Customer</a>
+          <a href="admin-dashboard.html" class="btn btn-dark btn-sm">Login as Staff</a>
+        </div>
+        <p class="text-center mt-2 mb-0" style="font-size:.9rem">
+          New here? <a href="register.html">Create an account</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Mockup: pretend login succeeds and go to the customer dashboard.
+    LMS.mockSubmit('loginForm', 'customer-dashboard.html', 'Signed in successfully.');
+  </script>
+</body>
+</html>

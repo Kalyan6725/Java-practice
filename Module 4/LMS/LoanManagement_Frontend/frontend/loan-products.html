@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Products - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/loan-products/active  (public catalog view) -->
+<body data-area="public" data-active="loan-products.html">
+
+  <div class="page container">
+    <div class="page-head">
+      <div><h1>Loan products</h1><p class="sub">Compare our loans and pick what fits your goal.</p></div>
+      <a href="apply-loan.html" class="btn btn-primary">Apply now</a>
+    </div>
+
+    <div class="grid grid-3">
+      <!-- Each card = one LoanProductResponse -->
+      <div class="card"><div class="card-body">
+        <div class="flex justify-between items-center"><span class="tag">PERSONAL</span><span class="badge badge-success">Active</span></div>
+        <h3 class="mt-1">Personal Loan</h3>
+        <p class="muted" style="font-size:.82rem">Code: PL-STD</p>
+        <dl class="dl" style="grid-template-columns:130px 1fr">
+          <dt>Amount</dt><dd>&#8377;50,000 &ndash; &#8377;10,00,000</dd>
+          <dt>Interest</dt><dd>11.5% p.a.</dd>
+          <dt>Tenure</dt><dd>6 &ndash; 60 months</dd>
+          <dt>Processing</dt><dd>&#8377;2,500</dd>
+        </dl>
+        <a href="apply-loan.html?code=PL-STD" class="btn btn-outline btn-block mt-1">Apply</a>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div class="flex justify-between items-center"><span class="tag">HOME</span><span class="badge badge-success">Active</span></div>
+        <h3 class="mt-1">Home Loan</h3>
+        <p class="muted" style="font-size:.82rem">Code: HL-PRIME</p>
+        <dl class="dl" style="grid-template-columns:130px 1fr">
+          <dt>Amount</dt><dd>&#8377;5,00,000 &ndash; &#8377;1,00,00,000</dd>
+          <dt>Interest</dt><dd>8.4% p.a.</dd>
+          <dt>Tenure</dt><dd>60 &ndash; 360 months</dd>
+          <dt>Processing</dt><dd>&#8377;10,000</dd>
+        </dl>
+        <a href="apply-loan.html?code=HL-PRIME" class="btn btn-outline btn-block mt-1">Apply</a>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div class="flex justify-between items-center"><span class="tag">VEHICLE</span><span class="badge badge-success">Active</span></div>
+        <h3 class="mt-1">Vehicle Loan</h3>
+        <p class="muted" style="font-size:.82rem">Code: VL-AUTO</p>
+        <dl class="dl" style="grid-template-columns:130px 1fr">
+          <dt>Amount</dt><dd>&#8377;1,00,000 &ndash; &#8377;25,00,000</dd>
+          <dt>Interest</dt><dd>9.6% p.a.</dd>
+          <dt>Tenure</dt><dd>12 &ndash; 84 months</dd>
+          <dt>Processing</dt><dd>&#8377;5,000</dd>
+        </dl>
+        <a href="apply-loan.html?code=VL-AUTO" class="btn btn-outline btn-block mt-1">Apply</a>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div class="flex justify-between items-center"><span class="tag">EDUCATION</span><span class="badge badge-success">Active</span></div>
+        <h3 class="mt-1">Education Loan</h3>
+        <p class="muted" style="font-size:.82rem">Code: EL-SCHOLAR</p>
+        <dl class="dl" style="grid-template-columns:130px 1fr">
+          <dt>Amount</dt><dd>&#8377;50,000 &ndash; &#8377;40,00,000</dd>
+          <dt>Interest</dt><dd>10.2% p.a.</dd>
+          <dt>Tenure</dt><dd>12 &ndash; 120 months</dd>
+          <dt>Processing</dt><dd>&#8377;3,000</dd>
+        </dl>
+        <a href="apply-loan.html?code=EL-SCHOLAR" class="btn btn-outline btn-block mt-1">Apply</a>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div class="flex justify-between items-center"><span class="tag">BUSINESS</span><span class="badge badge-success">Active</span></div>
+        <h3 class="mt-1">Business Loan</h3>
+        <p class="muted" style="font-size:.82rem">Code: BL-GROW</p>
+        <dl class="dl" style="grid-template-columns:130px 1fr">
+          <dt>Amount</dt><dd>&#8377;2,00,000 &ndash; &#8377;75,00,000</dd>
+          <dt>Interest</dt><dd>13.0% p.a.</dd>
+          <dt>Tenure</dt><dd>12 &ndash; 96 months</dd>
+          <dt>Processing</dt><dd>&#8377;7,500</dd>
+        </dl>
+        <a href="apply-loan.html?code=BL-GROW" class="btn btn-outline btn-block mt-1">Apply</a>
+      </div></div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

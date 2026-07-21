@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customers - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/customers/summaries  (MANAGER/ADMIN)
+     Filters: /api/customers/branch/{branch}/summaries, /summaries/min-loans -->
+<body data-area="staff" data-active="customers.html">
+
+  <div class="page container">
+    <div id="flash" class="alert alert-success" style="display:none"></div>
+    <div class="page-head">
+      <div><h1>Customers</h1><p class="sub">All registered customers and their loan summary.</p></div>
+      <a href="customer-form.html" class="btn btn-primary">+ Add customer</a>
+    </div>
+
+    <!-- Filters (map to branch / min-loans endpoints) -->
+    <div class="card mb-2"><div class="card-body">
+      <div class="row" style="gap:12px;align-items:flex-end">
+        <div class="col"><label>Search</label><input class="input" placeholder="Name or email" /></div>
+        <div class="col"><label>Branch</label>
+          <select class="select"><option>All branches</option><option>Bengaluru</option><option>Mumbai</option><option>Delhi</option><option>Chennai</option><option>Hyderabad</option></select>
+        </div>
+        <div class="col"><label>Min. loans</label><input class="input" type="number" value="0" min="0" /></div>
+        <div style="flex:none"><button class="btn btn-dark">Apply filters</button></div>
+      </div>
+    </div></div>
+
+    <div class="card">
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>ID</th><th>Customer</th><th>Email</th><th>Branch</th><th class="num">Loans</th><th class="num">Total amount</th><th class="num">Active</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>#1042</td><td>Rahul Sharma</td><td>rahul.sharma&#64;example.com</td><td>Bengaluru</td><td class="num">3</td><td class="num">&#8377;9,50,000</td><td class="num">2</td><td><a href="customer-details.html" class="btn btn-outline btn-sm">View</a></td></tr>
+            <tr><td>#1043</td><td>Meera Nair</td><td>meera.nair&#64;example.com</td><td>Mumbai</td><td class="num">1</td><td class="num">&#8377;45,00,000</td><td class="num">0</td><td><a href="customer-details.html" class="btn btn-outline btn-sm">View</a></td></tr>
+            <tr><td>#1044</td><td>Arjun Patel</td><td>arjun.patel&#64;example.com</td><td>Delhi</td><td class="num">2</td><td class="num">&#8377;22,00,000</td><td class="num">1</td><td><a href="customer-details.html" class="btn btn-outline btn-sm">View</a></td></tr>
+            <tr><td>#1045</td><td>Sana Khan</td><td>sana.khan&#64;example.com</td><td>Chennai</td><td class="num">1</td><td class="num">&#8377;6,50,000</td><td class="num">1</td><td><a href="customer-details.html" class="btn btn-outline btn-sm">View</a></td></tr>
+            <tr><td>#1046</td><td>Vikram Rao</td><td>vikram.rao&#64;example.com</td><td>Hyderabad</td><td class="num">4</td><td class="num">&#8377;31,20,000</td><td class="num">3</td><td><a href="customer-details.html" class="btn btn-outline btn-sm">View</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

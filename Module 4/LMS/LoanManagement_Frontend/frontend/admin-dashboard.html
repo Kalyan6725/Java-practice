@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/dashboard  (MANAGER/ADMIN portfolio metrics) -->
+<body data-area="staff" data-active="admin-dashboard.html">
+
+  <div class="page container">
+    <div class="page-head">
+      <div><h1>Portfolio dashboard</h1><p class="sub">Lending overview across all branches.</p></div>
+      <div class="actions">
+        <a href="applications-review.html" class="btn btn-primary">Review applications</a>
+        <a href="loan-product-form.html" class="btn btn-outline">+ New product</a>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="grid grid-4">
+      <div class="stat bar-blue"><span class="label">Total customers</span><span class="value">3,214</span><span class="foot">+42 this month</span></div>
+      <div class="stat bar-black"><span class="label">Active loans</span><span class="value">1,876</span><span class="foot">Across 5 products</span></div>
+      <div class="stat bar-grey"><span class="label">Total disbursed</span><span class="value">&#8377;42.5 Cr</span><span class="foot">Lifetime</span></div>
+      <div class="stat bar-blue"><span class="label">Outstanding</span><span class="value">&#8377;28.1 Cr</span><span class="foot">Principal + interest</span></div>
+    </div>
+    <div class="grid grid-4 mt-2">
+      <div class="stat bar-grey"><span class="label">Pending applications</span><span class="value">37</span><span class="foot">Awaiting review</span></div>
+      <div class="stat bar-grey"><span class="label">Approved (30d)</span><span class="value">128</span></div>
+      <div class="stat bar-grey"><span class="label">Rejected (30d)</span><span class="value">19</span></div>
+      <div class="stat bar-grey"><span class="label">Overdue EMIs</span><span class="value" style="color:var(--danger)">24</span><span class="foot">Needs follow-up</span></div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col">
+        <div class="card">
+          <div class="card-header"><h3>Applications awaiting review</h3><a href="applications-review.html" class="btn btn-ghost btn-sm">Open queue &rarr;</a></div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>App</th><th>Customer</th><th>Product</th><th class="num">Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>APP-5521</td><td>Rahul Sharma</td><td>Education</td><td class="num">&#8377;2,00,000</td><td><span class="badge badge-warning">PENDING</span></td></tr>
+                <tr><td>APP-5519</td><td>Meera Nair</td><td>Home</td><td class="num">&#8377;45,00,000</td><td><span class="badge badge-warning">PENDING</span></td></tr>
+                <tr><td>APP-5517</td><td>Arjun Patel</td><td>Business</td><td class="num">&#8377;18,00,000</td><td><span class="badge badge-info">UNDER_REVIEW</span></td></tr>
+                <tr><td>APP-5515</td><td>Sana Khan</td><td>Vehicle</td><td class="num">&#8377;6,50,000</td><td><span class="badge badge-warning">PENDING</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col" style="max-width:360px">
+        <div class="card"><div class="card-body">
+          <h3>Disbursals by product</h3>
+          <div class="mt-2">
+            <div class="flex justify-between" style="font-size:.86rem"><span>Home</span><b>&#8377;19.2 Cr</b></div>
+            <div class="progress mt-1"><span style="width:80%"></span></div>
+          </div>
+          <div class="mt-2">
+            <div class="flex justify-between" style="font-size:.86rem"><span>Personal</span><b>&#8377;9.4 Cr</b></div>
+            <div class="progress mt-1"><span style="width:44%"></span></div>
+          </div>
+          <div class="mt-2">
+            <div class="flex justify-between" style="font-size:.86rem"><span>Business</span><b>&#8377;7.8 Cr</b></div>
+            <div class="progress mt-1"><span style="width:36%"></span></div>
+          </div>
+          <div class="mt-2">
+            <div class="flex justify-between" style="font-size:.86rem"><span>Vehicle</span><b>&#8377;4.3 Cr</b></div>
+            <div class="progress mt-1"><span style="width:20%"></span></div>
+          </div>
+          <div class="mt-2">
+            <div class="flex justify-between" style="font-size:.86rem"><span>Education</span><b>&#8377;1.8 Cr</b></div>
+            <div class="progress mt-1"><span style="width:9%"></span></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

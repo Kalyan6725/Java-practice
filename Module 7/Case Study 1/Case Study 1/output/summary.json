@@ -1,0 +1,23 @@
+{
+  "numpy_statistics": {
+    "mean_loan_amount": 941212.1212121212,
+    "median_salary": 97000.0,
+    "interest_25th_percentile": 9.149999999999999,
+    "interest_50th_percentile": 10.0,
+    "interest_75th_percentile": 11.5,
+    "salary_loan_correlation": 0.20987720738214066,
+    "loan_amount_std_dev": 588216.3979031587,
+    "salary_std_dev": 38290.108846355724
+  },
+  "finance_metrics": {
+    "total_loans": 99,
+    "total_defaults": 33,
+    "average_dti": 1.616998508122211,
+    "average_loan_utilisation": 0.49109888568221904,
+    "default_percentage": 33.33,
+    "npa_percentage": 20.06,
+    "average_emi": 12689.89898989899,
+    "total_outstanding": 65207900.0,
+    "expected_loss": 9781185.0
+  }
+}

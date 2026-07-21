@@ -9,13 +9,13 @@ import { TokenService } from '../services/token.service';
  * Handles HTTP errors globally
  */
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  console.log('🔴 [ErrorInterceptor] Monitoring request to:', req.url);
+  console.log(' [ErrorInterceptor] Monitoring request to:', req.url);
   const router = inject(Router);
   const tokenService = inject(TokenService);
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      console.log('🔴 [ErrorInterceptor] Error caught for:', req.url);
+      console.log(' [ErrorInterceptor] Error caught for:', req.url);
       let errorMessage = 'An error occurred';
 
       if (error.error instanceof ErrorEvent) {
@@ -46,7 +46,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         }
       }
 
-      console.error('🔴 [ErrorInterceptor] HTTP Error Details:', {
+      console.error(' [ErrorInterceptor] HTTP Error Details:', {
         status: error.status,
         message: errorMessage,
         url: req.url,

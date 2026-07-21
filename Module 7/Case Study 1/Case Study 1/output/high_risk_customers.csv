@@ -1,0 +1,1 @@
+LoanID,CustomerID,LoanAmount,InterestRate,Tenure,EMI,PaidEMIs,DefaultFlag,Age,Salary,City,CreditScore,MonthlyIncome,DTI,LoanUtilisation,Outstanding

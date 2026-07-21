@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Loans - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/loan-accounts/my -->
+<body data-area="customer" data-active="loan-accounts.html">
+
+  <div class="page container">
+    <div class="page-head">
+      <div><h1>My loans</h1><p class="sub">All your loan accounts in one place.</p></div>
+      <a href="apply-loan.html" class="btn btn-primary">+ Apply for a loan</a>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card"><div class="card-body">
+        <div class="flex justify-between items-center">
+          <div><b>LA-100245</b><div class="muted" style="font-size:.82rem">Personal Loan</div></div>
+          <span class="badge badge-success">ACTIVE</span>
+        </div>
+        <hr class="divider" />
+        <dl class="dl" style="grid-template-columns:120px 1fr">
+          <dt>Principal</dt><dd>&#8377;4,00,000</dd>
+          <dt>Outstanding</dt><dd>&#8377;3,12,600</dd>
+          <dt>EMI</dt><dd>&#8377;13,180 / mo</dd>
+          <dt>Next due</dt><dd>05 Aug 2026</dd>
+        </dl>
+        <div class="progress mt-1"><span style="width:38%"></span></div>
+        <div class="muted mt-1" style="font-size:.78rem">14 of 36 EMIs paid</div>
+        <a href="loan-details.html" class="btn btn-outline btn-block mt-2">View details &amp; pay</a>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div class="flex justify-between items-center">
+          <div><b>LA-100311</b><div class="muted" style="font-size:.82rem">Vehicle Loan</div></div>
+          <span class="badge badge-success">ACTIVE</span>
+        </div>
+        <hr class="divider" />
+        <dl class="dl" style="grid-template-columns:120px 1fr">
+          <dt>Principal</dt><dd>&#8377;3,50,000</dd>
+          <dt>Outstanding</dt><dd>&#8377;3,71,600</dd>
+          <dt>EMI</dt><dd>&#8377;7,340 / mo</dd>
+          <dt>Next due</dt><dd>08 Aug 2026</dd>
+        </dl>
+        <div class="progress mt-1"><span style="width:12%"></span></div>
+        <div class="muted mt-1" style="font-size:.78rem">7 of 60 EMIs paid</div>
+        <a href="loan-details.html" class="btn btn-outline btn-block mt-2">View details &amp; pay</a>
+      </div></div>
+
+      <div class="card"><div class="card-body">
+        <div class="flex justify-between items-center">
+          <div><b>LA-100420</b><div class="muted" style="font-size:.82rem">Education Loan</div></div>
+          <span class="badge badge-warning">APPROVED</span>
+        </div>
+        <hr class="divider" />
+        <dl class="dl" style="grid-template-columns:120px 1fr">
+          <dt>Principal</dt><dd>&#8377;2,00,000</dd>
+          <dt>Outstanding</dt><dd>&#8377;2,00,000</dd>
+          <dt>EMI</dt><dd>&mdash;</dd>
+          <dt>Status</dt><dd>Awaiting disbursal</dd>
+        </dl>
+        <div class="alert alert-warning mt-2 mb-0" style="font-size:.8rem">Pending disbursal by the bank. EMIs start after disbursal.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

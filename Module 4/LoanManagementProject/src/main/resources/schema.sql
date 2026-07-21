@@ -1,2 +1,0 @@
-ALTER TABLE IF EXISTS emi_payments DROP COLUMN IF EXISTS created_at;
-ALTER TABLE IF EXISTS emi_payments DROP COLUMN IF EXISTS updated_at;

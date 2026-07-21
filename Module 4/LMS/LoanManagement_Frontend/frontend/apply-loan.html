@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply for a Loan - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/loan-products/active (dropdown) + POST /api/loan-applications
+     body: { loanCode, requestedAmount, tenureMonths }  (customerId from JWT) -->
+<body data-area="customer" data-active="apply-loan.html">
+
+  <div class="page container">
+    <div class="breadcrumb"><a href="customer-dashboard.html">Dashboard</a> / Apply for a loan</div>
+    <div class="page-head"><div><h1>Apply for a loan</h1><p class="sub">Pick a product, enter the amount and tenure.</p></div></div>
+
+    <div class="steps">
+      <div class="step active"><span class="n">1</span> Choose product</div>
+      <div class="step"><span class="n">2</span> Review terms</div>
+      <div class="step"><span class="n">3</span> Submit</div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card"><div class="card-body">
+          <form id="applyForm">
+            <div class="form-group">
+              <label>Loan product <span class="req">*</span></label>
+              <select class="select" id="loanCode" name="loanCode" required>
+                <option value="PL-STD" data-min="50000" data-max="1000000" data-rate="11.5" data-tmin="6" data-tmax="60">Personal Loan (PL-STD)</option>
+                <option value="HL-PRIME" data-min="500000" data-max="10000000" data-rate="8.4" data-tmin="60" data-tmax="360">Home Loan (HL-PRIME)</option>
+                <option value="VL-AUTO" data-min="100000" data-max="2500000" data-rate="9.6" data-tmin="12" data-tmax="84">Vehicle Loan (VL-AUTO)</option>
+                <option value="EL-SCHOLAR" data-min="50000" data-max="4000000" data-rate="10.2" data-tmin="12" data-tmax="120">Education Loan (EL-SCHOLAR)</option>
+                <option value="BL-GROW" data-min="200000" data-max="7500000" data-rate="13.0" data-tmin="12" data-tmax="96">Business Loan (BL-GROW)</option>
+              </select>
+              <div class="hint" id="limits">Amount &#8377;50,000 &ndash; &#8377;10,00,000 &bull; Tenure 6 &ndash; 60 months</div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Requested amount (&#8377;) <span class="req">*</span></label>
+                <input class="input" type="number" id="amount" name="requestedAmount" value="400000" min="1" max="10000000" required />
+              </div>
+              <div class="form-group">
+                <label>Tenure (months) <span class="req">*</span></label>
+                <input class="input" type="number" id="tenure" name="tenureMonths" value="36" min="1" max="600" required />
+              </div>
+            </div>
+            <div class="actions">
+              <button type="submit" class="btn btn-primary btn-lg">Submit application</button>
+              <a href="customer-dashboard.html" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+          </form>
+        </div></div>
+      </div>
+
+      <!-- Live estimate (client-side only, illustrative) -->
+      <div class="col" style="max-width:340px">
+        <div class="card"><div class="card-body">
+          <h3>Estimated EMI</h3>
+          <p class="muted" style="font-size:.84rem">Indicative only. Final terms confirmed after review.</p>
+          <div class="stat bar-blue" style="box-shadow:none;border:none;padding:0">
+            <span class="label">Monthly EMI</span>
+            <span class="value accent" id="emiOut">&#8377;13,180</span>
+          </div>
+          <hr class="divider" />
+          <dl class="dl" style="grid-template-columns:120px 1fr">
+            <dt>Interest rate</dt><dd id="rateOut">11.5% p.a.</dd>
+            <dt>Total interest</dt><dd id="intOut">&#8377;74,480</dd>
+            <dt>Total payable</dt><dd id="totOut">&#8377;4,74,480</dd>
+          </dl>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    var sel = document.getElementById('loanCode');
+    var amt = document.getElementById('amount');
+    var ten = document.getElementById('tenure');
+    function recalc() {
+      var o = sel.options[sel.selectedIndex];
+      var rate = parseFloat(o.dataset.rate);
+      document.getElementById('limits').textContent =
+        'Amount ' + LMS.inr(o.dataset.min) + ' \u2013 ' + LMS.inr(o.dataset.max) +
+        ' \u2022 Tenure ' + o.dataset.tmin + ' \u2013 ' + o.dataset.tmax + ' months';
+      var P = parseFloat(amt.value) || 0, n = parseInt(ten.value) || 1;
+      var r = rate / 12 / 100;
+      var emi = r === 0 ? P / n : (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+      var total = emi * n;
+      document.getElementById('emiOut').textContent = LMS.inr(Math.round(emi));
+      document.getElementById('rateOut').textContent = rate + '% p.a.';
+      document.getElementById('intOut').textContent = LMS.inr(Math.round(total - P));
+      document.getElementById('totOut').textContent = LMS.inr(Math.round(total));
+    }
+    sel.addEventListener('change', recalc);
+    amt.addEventListener('input', recalc);
+    ten.addEventListener('input', recalc);
+    recalc();
+    LMS.mockSubmit('applyForm', 'my-applications.html', 'Loan application submitted successfully.');
+  </script>
+</body>
+</html>

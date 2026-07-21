@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Applications - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/loan-applications/my -->
+<body data-area="customer" data-active="my-applications.html">
+
+  <div class="page container">
+    <div id="flash" class="alert alert-success" style="display:none"></div>
+    <div class="page-head">
+      <div><h1>My applications</h1><p class="sub">Track the review status of every loan you've applied for.</p></div>
+      <a href="apply-loan.html" class="btn btn-primary">+ New application</a>
+    </div>
+
+    <div class="card">
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th>Application</th><th>Product</th><th class="num">Requested</th><th class="num">Tenure</th><th>Applied on</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>APP-5521</td><td>Education Loan</td><td class="num">&#8377;2,00,000</td><td class="num">48 mo</td>
+              <td>18 Jul 2026</td><td><span class="badge badge-warning">PENDING</span></td>
+              <td><a href="#" class="btn btn-outline btn-sm">View</a></td>
+            </tr>
+            <tr>
+              <td>APP-5410</td><td>Vehicle Loan</td><td class="num">&#8377;3,50,000</td><td class="num">60 mo</td>
+              <td>02 Jul 2026</td><td><span class="badge badge-success">APPROVED</span></td>
+              <td><a href="loan-details.html" class="btn btn-outline btn-sm">View loan</a></td>
+            </tr>
+            <tr>
+              <td>APP-5388</td><td>Personal Loan</td><td class="num">&#8377;4,00,000</td><td class="num">36 mo</td>
+              <td>21 Jun 2026</td><td><span class="badge badge-success">APPROVED</span></td>
+              <td><a href="loan-details.html" class="btn btn-outline btn-sm">View loan</a></td>
+            </tr>
+            <tr>
+              <td>APP-5201</td><td>Business Loan</td><td class="num">&#8377;12,00,000</td><td class="num">72 mo</td>
+              <td>10 May 2026</td><td><span class="badge badge-danger">REJECTED</span></td>
+              <td><a href="#" class="btn btn-outline btn-sm">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="alert alert-info mt-3">
+      <b>How it works:</b> After you apply, an underwriter reviews your request.
+      Once <b>APPROVED</b>, a loan account is created and disbursed &mdash; then you can start paying EMIs.
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -45,14 +45,14 @@ export class AuthService {
     
     return this.http.post<JwtResponseDTO>(url, credentials).pipe(
       tap(response => {
-        console.log('🔑 [AuthService] Login response:', response);
+        console.log(' [AuthService] Login response:', response);
         
         // Store token
         this.tokenService.saveToken(response.token);
         
         // Update current user
         const username = this.tokenService.getUsernameFromToken();
-        console.log('🔑 [AuthService] Username from token:', username);
+        console.log(' [AuthService] Username from token:', username);
         
         this.currentUserSubject.next(username);
       })
@@ -95,10 +95,10 @@ export class AuthService {
    */
   hasRole(role: string): boolean {
     const roles = this.getCurrentUserRoles();
-    console.log(`🔐 [AuthService] Checking role '${role}'`);
-    console.log('🔐 [AuthService] User roles:', roles);
+    console.log(` [AuthService] Checking role '${role}'`);
+    console.log(' [AuthService] User roles:', roles);
     const hasRole = roles.includes(role);
-    console.log(`🔐 [AuthService] Has role '${role}':`, hasRole);
+    console.log(` [AuthService] Has role '${role}':`, hasRole);
     return hasRole;
   }
 
@@ -106,9 +106,9 @@ export class AuthService {
    * Check if user is admin
    */
   isAdmin(): boolean {
-    console.log('👑 [AuthService] isAdmin() called');
+    console.log(' [AuthService] isAdmin() called');
     const result = this.hasRole('ROLE_ADMIN');
-    console.log('👑 [AuthService] isAdmin() result:', result);
+    console.log(' [AuthService] isAdmin() result:', result);
     return result;
   }
 

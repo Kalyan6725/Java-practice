@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Details - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/customers/{id} + /api/customers/{id}/summary
+     + /api/loan-accounts/customer/{id} + /api/loan-applications/customer/{id} -->
+<body data-area="staff" data-active="customers.html">
+
+  <div class="page container">
+    <div class="breadcrumb"><a href="customers.html">Customers</a> / Rahul Sharma</div>
+    <div class="page-head">
+      <div><h1>Rahul Sharma</h1><p class="sub">Customer #1042 &bull; Bengaluru branch</p></div>
+      <div class="actions">
+        <a href="customer-form.html" class="btn btn-outline">Edit</a>
+        <button class="btn btn-danger" onclick="return confirm('Delete this customer? (mockup)')">Delete</button>
+      </div>
+    </div>
+
+    <div class="grid grid-4">
+      <div class="stat bar-blue"><span class="label">Total loans</span><span class="value">3</span></div>
+      <div class="stat bar-black"><span class="label">Total amount</span><span class="value">&#8377;9,50,000</span></div>
+      <div class="stat bar-grey"><span class="label">Active loans</span><span class="value">2</span></div>
+      <div class="stat bar-blue"><span class="label">Outstanding</span><span class="value">&#8377;6,84,200</span></div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col" style="max-width:340px">
+        <div class="card"><div class="card-body">
+          <h3>Profile</h3>
+          <dl class="dl" style="grid-template-columns:110px 1fr">
+            <dt>Name</dt><dd>Rahul Sharma</dd>
+            <dt>Email</dt><dd>rahul.sharma&#64;example.com</dd>
+            <dt>Phone</dt><dd>+91 98765 43210</dd>
+            <dt>Address</dt><dd>42, MG Road, Bengaluru</dd>
+            <dt>Branch</dt><dd>Bengaluru</dd>
+            <dt>Role</dt><dd><span class="badge badge-info">USER</span></dd>
+          </dl>
+        </div></div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-header"><h3>Loan accounts</h3></div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>Account</th><th>Product</th><th class="num">Principal</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>LA-100245</td><td>Personal Loan</td><td class="num">&#8377;4,00,000</td><td><span class="badge badge-success">ACTIVE</span></td></tr>
+                <tr><td>LA-100311</td><td>Vehicle Loan</td><td class="num">&#8377;3,50,000</td><td><span class="badge badge-success">ACTIVE</span></td></tr>
+                <tr><td>LA-100420</td><td>Education Loan</td><td class="num">&#8377;2,00,000</td><td><span class="badge badge-warning">APPROVED</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card mt-2">
+          <div class="card-header"><h3>Applications</h3></div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>App</th><th>Product</th><th class="num">Amount</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>APP-5521</td><td>Education Loan</td><td class="num">&#8377;2,00,000</td><td><span class="badge badge-warning">PENDING</span></td></tr>
+                <tr><td>APP-5410</td><td>Vehicle Loan</td><td class="num">&#8377;3,50,000</td><td><span class="badge badge-success">APPROVED</span></td></tr>
+                <tr><td>APP-5201</td><td>Business Loan</td><td class="num">&#8377;12,00,000</td><td><span class="badge badge-danger">REJECTED</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

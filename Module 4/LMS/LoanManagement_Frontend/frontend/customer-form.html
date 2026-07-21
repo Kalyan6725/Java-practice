@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Form - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: POST /api/customers (create, ADMIN, AdminCustomerDTO)
+     or PUT /api/customers (update). Staff may set role. -->
+<body data-area="staff" data-active="customers.html">
+
+  <div class="page container">
+    <div class="breadcrumb"><a href="customers.html">Customers</a> / Add customer</div>
+    <div class="page-head"><div><h1>Add customer</h1><p class="sub">Create a customer on behalf of a walk-in applicant.</p></div></div>
+
+    <div class="card" style="max-width:720px"><div class="card-body">
+      <form id="custForm">
+        <div class="form-row">
+          <div class="form-group"><label>Full name <span class="req">*</span></label><input class="input" name="customerName" placeholder="e.g. Priya Menon" required /></div>
+          <div class="form-group"><label>Email <span class="req">*</span></label><input class="input" type="email" name="email" placeholder="name@example.com" required /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Phone <span class="req">*</span></label><input class="input" name="phone" placeholder="+91XXXXXXXXXX" pattern="^\+?[0-9]{10,15}$" required /></div>
+          <div class="form-group"><label>Password <span class="req">*</span></label><input class="input" type="password" name="password" minlength="6" required /><div class="hint">Minimum 6 characters</div></div>
+        </div>
+        <div class="form-group"><label>Address <span class="req">*</span></label><input class="input" name="address" placeholder="Street, city" required /></div>
+        <div class="form-row">
+          <div class="form-group"><label>Branch <span class="req">*</span></label>
+            <select class="select" name="branch"><option>Bengaluru</option><option>Mumbai</option><option>Delhi</option><option>Chennai</option><option>Hyderabad</option></select>
+          </div>
+          <div class="form-group"><label>Role <span class="req">*</span></label>
+            <select class="select" name="role"><option>USER</option><option>UNDERWRITER</option><option>MANAGER</option><option>ADMIN</option></select>
+            <div class="hint">Only ADMIN can assign staff roles.</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn btn-primary btn-lg">Create customer</button>
+          <a href="customers.html" class="btn btn-outline btn-lg">Cancel</a>
+        </div>
+      </form>
+    </div></div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>LMS.mockSubmit('custForm', 'customers.html', 'Customer created successfully.');</script>
+</body>
+</html>

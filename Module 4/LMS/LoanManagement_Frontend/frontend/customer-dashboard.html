@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Customer dashboard.
+     Maps to: GET /api/customers/me, GET /api/loan-accounts/my, GET /api/loan-applications/my -->
+<body data-area="customer" data-active="customer-dashboard.html">
+
+  <div class="page container">
+    <div id="flash" class="alert alert-success" style="display:none"></div>
+
+    <div class="page-head">
+      <div><h1>Welcome, Rahul</h1><p class="sub">Here's an overview of your loans and payments.</p></div>
+      <a href="apply-loan.html" class="btn btn-primary">+ Apply for a loan</a>
+    </div>
+
+    <!-- Summary stats -->
+    <div class="grid grid-4">
+      <div class="stat bar-blue"><span class="label">Active loans</span><span class="value">2</span><span class="foot">1 pending disbursal</span></div>
+      <div class="stat bar-black"><span class="label">Outstanding</span><span class="value">&#8377;6,84,200</span><span class="foot">Across all loans</span></div>
+      <div class="stat bar-grey"><span class="label">Next EMI</span><span class="value">&#8377;18,450</span><span class="foot">Due 05 Aug 2026</span></div>
+      <div class="stat bar-blue"><span class="label">Applications</span><span class="value">1</span><span class="foot">Under review</span></div>
+    </div>
+
+    <div class="row mt-3">
+      <!-- Active loan accounts -->
+      <div class="col">
+        <div class="card">
+          <div class="card-header"><h3>My loan accounts</h3><a href="loan-accounts.html" class="btn btn-ghost btn-sm">View all &rarr;</a></div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>Account</th><th>Product</th><th class="num">Principal</th><th>Status</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>LA-100245</td><td>Personal Loan</td><td class="num">&#8377;4,00,000</td>
+                  <td><span class="badge badge-success">ACTIVE</span></td>
+                  <td><a href="loan-details.html" class="btn btn-outline btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                  <td>LA-100311</td><td>Vehicle Loan</td><td class="num">&#8377;3,50,000</td>
+                  <td><span class="badge badge-success">ACTIVE</span></td>
+                  <td><a href="loan-details.html" class="btn btn-outline btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                  <td>LA-100420</td><td>Education Loan</td><td class="num">&#8377;2,00,000</td>
+                  <td><span class="badge badge-warning">APPROVED</span></td>
+                  <td><a href="loan-details.html" class="btn btn-outline btn-sm">Details</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent applications -->
+      <div class="col" style="max-width:400px">
+        <div class="card">
+          <div class="card-header"><h3>Recent applications</h3><a href="my-applications.html" class="btn btn-ghost btn-sm">All</a></div>
+          <div class="card-body">
+            <div class="flex justify-between items-center">
+              <div><b>Education Loan</b><div class="muted" style="font-size:.82rem">APP-5521 &bull; &#8377;2,00,000</div></div>
+              <span class="badge badge-warning">PENDING</span>
+            </div>
+            <hr class="divider" />
+            <div class="flex justify-between items-center">
+              <div><b>Vehicle Loan</b><div class="muted" style="font-size:.82rem">APP-5410 &bull; &#8377;3,50,000</div></div>
+              <span class="badge badge-success">APPROVED</span>
+            </div>
+            <hr class="divider" />
+            <div class="flex justify-between items-center">
+              <div><b>Personal Loan</b><div class="muted" style="font-size:.82rem">APP-5388 &bull; &#8377;4,00,000</div></div>
+              <span class="badge badge-success">APPROVED</span>
+            </div>
+            <a href="apply-loan.html" class="btn btn-primary btn-block mt-2">Apply for another loan</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

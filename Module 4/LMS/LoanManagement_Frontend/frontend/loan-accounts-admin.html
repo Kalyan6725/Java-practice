@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Accounts - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/loan-accounts (all) + /status/{status}
+     Disburse: POST /api/loan-accounts/{id}/disburse (MANAGER/ADMIN) -->
+<body data-area="staff" data-active="loan-accounts-admin.html">
+
+  <div class="page container">
+    <div id="flash" class="alert alert-success" style="display:none"></div>
+    <div class="page-head">
+      <div><h1>Loan accounts</h1><p class="sub">All disbursed and approved accounts across branches.</p></div>
+    </div>
+
+    <!-- Status filter (maps to /status/{status}) -->
+    <div class="card mb-2"><div class="card-body">
+      <div class="row" style="gap:12px;align-items:flex-end">
+        <div class="col" style="max-width:220px"><label>Status</label>
+          <select class="select"><option>All</option><option>APPROVED</option><option>ACTIVE</option><option>CLOSED</option><option>DEFAULTED</option></select>
+        </div>
+        <div class="col"><label>Search</label><input class="input" placeholder="Account no. or customer" /></div>
+        <div style="flex:none"><button class="btn btn-dark">Filter</button></div>
+      </div>
+    </div></div>
+
+    <div class="card">
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Account</th><th>Customer</th><th>Product</th><th class="num">Principal</th><th class="num">Outstanding</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td>LA-100420</td><td>Rahul Sharma</td><td>Education</td><td class="num">&#8377;2,00,000</td><td class="num">&#8377;2,00,000</td>
+              <td><span class="badge badge-warning">APPROVED</span></td>
+              <td><button class="btn btn-primary btn-sm" onclick="disburse(this)">Disburse</button></td>
+            </tr>
+            <tr>
+              <td>LA-100245</td><td>Rahul Sharma</td><td>Personal</td><td class="num">&#8377;4,00,000</td><td class="num">&#8377;3,12,600</td>
+              <td><span class="badge badge-success">ACTIVE</span></td>
+              <td><a href="loan-details.html" class="btn btn-outline btn-sm">View</a></td>
+            </tr>
+            <tr>
+              <td>LA-100311</td><td>Rahul Sharma</td><td>Vehicle</td><td class="num">&#8377;3,50,000</td><td class="num">&#8377;3,71,600</td>
+              <td><span class="badge badge-success">ACTIVE</span></td>
+              <td><a href="loan-details.html" class="btn btn-outline btn-sm">View</a></td>
+            </tr>
+            <tr>
+              <td>LA-100188</td><td>Vikram Rao</td><td>Business</td><td class="num">&#8377;15,00,000</td><td class="num">&#8377;0</td>
+              <td><span class="badge badge-neutral">CLOSED</span></td>
+              <td><a href="loan-details.html" class="btn btn-outline btn-sm">View</a></td>
+            </tr>
+            <tr>
+              <td>LA-100102</td><td>Arjun Patel</td><td>Vehicle</td><td class="num">&#8377;7,00,000</td><td class="num">&#8377;5,90,000</td>
+              <td><span class="badge badge-danger">DEFAULTED</span></td>
+              <td><a href="loan-details.html" class="btn btn-outline btn-sm">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>
+    function disburse(btn) {
+      if (!confirm('Disburse this loan account? (mockup)')) return;
+      var row = btn.closest('tr');
+      row.querySelector('.badge').outerHTML = '<span class="badge badge-success">ACTIVE</span>';
+      btn.outerHTML = '<a href="loan-details.html" class="btn btn-outline btn-sm">View</a>';
+    }
+  </script>
+</body>
+</html>

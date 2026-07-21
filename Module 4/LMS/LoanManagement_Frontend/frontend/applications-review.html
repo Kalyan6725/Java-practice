@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application Review - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/loan-applications/pending  (UNDERWRITER/MANAGER/ADMIN)
+     Review: PUT /api/loan-applications/{id}/review { decision, remarks } -->
+<body data-area="staff" data-active="applications-review.html">
+
+  <div class="page container">
+    <div id="flash" class="alert alert-success" style="display:none"></div>
+    <div class="page-head">
+      <div><h1>Application review queue</h1><p class="sub">Approve or reject pending loan applications.</p></div>
+      <span class="badge badge-warning" style="font-size:.85rem;padding:6px 12px">4 pending</span>
+    </div>
+
+    <div class="row">
+      <!-- Queue list -->
+      <div class="col" style="max-width:340px">
+        <div class="card">
+          <div class="card-header"><h3>Pending</h3></div>
+          <div class="card-body" style="padding:0">
+            <a href="#" class="flex justify-between items-center" style="padding:14px 18px;border-bottom:1px solid var(--grey-6);background:var(--space-blue-soft);color:inherit">
+              <div><b>APP-5521</b><div class="muted" style="font-size:.8rem">Rahul Sharma &bull; Education</div></div><b>&#8377;2,00,000</b>
+            </a>
+            <a href="#" class="flex justify-between items-center" style="padding:14px 18px;border-bottom:1px solid var(--grey-6);color:inherit">
+              <div><b>APP-5519</b><div class="muted" style="font-size:.8rem">Meera Nair &bull; Home</div></div><b>&#8377;45,00,000</b>
+            </a>
+            <a href="#" class="flex justify-between items-center" style="padding:14px 18px;border-bottom:1px solid var(--grey-6);color:inherit">
+              <div><b>APP-5517</b><div class="muted" style="font-size:.8rem">Arjun Patel &bull; Business</div></div><b>&#8377;18,00,000</b>
+            </a>
+            <a href="#" class="flex justify-between items-center" style="padding:14px 18px;color:inherit">
+              <div><b>APP-5515</b><div class="muted" style="font-size:.8rem">Sana Khan &bull; Vehicle</div></div><b>&#8377;6,50,000</b>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selected application -->
+      <div class="col">
+        <div class="card"><div class="card-body">
+          <div class="flex justify-between items-center">
+            <div><h3 class="mb-0">APP-5521 &bull; Education Loan</h3><p class="muted mb-0">Submitted 18 Jul 2026</p></div>
+            <span class="badge badge-warning">PENDING</span>
+          </div>
+          <hr class="divider" />
+          <div class="grid grid-2">
+            <dl class="dl" style="grid-template-columns:130px 1fr">
+              <dt>Applicant</dt><dd>Rahul Sharma (#1042)</dd>
+              <dt>Branch</dt><dd>Bengaluru</dd>
+              <dt>Product</dt><dd>Education Loan (EL-SCHOLAR)</dd>
+            </dl>
+            <dl class="dl" style="grid-template-columns:150px 1fr">
+              <dt>Requested amount</dt><dd>&#8377;2,00,000</dd>
+              <dt>Tenure</dt><dd>48 months</dd>
+              <dt>Product limits</dt><dd>&#8377;50K&ndash;&#8377;40L &bull; 12&ndash;120 mo</dd>
+            </dl>
+          </div>
+
+          <div class="alert alert-info mt-2">
+            Existing active loans: <b>2</b> &bull; Total outstanding: <b>&#8377;6,84,200</b> &bull; Overdue EMIs: <b>0</b>
+          </div>
+
+          <hr class="divider" />
+          <!-- PUT /api/loan-applications/5521/review -->
+          <form id="reviewForm">
+            <div class="form-group">
+              <label>Decision <span class="req">*</span></label>
+              <select class="select" name="decision" required>
+                <option value="APPROVED">Approve</option>
+                <option value="REJECTED">Reject</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Remarks</label>
+              <textarea class="textarea" name="remarks" placeholder="Optional notes for the applicant / audit trail">Income and repayment capacity verified.</textarea>
+            </div>
+            <div class="actions">
+              <button type="submit" class="btn btn-primary btn-lg">Submit decision</button>
+              <a href="applications-review.html" class="btn btn-outline btn-lg">Skip</a>
+            </div>
+            <p class="hint mt-1">On approval, a loan account is created automatically and can then be disbursed from the Accounts page.</p>
+          </form>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>LMS.mockSubmit('reviewForm', 'applications-review.html', 'Application reviewed. Loan account created on approval.');</script>
+</body>
+</html>

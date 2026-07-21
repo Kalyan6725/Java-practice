@@ -12,12 +12,12 @@ export class TokenService {
    * Save JWT token to localStorage
    */
   saveToken(token: string): void {
-    console.log('💾 [TokenService] Saving token:', token.substring(0, 50) + '...');
+    console.log(' [TokenService] Saving token:', token.substring(0, 50) + '...');
     localStorage.setItem(this.TOKEN_KEY, token);
     
     // Immediately decode and log for debugging
     const decoded = this.decodeToken(token);
-    console.log('💾 [TokenService] Decoded token payload:', decoded);
+    console.log(' [TokenService] Decoded token payload:', decoded);
   }
 
   /**
@@ -71,17 +71,17 @@ export class TokenService {
   getRolesFromToken(): string[] {
     const token = this.getToken();
     if (!token) {
-      console.log('🔍 [TokenService] getRolesFromToken: No token found');
+      console.log(' [TokenService] getRolesFromToken: No token found');
       return [];
     }
 
     const decoded = this.decodeToken(token);
-    console.log('🔍 [TokenService] Decoded token for roles:', decoded);
+    console.log(' [TokenService] Decoded token for roles:', decoded);
     
     const roles = decoded?.roles || decoded?.authorities || [];
-    console.log('🔍 [TokenService] Extracted roles:', roles);
-    console.log('🔍 [TokenService] decoded.roles:', decoded?.roles);
-    console.log('🔍 [TokenService] decoded.authorities:', decoded?.authorities);
+    console.log(' [TokenService] Extracted roles:', roles);
+    console.log(' [TokenService] decoded.roles:', decoded?.roles);
+    console.log(' [TokenService] decoded.authorities:', decoded?.authorities);
     
     return roles;
   }

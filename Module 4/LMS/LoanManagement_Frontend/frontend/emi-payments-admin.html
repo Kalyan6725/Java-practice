@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMI Payments - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/emi-payments (all, MANAGER/ADMIN)
+     Per-account: GET /api/emi-payments/account/{id} -->
+<body data-area="staff" data-active="emi-payments-admin.html">
+
+  <div class="page container">
+    <div class="page-head">
+      <div><h1>EMI payments</h1><p class="sub">All recorded EMI collections.</p></div>
+    </div>
+
+    <div class="grid grid-4">
+      <div class="stat bar-blue"><span class="label">Collected (30d)</span><span class="value">&#8377;38.4 L</span></div>
+      <div class="stat bar-black"><span class="label">Payments (30d)</span><span class="value">642</span></div>
+      <div class="stat bar-grey"><span class="label">Penalty collected</span><span class="value">&#8377;41,200</span></div>
+      <div class="stat bar-blue"><span class="label">Overdue EMIs</span><span class="value" style="color:var(--danger)">24</span></div>
+    </div>
+
+    <div class="card mt-3">
+      <div class="card-header"><h3>Recent payments</h3>
+        <div class="row" style="gap:8px">
+          <select class="select" style="width:auto"><option>All methods</option><option>UPI</option><option>CARD</option><option>ONLINE</option><option>CASH</option></select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th>Receipt</th><th>Account</th><th>Customer</th><th class="num">Inst.</th><th class="num">Amount</th><th class="num">Penalty</th><th>Method</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>PAY-008841</td><td>LA-100245</td><td>Rahul Sharma</td><td class="num">14</td><td class="num">&#8377;13,180</td><td class="num">&#8377;0</td><td><span class="badge badge-info">UPI</span></td><td>05 Jul 2026</td><td><span class="badge badge-success">PAID</span></td></tr>
+            <tr><td>PAY-008840</td><td>LA-100311</td><td>Rahul Sharma</td><td class="num">7</td><td class="num">&#8377;7,340</td><td class="num">&#8377;0</td><td><span class="badge badge-info">CARD</span></td><td>08 Jul 2026</td><td><span class="badge badge-success">PAID</span></td></tr>
+            <tr><td>PAY-008838</td><td>LA-100102</td><td>Arjun Patel</td><td class="num">22</td><td class="num">&#8377;11,900</td><td class="num">&#8377;340</td><td><span class="badge badge-info">ONLINE</span></td><td>02 Jul 2026</td><td><span class="badge badge-warning">LATE</span></td></tr>
+            <tr><td>PAY-008835</td><td>LA-100188</td><td>Vikram Rao</td><td class="num">60</td><td class="num">&#8377;28,750</td><td class="num">&#8377;0</td><td><span class="badge badge-info">UPI</span></td><td>28 Jun 2026</td><td><span class="badge badge-success">PAID</span></td></tr>
+            <tr><td>PAY-008830</td><td>LA-100245</td><td>Rahul Sharma</td><td class="num">13</td><td class="num">&#8377;13,180</td><td class="num">&#8377;0</td><td><span class="badge badge-info">CASH</span></td><td>05 Jun 2026</td><td><span class="badge badge-success">PAID</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

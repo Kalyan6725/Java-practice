@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pay EMI - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: POST /api/emi-payments
+     body: { loanAccountId, installmentNo?, amount?, paymentType }
+     paymentType in CASH|CARD|ONLINE|UPI -->
+<body data-area="customer" data-active="loan-accounts.html">
+
+  <div class="page container">
+    <div class="breadcrumb"><a href="loan-details.html">LA-100245</a> / Pay EMI</div>
+    <div class="page-head"><div><h1>Pay EMI</h1><p class="sub">Installment 15 of 36 &bull; Personal Loan LA-100245</p></div></div>
+
+    <div class="row">
+      <div class="col">
+        <div class="card"><div class="card-body">
+          <form id="payForm">
+            <input type="hidden" name="loanAccountId" value="100245" />
+            <div class="form-group">
+              <label>Installment number</label>
+              <input class="input" type="number" name="installmentNo" value="15" min="1" />
+              <div class="hint">Leave blank to pay the earliest pending / overdue installment.</div>
+            </div>
+            <div class="form-group">
+              <label>Amount (&#8377;)</label>
+              <input class="input" type="number" name="amount" value="13180" min="1" />
+              <div class="hint">Defaults to scheduled EMI plus any accrued penalty.</div>
+            </div>
+            <div class="form-group">
+              <label>Payment method <span class="req">*</span></label>
+              <select class="select" name="paymentType" required>
+                <option value="UPI">UPI</option>
+                <option value="CARD">Card</option>
+                <option value="ONLINE">Net banking (Online)</option>
+                <option value="CASH">Cash</option>
+              </select>
+            </div>
+            <div class="actions">
+              <button type="submit" class="btn btn-primary btn-lg">Pay &#8377;13,180</button>
+              <a href="loan-details.html" class="btn btn-outline btn-lg">Cancel</a>
+            </div>
+          </form>
+        </div></div>
+      </div>
+
+      <div class="col" style="max-width:340px">
+        <div class="card"><div class="card-body">
+          <h3>Payment summary</h3>
+          <dl class="dl" style="grid-template-columns:130px 1fr">
+            <dt>Scheduled EMI</dt><dd>&#8377;13,180</dd>
+            <dt>Penalty</dt><dd>&#8377;0</dd>
+            <dt>Due date</dt><dd>05 Aug 2026</dd>
+          </dl>
+          <hr class="divider" />
+          <div class="flex justify-between"><b>Total payable</b><b class="accent" style="color:var(--space-blue-dark)">&#8377;13,180</b></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+  <script>LMS.mockSubmit('payForm', 'payment-success.html', 'EMI paid successfully.');</script>
+</body>
+</html>

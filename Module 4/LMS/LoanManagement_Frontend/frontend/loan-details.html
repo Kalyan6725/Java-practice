@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Details - Northern Arc</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Maps to: GET /api/loan-accounts/{id} + GET /api/emi-payments/account/{id}/schedule -->
+<body data-area="customer" data-active="loan-accounts.html">
+
+  <div class="page container">
+    <div class="breadcrumb"><a href="loan-accounts.html">My loans</a> / LA-100245</div>
+    <div class="page-head">
+      <div><h1>Personal Loan &bull; LA-100245</h1><p class="sub">Account overview and EMI schedule.</p></div>
+      <a href="emi-payment.html" class="btn btn-primary">Pay next EMI</a>
+    </div>
+
+    <!-- Summary -->
+    <div class="grid grid-4">
+      <div class="stat bar-blue"><span class="label">Principal</span><span class="value">&#8377;4,00,000</span></div>
+      <div class="stat bar-black"><span class="label">Outstanding</span><span class="value">&#8377;3,12,600</span></div>
+      <div class="stat bar-grey"><span class="label">Monthly EMI</span><span class="value">&#8377;13,180</span></div>
+      <div class="stat bar-blue"><span class="label">Next due</span><span class="value" style="font-size:1.2rem">05 Aug 2026</span><span class="foot">Installment 15 of 36</span></div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col" style="max-width:340px">
+        <div class="card"><div class="card-body">
+          <h3>Account details</h3>
+          <dl class="dl" style="grid-template-columns:130px 1fr">
+            <dt>Status</dt><dd><span class="badge badge-success">ACTIVE</span></dd>
+            <dt>Product</dt><dd>Personal Loan (PL-STD)</dd>
+            <dt>Interest</dt><dd>11.5% p.a.</dd>
+            <dt>Tenure</dt><dd>36 months</dd>
+            <dt>Disbursed on</dt><dd>05 Jun 2025</dd>
+            <dt>EMIs paid</dt><dd>14 / 36</dd>
+          </dl>
+          <div class="progress mt-1"><span style="width:38%"></span></div>
+        </div></div>
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-header"><h3>EMI schedule</h3><span class="tag">36 installments</span></div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>#</th><th>Due date</th><th class="num">EMI</th><th class="num">Penalty</th><th>Status</th><th></th></tr></thead>
+              <tbody>
+                <tr><td>13</td><td>05 Jun 2026</td><td class="num">&#8377;13,180</td><td class="num">&#8377;0</td><td><span class="badge badge-success">PAID</span></td><td></td></tr>
+                <tr><td>14</td><td>05 Jul 2026</td><td class="num">&#8377;13,180</td><td class="num">&#8377;0</td><td><span class="badge badge-success">PAID</span></td><td></td></tr>
+                <tr><td>15</td><td>05 Aug 2026</td><td class="num">&#8377;13,180</td><td class="num">&#8377;0</td><td><span class="badge badge-warning">DUE</span></td><td><a href="emi-payment.html" class="btn btn-primary btn-sm">Pay</a></td></tr>
+                <tr><td>16</td><td>05 Sep 2026</td><td class="num">&#8377;13,180</td><td class="num">&#8377;0</td><td><span class="badge badge-neutral">PENDING</span></td><td></td></tr>
+                <tr><td>17</td><td>05 Oct 2026</td><td class="num">&#8377;13,180</td><td class="num">&#8377;0</td><td><span class="badge badge-neutral">PENDING</span></td><td></td></tr>
+                <tr><td>18</td><td>05 Nov 2026</td><td class="num">&#8377;13,180</td><td class="num">&#8377;0</td><td><span class="badge badge-neutral">PENDING</span></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
