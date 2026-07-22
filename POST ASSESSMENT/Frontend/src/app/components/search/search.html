@@ -1,0 +1,22 @@
+<section class="search">
+  <h2 class="mb-2">Search Results</h2>
+
+  @if (query()) {
+    <p class="text-muted">Showing results for: <strong>{{ query() }}</strong></p>
+  }
+
+  @if (error()) {
+    <div class="alert alert-warning" role="alert">{{ error() }}</div>
+  }
+
+  @if (track(); as t) {
+    <div class="card shadow-sm" style="max-width: 480px">
+      <div class="card-body">
+        <h5 class="card-title">{{ t.title }}</h5>
+        <p class="card-text mb-1"><strong>Album:</strong> {{ t.albumName }}</p>
+        <p class="card-text mb-1"><strong>Release Date:</strong> {{ t.releaseDate }}</p>
+        <p class="card-text mb-0"><strong>Play Count:</strong> {{ t.playCount }}</p>
+      </div>
+    </div>
+  }
+</section>

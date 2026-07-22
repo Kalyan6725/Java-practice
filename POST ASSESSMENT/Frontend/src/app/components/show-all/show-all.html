@@ -1,0 +1,47 @@
+<section class="show-all">
+  <h2 class="mb-3">All Tracks</h2>
+
+  @if (loading()) {
+    <div class="d-flex align-items-center gap-2">
+      <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+      <span>Loading...</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="alert alert-danger" role="alert">{{ error() }}</div>
+  }
+
+  @if (!loading() && tracks().length === 0) {
+    <div class="alert alert-info" role="alert">No tracks found.</div>
+  }
+
+  @if (tracks().length > 0) {
+    <div class="table-responsive">
+      <table class="table table-striped table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Title</th>
+            <th>Album</th>
+            <th>Release Date</th>
+            <th>Play Count</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (track of tracks(); track track.id) {
+            <tr>
+              <td>{{ track.title }}</td>
+              <td>{{ track.albumName }}</td>
+              <td>{{ track.releaseDate }}</td>
+              <td>{{ track.playCount }}</td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-danger" (click)="deleteTrack(track.id)">Delete</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

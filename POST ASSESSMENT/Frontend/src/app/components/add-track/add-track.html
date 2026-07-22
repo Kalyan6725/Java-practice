@@ -1,0 +1,33 @@
+<section class="add-track">
+  <h2 class="mb-3">Add Track</h2>
+
+  @if (error()) {
+    <div class="alert alert-danger" role="alert">{{ error() }}</div>
+  }
+
+  <form class="row g-3" style="max-width: 480px" (ngSubmit)="onSubmit()">
+    <div class="col-12">
+      <label for="title" class="form-label">Title</label>
+      <input id="title" class="form-control" type="text" name="title" [(ngModel)]="model.title" required />
+    </div>
+
+    <div class="col-12">
+      <label for="albumName" class="form-label">Album Name</label>
+      <input id="albumName" class="form-control" type="text" name="albumName" [(ngModel)]="model.albumName" required />
+    </div>
+
+    <div class="col-12">
+      <label for="releaseDate" class="form-label">Release Date</label>
+      <input id="releaseDate" class="form-control" type="date" name="releaseDate" [(ngModel)]="model.releaseDate" required />
+    </div>
+
+    <div class="col-12">
+      <label for="playCount" class="form-label">Play Count</label>
+      <input id="playCount" class="form-control" type="number" name="playCount" [(ngModel)]="model.playCount" min="0" />
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">Save Track</button>
+    </div>
+  </form>
+</section>

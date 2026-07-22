@@ -1,0 +1,6 @@
+/* Offset for the fixed Bootstrap navbar (~64px) and footer (~56px) */
+.content {
+  padding-top: 88px;
+  padding-bottom: 80px;
+  min-height: 100dvh;
+}
