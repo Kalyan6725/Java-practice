@@ -1,0 +1,37 @@
+<div class="container my-4" style="max-width: 560px;">
+  <a routerLink="/" class="btn btn-sm btn-outline-secondary mb-3">&larr; Back to list</a>
+
+  @if (loading()) {
+    <div class="alert alert-info">Loading...</div>
+  }
+
+  @if (error()) {
+    <div class="alert alert-danger">{{ error() }}</div>
+  }
+
+  @if (weather(); as w) {
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">{{ w.city }}, {{ w.state }}</h4>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">ID</span><span>{{ w.id }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Date Recorded</span>
+          <span>{{ w.dateRecorded | date: 'yyyy-MM-dd' }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Latitude</span><span>{{ w.lat }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Longitude</span><span>{{ w.lon }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Temperature</span><span>{{ w.temperature }} °C</span>
+        </li>
+      </ul>
+    </div>
+  }
+</div>
